@@ -20,7 +20,7 @@ public class MidiFileInput : MonoBehaviour
     void Start()
     {
         List<int> a = new List<int>();
-        a = MidiInputNotesSpeed(AssetDatabase.GetAssetPath(midiFile));
+        a = MidiInputNotesNumber(AssetDatabase.GetAssetPath(midiFile));
         foreach (int note in a)
         {
             Debug.Log(note);
