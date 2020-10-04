@@ -1,0 +1,1138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <CscToolPath>D:\PROGRAMAS\2019.4.1f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
+    <CscToolExe>unity_csc.bat</CscToolExe>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{A28C71F8-3216-26FA-C066-DDC86969272C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>.</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_4_1;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>2019.4.1f1</UnityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>D:\PROGRAMAS\2019.4.1f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>D:\PROGRAMAS\2019.4.1f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\CircularBuffer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\ControlName.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DataTypes\DataTypesUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DataTypes\FourBitNumber.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DataTypes\SevenBitNumber.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DataTypes\ShortByteParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DisplayNameAttribute.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\MathUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\ObjectWrapper.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\Parsing\Parsing.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\Parsing\ParsingResult.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\Parsing\ParsingStatus.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\Parsing\ParsingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\SmpteFormat.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\StreamWrapper.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\ThrowIfArgument.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\AddAnchorAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\AddChordAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\AddNoteAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\AddPatternAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\AddTextEventAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\MoveToAnchorAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\MoveToTimeAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\SetProgram\SetGeneralMidi2ProgramAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\SetProgram\SetGeneralMidiProgramAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\SetProgram\SetProgramNumberAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\StepAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\StepBackAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Actions\StepForwardAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Descriptors\ChordDescriptor.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Descriptors\NoteDescriptor.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Pattern.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternActionResult.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternActionState.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternBuilder.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternContext.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\PatternUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Selections\ChordSelection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Selections\NoteSelection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Transformations\ChordTransformation.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Composing\Transformations\NoteTransformation.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\HeaderChunk.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\Info\ChunkType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\Info\ChunkTypesCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\Info\StandardChunkIds.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\MidiChunk.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\TrackChunk.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Chunks\UnknownChunk.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ChunksConverters\ChunksConverterFactory.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ChunksConverters\IChunksConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ChunksConverters\MultiSequenceChunksConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ChunksConverters\MultiTrackChunksConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ChunksConverters\SingleTrackChunksConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Collections\ChunksCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Collections\EventsCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Chunk\MidiChunkEquality.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Chunk\MidiChunkEqualityCheckSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Chunk\MidiChunkEqualityComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Event\MidiEventEquality.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Event\MidiEventEqualityCheckSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\Event\MidiEventEqualityComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\File\MidiFileEquality.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\File\MidiFileEqualityCheckSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Equality\File\MidiFileEqualityComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\ChannelEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\MetaEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\MidiEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\MidiEventType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\SysExEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\SystemCommonEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Base\SystemRealTimeEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\ChannelAftertouchEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\ControlChangeEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\NoteAftertouchEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\NoteEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\NoteOffEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\NoteOnEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\PitchBendEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Channel\ProgramChangeEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Converters\BytesToMidiEventConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Converters\MidiEventToBytesConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Info\EventStatusBytes.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Info\EventType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Info\EventTypesCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Info\StandardMetaEventStatusBytes.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\BaseTextEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\ChannelPrefixEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\CopyrightNoticeEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\CuePointEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\DeviceNameEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\EndOfTrackEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\InstrumentNameEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\KeySignatureEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\LyricEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\MarkerEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\PortPrefixEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\ProgramNameEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\SequenceNumberEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\SequenceTrackNameEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\SequencerSpecificEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\SetTempoEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\SmpteOffsetEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\TextEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\TimeSignatureEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Meta\UnknownMetaEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\ChannelEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\EventReaderFactory.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\IEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\MetaEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\SysExEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\SystemCommonEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Readers\SystemRealTimeEventReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SysEx\EscapeSysExEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SysEx\NormalSysExEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\MidiTimeCodeComponent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\MidiTimeCodeEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\MidiTimeCodeType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\SongPositionPointerEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\SongSelectEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemCommon\TuneRequestEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\ActiveSensingEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\ContinueEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\ResetEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\StartEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\StopEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\SystemRealTime\TimingClockEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\ChannelEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\EventWriterFactory.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\IEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\MetaEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\SysExEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\SystemCommonEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Events\Writers\SystemRealTimeEventWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\InvalidChannelEventParameterValueException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\InvalidChunkSizeException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\InvalidMetaEventParameterValueException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\InvalidMidiTimeCodeComponentException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\InvalidSystemCommonEventParameterValueException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\MidiException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\MissedEndOfTrackEventException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\NoHeaderChunkException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\NotEnoughBytesException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\TooManyTrackChunksException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\UnexpectedRunningStatusException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\UnexpectedTrackChunksCountException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\UnknownChannelEventException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\UnknownChunkException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Exceptions\UnknownFileFormatException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\MidiFile.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\MidiFileFormat.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\MidiReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\MidiWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\BufferingPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\DecodeTextCallback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\ExtraTrackChunkPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\InvalidChannelEventParameterValuePolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\InvalidChunkSizePolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\InvalidMetaEventParameterValuePolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\InvalidSystemCommonEventParameterValuePolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\MissedEndOfTrackPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\NoHeaderChunkPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\NotEnoughBytesPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\ReaderSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\ReadingHandler.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\ReadingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\SilentNoteOnPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnexpectedTrackChunksCountPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownChannelEventAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownChannelEventCallback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownChannelEventInstruction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownChannelEventPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownChunkIdPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\UnknownFileFormatPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\ReadingSettings\ZeroLengthDataPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\TimeDivision\SmpteTimeDivision.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\TimeDivision\TicksPerQuarterNoteTimeDivision.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\TimeDivision\TimeDivision.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\TimeDivision\TimeDivisionFactory.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\ArrayUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\ControlUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\IOUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\MidiFileUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\NoteEventUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\SmfConstants.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\SmpteData.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\Utilities\TrackChunkUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\WritingSettings\CompressionPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\WritingSettings\WriterSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Core\WritingSettings\WritingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\IClockDrivenObject.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\MidiClock.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\MidiClockSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\TickGenerator\HighPrecisionTickGenerator.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\TickGenerator\MidiTimerWinApi.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\TickGenerator\RegularPrecisionTickGenerator.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Clock\TickGenerator\TickGenerator.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\DevicesConnector\DevicesConnector.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\DevicesConnector\DevicesConnectorUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\ErrorOccurredEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\IInputDevice.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\InputDevice.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\InvalidShortEventReceivedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\InvalidSysExEventReceivedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\MidiEventReceivedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\MidiInWinApi.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\InputDevice\MidiTimeCodeReceivedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Manufacturer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\MidiDevice.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\MidiDeviceException.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\IOutputDevice.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\MidiEventSentEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\MidiOutWinApi.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\OutputDevice.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\OutputDeviceType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\OutputDevice\Volume.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Callbacks\EventCallback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Callbacks\NoteCallback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Callbacks\NotePlaybackData.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\CurrentTimeWatcher\PlaybackCurrentTime.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\CurrentTimeWatcher\PlaybackCurrentTimeChangedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\CurrentTimeWatcher\PlaybackCurrentTimeWatcher.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\MidiEventPlayedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\NotesEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Playback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackEventCallback.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackEventMetadata\NotePlaybackEventMetadata.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackEventMetadata\PlaybackEventMetadata.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackEventsComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\PlaybackUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Snapping\PlaybackSnapping.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Snapping\SnapPoint.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Playback\Snapping\SnapPointsGroup.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Recording\Recording.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Recording\RecordingEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\Recording\RecordingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\WinApi\MidiMessage.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Devices\WinApi\MidiWinApi.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Chords\Chord.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Chords\ChordsCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Chords\ChordsCollectionChangedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Chords\ChordsManager.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Chords\ChordsManagingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Grid\ArbitraryGrid.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Grid\IGrid.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Grid\SteppedGrid.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\IMusicalObject.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\ILengthedObject.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\INotifyLengthChanged.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\LengthChangedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\LengthedObjectPart.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\LengthedObjectUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\LengthedObject\SplittedLengthedObject.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Note.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\NotesCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\NotesCollectionChangedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\NotesManager.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\NotesManagingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\NotesReadingHandler.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Utilities\GetNotesAndRests\GetNotesAndRestsUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Utilities\GetNotesAndRests\Rest.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Utilities\GetNotesAndRests\RestSeparationPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Utilities\GetTimedEventsAndNotesUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Notes\Utilities\ResizeNotesUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Parameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\ParameterValueType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\ChannelCoarseTuningParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\ChannelFineTuningParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\ModulationDepthRangeParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\PitchBendSensitivityParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\RegisteredParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\RegisteredParameterNumbers.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\RegisteredParameterType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\TuningBankSelectParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Parameters\Registered\TuningProgramChangeParameter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\ITempoMapValuesCache.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\Tempo.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TempoMap.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TempoMapLine.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TempoMapManager.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TempoMapManagingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TempoMapReadingHandler.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TempoMap\TimeSignature.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\BarBeatFractionTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\BarBeatTicksTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\ITimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\LengthConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\MathTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\MetricTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\MidiTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\MusicalTimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\TimeConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Converters\TimeSpanConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\ITimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\MathOperation.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Parsers\BarBeatFractionTimeSpanParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Parsers\BarBeatTicksTimeSpanParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Parsers\MetricTimeSpanParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Parsers\MidiTimeSpanParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Parsers\MusicalTimeSpanParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\BarBeatFractionTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\BarBeatTicksTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\MathTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\MetricTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\MidiTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Representations\MusicalTimeSpan.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\TempoMapValuesCaches\MetricTempoMapValuesCache.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\TimeSpanComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\TimeSpanMode.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\TimeSpanType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\TimeSpanUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimeSpan\Utilities\BarBeatTimeSpanUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEventsCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEventsComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEventsManager.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEventsManagingUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedEvents\TimedEventsReadingHandler.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\INotifyTimeChanged.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\ITimedObject.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\TimeChangedEventArgs.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\TimedObjectUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\TimedObjectsCollection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\TimedObject\TimedObjectsComparer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\MidiFileUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\NoteId\NoteId.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\NoteId\NoteIdUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\ThrowIf\ThrowIfLengthArgument.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\ThrowIf\ThrowIfNotesTolerance.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\ThrowIf\ThrowIfTimeArgument.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\Utilities\TrackChunkUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\ValueLine\ValueChange.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Interaction\ValueLine\ValueLine.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Chord\Chord.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Chord\ChordParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Chord\ChordQuality.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Chord\ChordUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Chord\ChordsNamesTable.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\ChordProgression\ChordProgression.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\ChordProgression\ChordProgressionParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\Interval.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\IntervalDefinition.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\IntervalDirection.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\IntervalParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\IntervalQuality.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Interval\IntervalUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Note\Note.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Note\NoteName.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Note\NoteNameParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Note\NoteParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Note\NoteUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Notes.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Octave\Octave.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Octave\OctaveParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Scale\Scale.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Scale\ScaleDegree.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Scale\ScaleIntervals.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Scale\ScaleParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\MusicTheory\Scale\ScaleUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Properties\AssemblyInfo.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi\GeneralMidi.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi\GeneralMidiPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi\GeneralMidiProgram.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi\GeneralMidiUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\GeneralMidi2PercussionSet.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\GeneralMidi2Program.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\GeneralMidi2Utilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2AnalogPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2BrushPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2ElectronicPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2JazzPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2OrchestraPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2PowerPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2RoomPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2SfxPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralMidi2\Percussion\GeneralMidi2StandardPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\GeneralSoundPercussionSet.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\GeneralSoundUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundBrushPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundCm6432LPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundElectronicPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundJazzPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundOrchestraPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundPowerPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundRoomPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundSfxPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundStandardPercussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Standards\GeneralSound\Percussion\GeneralSoundTr808Percussion.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Common\LengthedObjectTarget.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Common\TimeProcessing\TimeProcessingAction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Common\TimeProcessing\TimeProcessingInstruction.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Common\CsvError.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Common\CsvReader.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Common\CsvRecord.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Common\CsvSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Common\CsvWriter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\CsvConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\CsvUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\CsvToMidiFileConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\EventParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\EventParserProvider.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\EventsNamesProvider.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\ParameterParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\Record.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\RecordType.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\TimedMidiEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\FromCsv\TypeParser.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\MidiFileCsvConversionSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\MidiFileCsvLayout.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\NoteFormat.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\RecordTypes\DryWetMidiRecordTypes.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\RecordTypes\MidiCsvRecordTypes.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\ToCsv\EventNameGetter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\ToCsv\EventNameGetterProvider.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\ToCsv\EventParametersGetter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\ToCsv\EventParametersGetterProvider.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\MidiFile\ToCsv\MidiFileToCsvConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Notes\CsvToNotesConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Notes\NoteCsvConversionSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Notes\NoteCsvConversionUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Notes\NoteNumberFormat.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\CsvConverter\Notes\NotesToCsvConverter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\LengthedObjectsSplitter\Base\LengthedObjectsSplitter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\LengthedObjectsSplitter\ChordsSplitter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\LengthedObjectsSplitter\NotesSplitter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\LengthedObjectsSplitter\Utilities\ChordsSplitterUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\LengthedObjectsSplitter\Utilities\NotesSplitterUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\MidiFileSplitter\MidiFileSlicer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\MidiFileSplitter\MidiFileSplitter.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\MidiFileSplitter\SliceMidiFileMarkers.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\MidiFileSplitter\SliceMidiFileSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\NotesMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\NotesMergerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\NotesMergingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\AverageVelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\FirstVelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\LastVelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\MaxVelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\MinVelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergers\VelocityMerger.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\NotesMerger\VelocityMergingPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Base\QuantizedTime.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Base\Quantizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Base\QuantizingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\ChordsQuantizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\LengthedObjectsQuantizer\LengthedObjectsQuantizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\LengthedObjectsQuantizer\LengthedObjectsQuantizingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\LengthedObjectsQuantizer\QuantizingBeyondFixedEndPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\LengthedObjectsQuantizer\QuantizingBeyondZeroPolicy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\NotesQuantizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\TimedEventsQuantizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Utilities\ChordsQuantizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Utilities\NotesQuantizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Quantizer\Utilities\TimedEventsQuantizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Base\Randomizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Base\RandomizingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Bounds\ConstantBounds.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Bounds\IBounds.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\ChordsRandomizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\LengthedObjectsRandomizer\LengthedObjectsRandomizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\LengthedObjectsRandomizer\LengthedObjectsRandomizingSettings.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\NotesRandomizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\TimedEventsRandomizer.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\ChordsRandomizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\NotesRandomizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\TimedEventsRandomizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MidiFileInput.cs" />
+    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <None Include="Assets\MIDI\My Dearest.txt" />
+    <Reference Include="UnityEngine">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.NonGeneric">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.NonGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Specialized.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.EventBasedAsync.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Common">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Contracts">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.FileVersionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TextWriterTraceListener">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tools">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TraceSource">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TraceSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Drawing.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Dynamic.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Extensions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.DriveInfo">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.DriveInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Watcher.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.IsolatedStorage">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.MemoryMappedFiles">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.MemoryMappedFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipes">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Pipes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.UnmanagedMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Parallel">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Queryable">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Queryable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Rtc">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Http.Rtc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NameResolution">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NameResolution.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NetworkInformation">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NetworkInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Ping">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Ping.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Security">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebHeaderCollection">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebHeaderCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.ILGeneration">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.ILGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.Lightweight">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Reader">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Writer">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Writer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.VisualC">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.CompilerServices.VisualC.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Handles">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Handles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Numerics">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Formatters.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Xml">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Claims">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Claims.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Csp">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Csp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Principal.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.SecureString">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.SecureString.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Duplex">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Http">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.NetTcp">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.NetTcp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Overlapped">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Overlapped.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Parallel">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.ThreadPool">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.ThreadPool.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Timer">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Timer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XDocument">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlSerializer">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/UnityScript.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript.Lang">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/UnityScript.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang">
+      <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.CollabProxy.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:/UNIVERSIDAD/PROYECTOS/TFG_GDDV/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup></ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
