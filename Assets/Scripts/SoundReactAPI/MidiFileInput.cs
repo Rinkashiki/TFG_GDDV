@@ -19,12 +19,15 @@ public class MidiFileInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        List<int> a = new List<int>();
-        a = MidiInputNotesNumber(AssetDatabase.GetAssetPath(midiFile));
-        foreach (int note in a)
+        /*
+        List<float> a = new List<float>();
+        a = MidiInputNotesOnTime(AssetDatabase.GetAssetPath(midiFile));
+        foreach (float note in a)
         {
             Debug.Log(note);
         }
+        */
+        Debug.Log(MidiInputBPMAtTime(AssetDatabase.GetAssetPath(midiFile), 0));
     }
     #region MIDI_Notes_Inputs
 
@@ -52,23 +55,24 @@ public class MidiFileInput : MonoBehaviour
     }
 
     //Gets the notes time
-    public static List<int> MidiInputNotesTime(string midiFilePath)
+    public static List<float> MidiInputNotesOnTime(string midiFilePath)
     {
         // Create NotesTime list
-        List<int> NotesTime = new List<int>();
+        List<float> NotesTime = new List<float>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
         // Copy .mid file into .txt file
+        TempoMap tempo = midiFile.GetTempoMap();
         string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.Time}"));
+        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds}"));
 
         // Copy .txt content into NotesTime list
         string[] lines = File.ReadAllLines(textFilePath);
         foreach (string line in lines)
         {
-            NotesTime.Add(int.Parse(line));
+            NotesTime.Add(float.Parse(line) * 0.000001f);
         }
 
         return NotesTime;
@@ -118,6 +122,28 @@ public class MidiFileInput : MonoBehaviour
         }
 
         return NotesSpeed;
+    }
+
+    #endregion
+
+    #region MIDI_BPM_Input
+
+    //Gets BPM
+    public static long MidiInputBPMAtTime(string midiFilePath, long time)
+    {
+        // Create BPM variable
+        long BPM = 0;
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract TempoMap Variable
+        TempoMap tempo = midiFile.GetTempoMap();
+
+        // Extract Tempo convert in BPM
+        BPM = tempo.TempoLine.GetValueAtTime(time).BeatsPerMinute;
+
+        return BPM;
     }
 
     #endregion
