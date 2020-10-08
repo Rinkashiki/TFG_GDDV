@@ -530,8 +530,11 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\ChordsRandomizerUtilities.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\NotesRandomizerUtilities.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\TimedEventsRandomizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MIDIEvent.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiFileInput.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\SoundReactEventHandler.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <None Include="Assets\MIDI\Gurenge.txt" />
     <None Include="Assets\MIDI\My Dearest.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
