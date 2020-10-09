@@ -48,7 +48,7 @@ public class MidiFileInput
         return NotesNumber;
     }
 
-    //Gets the notes time
+    //Gets the notes on time
     /// <summary>
     /// Returns all noteOn times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
@@ -57,7 +57,7 @@ public class MidiFileInput
     public static List<float> MidiInputNotesOnTime(string midiFilePath)
     {
         // Create NotesTime list
-        List<float> NotesTime = new List<float>();
+        List<float> NotesOnTime = new List<float>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -71,10 +71,40 @@ public class MidiFileInput
         string[] lines = File.ReadAllLines(textFilePath);
         foreach (string line in lines)
         {
-            NotesTime.Add(float.Parse(line) * microSecToSec);
+            NotesOnTime.Add(float.Parse(line) * microSecToSec);
         }
 
-        return NotesTime;
+        return NotesOnTime;
+    }
+
+    //Gets the notes off time
+    /// <summary>
+    /// Returns all noteOff times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<float> MidiInputNotesOffTime(string midiFilePath)
+    {
+        // Create NotesTime list
+        List<float> NotesOffTime = new List<float>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Copy .mid file into .txt file
+        TempoMap tempo = midiFile.GetTempoMap();
+        string textFilePath = midiFilePath.Replace(".mid", ".txt");
+        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds}"));
+
+        // Copy .txt content into NotesTime list
+        string[] lines = File.ReadAllLines(textFilePath);
+        foreach (string line in lines)
+        {
+            NotesOffTime.Add(float.Parse(line) * microSecToSec);
+        }
+
+        return NotesOffTime;
+
     }
 
     //Gets the notes length

@@ -22,12 +22,13 @@ public class SoundReactEventHandler : MonoBehaviour
         long BPM = Event_BPMAtTime(midiFile, 0).GetValueEvent();
         Debug.Log(BPM);
         List<int> numbers = Event_NotesNumber(midiFile).GetListEvent();
-        List<float> times = Event_NotesOnTime(midiFile).GetListEvent();
+        List<float> timesOn = Event_NotesOnTime(midiFile).GetListEvent();
+        List<float> timesOff = Event_NotesOffTime(midiFile).GetListEvent();
         List<float> lengths = Event_NotesLength(midiFile).GetListEvent();
         List<int> speeds = Event_NotesSpeed(midiFile).GetListEvent();
         for (int i = 0; i < numbers.Count; i++)
         {
-            Debug.Log("NoteNumber: " + numbers[i] + "  NoteOnTime: " + times[i] + "  NoteLength: " + lengths[i] + "  NoteSpeed: " + speeds[i]);
+            Debug.Log("NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i]+ "  NoteLength: " + lengths[i] + "  NoteSpeed: " + speeds[i]);
         }
     }
 
@@ -69,6 +70,17 @@ public class SoundReactEventHandler : MonoBehaviour
     public MIDIEvent<float> Event_NotesOnTime(Object midiFile)
     {
         MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesOnTime(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesOffTime event list in seconds of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public MIDIEvent<float> Event_NotesOffTime(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesOffTime(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
