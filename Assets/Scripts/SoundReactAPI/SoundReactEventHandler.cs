@@ -38,7 +38,7 @@ public class SoundReactEventHandler : MonoBehaviour
         
     }
 
-    #region MIDI_Events
+    #region MIDI_File_Events
 
     /// <summary>
     /// Returns NotesNumber event list of the specified <paramref name="midiFile"/>
@@ -69,7 +69,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// <returns></returns>
     public MIDIEvent<float> Event_NotesOnTime(Object midiFile)
     {
-        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesOnTime(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOnTimes(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
@@ -80,7 +80,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// <returns></returns>
     public MIDIEvent<float> Event_NotesOffTime(Object midiFile)
     {
-        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesOffTime(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOffTimes(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 

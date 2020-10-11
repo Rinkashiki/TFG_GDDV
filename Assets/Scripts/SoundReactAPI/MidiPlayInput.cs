@@ -15,10 +15,13 @@ public class MidiPlayInput : MonoBehaviour
 {
     #region MIDI_Play_Variables
 
-    private Playback midiPlayback;
+    [HideInInspector] public Playback midiPlayback;
     private List<int> notesNumber = new List<int>();
-    private List<float> notesOnTime = new List<float>();
-    [SerializeField] private Object midiFile;
+    private List<float> noteOnTimes = new List<float>();
+    private List<float> noteOffTimes = new List<float>();
+    private List<float> notesLength = new List<float>();
+    private List<int> notesSpeed = new List<int>();
+    public Object midiFile;
     
     #endregion
 
@@ -67,7 +70,10 @@ public class MidiPlayInput : MonoBehaviour
     {
         // Extract MIDI Events from file
         notesNumber = MidiFileInput.MidiInputNotesNumber(midiFilePath);
-        notesOnTime = MidiFileInput.MidiInputNotesOnTime(midiFilePath);
+        noteOnTimes = MidiFileInput.MidiInputNoteOnTimes(midiFilePath);
+        noteOffTimes = MidiFileInput.MidiInputNoteOffTimes(midiFilePath);
+        notesLength = MidiFileInput.MidiInputNotesLength(midiFilePath);
+        notesSpeed = MidiFileInput.MidiInputNotesSpeed(midiFilePath);
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -119,20 +125,95 @@ public class MidiPlayInput : MonoBehaviour
 
     #endregion
 
-    #region MIDI_Play_Events
+    #region MIDI_Play_Notes_Input
 
     /// <summary>
-    /// Returns the current played note
+    /// Returns the current played note number
     /// </summary>
     /// <returns></returns>
     public int MidiPlayNoteNumber()
     {
-        float targetTime = midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f;
-        float nearest = notesOnTime.OrderBy(x => System.Math.Abs(x - targetTime)).First();
-        int index = notesOnTime.IndexOf(nearest);
-        index = notesOnTime[index] > targetTime ? index-- : index;
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
 
         return notesNumber[index];
+    }
+
+    /// <summary>
+    /// Returns the current played note on time
+    /// </summary>
+    /// <returns></returns>
+    public float MidiPlayNoteOnTime()
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
+
+        return noteOnTimes[index];
+    }
+
+    /// <summary>
+    /// Returns the current played note off time
+    /// </summary>
+    /// <returns></returns>
+    public float MidiPlayNoteOffTime()
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
+
+        return noteOffTimes[index];
+    }
+
+    /// <summary>
+    /// Returns the current played note length
+    /// </summary>
+    /// <returns></returns>
+    public float MidiPlayNoteLength()
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
+
+        return notesLength[index];
+    }
+
+    /// <summary>
+    /// Returns the current played note speed
+    /// </summary>
+    /// <returns></returns>
+    public int MidiPlayNoteSpeed()
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
+
+        return notesSpeed[index];
+    }
+
+    #endregion
+
+    #region MIDI_Play_BPM_Input
+
+    /// <summary>
+    /// Returns the current BPM of the MIDI file stores in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public long MidiPlayBPM(string midiFilePath)
+    {
+        long currentBPM = MidiFileInput.MidiInputBPMAtTime(midiFilePath, midiPlayback.GetCurrentTime<MidiTimeSpan>().TimeSpan);
+        return currentBPM;
+    }
+
+    #endregion
+
+    #region Other_Utility_Functions
+
+    private int GetIndex(float targetTime)
+    {
+        // Compute the corresponding index
+        float nearest = noteOnTimes.OrderBy(x => System.Math.Abs(x - targetTime)).First();
+        int index = noteOnTimes.IndexOf(nearest);
+        index = noteOnTimes[index] > targetTime ? index-- : index;
+
+        return index;
     }
 
     #endregion

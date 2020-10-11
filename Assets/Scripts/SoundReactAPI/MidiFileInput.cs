@@ -20,7 +20,6 @@ public class MidiFileInput
 
     #region MIDI_Notes_Inputs
 
-    //Gets the notes number
     /// <summary>
     /// Returns all notes number of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
@@ -48,13 +47,12 @@ public class MidiFileInput
         return NotesNumber;
     }
 
-    //Gets the notes on time
     /// <summary>
     /// Returns all noteOn times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<float> MidiInputNotesOnTime(string midiFilePath)
+    public static List<float> MidiInputNoteOnTimes(string midiFilePath)
     {
         // Create NotesTime list
         List<float> NotesOnTime = new List<float>();
@@ -77,13 +75,12 @@ public class MidiFileInput
         return NotesOnTime;
     }
 
-    //Gets the notes off time
     /// <summary>
     /// Returns all noteOff times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<float> MidiInputNotesOffTime(string midiFilePath)
+    public static List<float> MidiInputNoteOffTimes(string midiFilePath)
     {
         // Create NotesTime list
         List<float> NotesOffTime = new List<float>();
@@ -107,7 +104,6 @@ public class MidiFileInput
 
     }
 
-    //Gets the notes length
     /// <summary>
     /// Returns all notes length in seconds of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
@@ -136,7 +132,6 @@ public class MidiFileInput
         return NotesLength;
     }
 
-    //Gets the notes speed
     /// <summary>
     /// Returns all notes speed of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
@@ -168,7 +163,6 @@ public class MidiFileInput
 
     #region MIDI_BPM_Input
 
-    //Gets BPM
     /// <summary>
     /// Returns BPM in a specified <paramref name="time"/> of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
