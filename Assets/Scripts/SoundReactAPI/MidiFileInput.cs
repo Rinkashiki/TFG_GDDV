@@ -5,8 +5,6 @@ using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor;
-using UnityEngine;
 
 #endregion
 

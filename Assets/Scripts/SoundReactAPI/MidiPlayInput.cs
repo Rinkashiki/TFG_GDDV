@@ -3,62 +3,24 @@
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 #endregion
 
-public class MidiPlayInput : MonoBehaviour
+public class MidiPlayInput
 {
     #region MIDI_Play_Variables
 
-    [HideInInspector] public Playback midiPlayback;
-    private List<int> notesNumber = new List<int>();
-    private List<float> noteOnTimes = new List<float>();
-    private List<float> noteOffTimes = new List<float>();
-    private List<float> notesLength = new List<float>();
-    private List<int> notesSpeed = new List<int>();
-    public Object midiFile;
+    private static Playback midiPlayback;
+    private static List<int> notesNumber = new List<int>();
+    private static List<float> noteOnTimes = new List<float>();
+    private static List<float> noteOffTimes = new List<float>();
+    private static List<float> notesLength = new List<float>();
+    private static List<int> notesSpeed = new List<int>();
     
     #endregion
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        MidiPlaybackSetUp(AssetDatabase.GetAssetPath(midiFile));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StopMidi();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.I))
-        {
-            StopResetMidi();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            PlayMidi();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            MidiPlaybackReleaseResources(OutputDevice.GetByName("Microsoft GS Wavetable Synth"));
-        }
-
-        else if (Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log(MidiPlayNoteNumber());
-        }
-    }
 
     #region MIDI_Play_Handlers
 
@@ -66,7 +28,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Prepares the variable that controls playback of the MIDI file stores in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
-    public void MidiPlaybackSetUp(string midiFilePath)
+    public static void MidiPlaybackSetUp(string midiFilePath)
     {
         // Extract MIDI Events from file
         notesNumber = MidiFileInput.MidiInputNotesNumber(midiFilePath);
@@ -92,7 +54,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Releases <paramref name="outputDevice"/> resource taken for MIDI playback
     /// </summary>
     /// <param name="outputDevice"></param>
-    public void MidiPlaybackReleaseResources(OutputDevice outputDevice)
+    public static void MidiPlaybackReleaseResources(OutputDevice outputDevice)
     {
         outputDevice.Dispose();
         midiPlayback.Dispose();
@@ -101,7 +63,7 @@ public class MidiPlayInput : MonoBehaviour
     /// <summary>
     /// Starts playing MIDI from the last stopped
     /// </summary>
-    public void PlayMidi()
+    public static void PlayMidi()
     {
         midiPlayback.Start();
     }
@@ -109,7 +71,7 @@ public class MidiPlayInput : MonoBehaviour
     /// <summary>
     /// Stops playing MIDI
     /// </summary>
-    public void StopMidi()
+    public static void StopMidi()
     {
         midiPlayback.Stop();
     }
@@ -117,7 +79,7 @@ public class MidiPlayInput : MonoBehaviour
     /// <summary>
     /// Stops playing MIDI and resets it to its start position
     /// </summary>
-    public void StopResetMidi()
+    public static void StopResetMidi()
     {
         midiPlayback.Stop();
         midiPlayback.MoveToStart();
@@ -131,7 +93,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Returns the current played note number
     /// </summary>
     /// <returns></returns>
-    public int MidiPlayNoteNumber()
+    public static int MidiPlayNoteNumber()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
@@ -143,7 +105,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Returns the current played note on time
     /// </summary>
     /// <returns></returns>
-    public float MidiPlayNoteOnTime()
+    public static float MidiPlayNoteOnTime()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
@@ -155,7 +117,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Returns the current played note off time
     /// </summary>
     /// <returns></returns>
-    public float MidiPlayNoteOffTime()
+    public static float MidiPlayNoteOffTime()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
@@ -167,7 +129,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Returns the current played note length
     /// </summary>
     /// <returns></returns>
-    public float MidiPlayNoteLength()
+    public static float MidiPlayNoteLength()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
@@ -179,7 +141,7 @@ public class MidiPlayInput : MonoBehaviour
     /// Returns the current played note speed
     /// </summary>
     /// <returns></returns>
-    public int MidiPlayNoteSpeed()
+    public static int MidiPlayNoteSpeed()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
@@ -196,7 +158,7 @@ public class MidiPlayInput : MonoBehaviour
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public long MidiPlayBPM(string midiFilePath)
+    public static long MidiPlayBPM(string midiFilePath)
     {
         long currentBPM = MidiFileInput.MidiInputBPMAtTime(midiFilePath, midiPlayback.GetCurrentTime<MidiTimeSpan>().TimeSpan);
         return currentBPM;
@@ -206,7 +168,7 @@ public class MidiPlayInput : MonoBehaviour
 
     #region Other_Utility_Functions
 
-    private int GetIndex(float targetTime)
+    private static int GetIndex(float targetTime)
     {
         // Compute the corresponding index
         float nearest = noteOnTimes.OrderBy(x => System.Math.Abs(x - targetTime)).First();

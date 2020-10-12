@@ -1,5 +1,6 @@
 ﻿#region Dependencies
 
+using Melanchall.DryWetMidi.Devices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -19,6 +20,10 @@ public class SoundReactEventHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // VERY IMPORTANT CALL THIS before anything related with MIDI playback
+        PlaybackSetUp(midiFile);
+
+        /*
         long BPM = Event_BPMAtTime(midiFile, 0).GetValueEvent();
         Debug.Log(BPM);
         List<int> numbers = Event_NotesNumber(midiFile).GetListEvent();
@@ -30,12 +35,28 @@ public class SoundReactEventHandler : MonoBehaviour
         {
             Debug.Log("NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i]+ "  NoteLength: " + lengths[i] + "  NoteSpeed: " + speeds[i]);
         }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       if(Input.GetKeyDown(KeyCode.A))
+        {
+            StartPlayback();
+        }
+       else if (Input.GetKeyDown(KeyCode.S))
+        {
+            StopPlayback();
+        }
+       else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ReleasePlaybackResources();
+        }
+       else if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log(Event_CurrentNoteNumber().GetValueEvent());
+        }
     }
 
     #region MIDI_File_Events
@@ -67,7 +88,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public MIDIEvent<float> Event_NotesOnTime(Object midiFile)
+    public MIDIEvent<float> Event_NoteOnTimes(Object midiFile)
     {
         MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOnTimes(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
@@ -78,7 +99,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public MIDIEvent<float> Event_NotesOffTime(Object midiFile)
+    public MIDIEvent<float> Event_NoteOffTimes(Object midiFile)
     {
         MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOffTimes(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
@@ -105,6 +126,116 @@ public class SoundReactEventHandler : MonoBehaviour
     {
         MIDIEvent<long> midiEvent = new MIDIEvent<long>(MidiFileInput.MidiInputBPMAtTime(AssetDatabase.GetAssetPath(midiFile), time));
         return midiEvent;
+    }
+
+    #endregion
+
+    #region MIDI_Play_Events
+
+    /// <summary>
+    /// Returns NoteNumber event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<int> Event_CurrentNoteNumber()
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteNumber());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NoteSpeed event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<int> Event_CurrentNoteSpeed()
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteSpeed());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NoteOnTime event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<float> Event_CurrentNoteOnTime()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayNoteOnTime());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NoteOffTime event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<float> Event_CurrentNoteOffTime()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayNoteOffTime());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NoteLength event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<float> Event_CurrentNoteLength()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayNoteLength());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns BPM event value at the current playback moment of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public MIDIEvent<long> Event_CurrentBPM(Object midiFile)
+    {
+        MIDIEvent<long> midiEvent = new MIDIEvent<long>(MidiPlayInput.MidiPlayBPM(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    #endregion
+
+    #region MIDI_Playback_Actions
+
+    /// <summary>
+    /// Configures MIDI playback fo the specified <paramref name="midiFile"/>. Call this before anything related with MIDI playback
+    /// </summary>
+    /// <param name="midiFile"></param>
+    public void PlaybackSetUp(Object midiFile)
+    {
+        MidiPlayInput.MidiPlaybackSetUp(AssetDatabase.GetAssetPath(midiFile));
+    }
+
+    /// <summary>
+    /// Starts playing MIDI
+    /// </summary>
+    public void StartPlayback()
+    {
+        MidiPlayInput.PlayMidi();
+    }
+
+    /// <summary>
+    /// Stops playing MIDI. It does not move playback cursor to the beginning
+    /// </summary>
+    public void StopPlayback()
+    {
+        MidiPlayInput.StopMidi();
+    }
+
+    /// <summary>
+    /// Stops playing MIDI and resets playback cursor to the beginning
+    /// </summary>
+    public void StopResetPlayback()
+    {
+        MidiPlayInput.StopResetMidi();
+    }
+
+    /// <summary>
+    /// Releases output resources taken by the playback
+    /// </summary>
+    public void ReleasePlaybackResources()
+    {
+        MidiPlayInput.MidiPlaybackReleaseResources(OutputDevice.GetByName("Microsoft GS Wavetable Synth"));
     }
 
     #endregion
