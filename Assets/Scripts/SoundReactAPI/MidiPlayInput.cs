@@ -14,6 +14,7 @@ public class MidiPlayInput
     #region MIDI_Play_Variables
 
     private static Playback midiPlayback;
+    private static List<string> notesName = new List<string>();
     private static List<int> notesNumber = new List<int>();
     private static List<float> noteOnTimes = new List<float>();
     private static List<float> noteOffTimes = new List<float>();
@@ -31,6 +32,7 @@ public class MidiPlayInput
     public static void MidiPlaybackSetUp(string midiFilePath)
     {
         // Extract MIDI Events from file
+        notesName = MidiFileInput.MidiInputNotesName(midiFilePath);
         notesNumber = MidiFileInput.MidiInputNotesNumber(midiFilePath);
         noteOnTimes = MidiFileInput.MidiInputNoteOnTimes(midiFilePath);
         noteOffTimes = MidiFileInput.MidiInputNoteOffTimes(midiFilePath);
@@ -88,6 +90,18 @@ public class MidiPlayInput
     #endregion
 
     #region MIDI_Play_Notes_Input
+
+    /// <summary>
+    /// Returns the current played note name
+    /// </summary>
+    /// <returns></returns>
+    public static string MidiPlayNoteName()
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * 0.000001f);
+
+        return notesName[index];
+    }
 
     /// <summary>
     /// Returns the current played note number

@@ -1,0 +1,93 @@
+﻿#region Dependencies
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+#endregion
+
+public class MidiFileEventHandler
+{
+    #region MIDI_File_Events
+
+    /// <summary>
+    /// Returns NotesName event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<string> Event_NotesName(Object midiFile)
+    {
+        MIDIEvent<string> midiEvent = new MIDIEvent<string>(MidiFileInput.MidiInputNotesName(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesNumber event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<int> Event_NotesNumber(Object midiFile)
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNotesNumber(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesSpeed event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<int> Event_NotesSpeed(Object midiFile)
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNotesSpeed(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesOnTime event list in seconds of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_NoteOnTimes(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOnTimes(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesOffTime event list in seconds of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_NoteOffTimes(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNoteOffTimes(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NotesLength event list in seconds of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_NotesLength(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesLength(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns BPM event value at given MIDI <paramref name="time"/> of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public static MIDIEvent<long> Event_BPMAtTime(Object midiFile, long time)
+    {
+        MIDIEvent<long> midiEvent = new MIDIEvent<long>(MidiFileInput.MidiInputBPMAtTime(AssetDatabase.GetAssetPath(midiFile), time));
+        return midiEvent;
+    }
+
+    #endregion
+}

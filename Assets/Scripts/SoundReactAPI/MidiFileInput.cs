@@ -19,6 +19,33 @@ public class MidiFileInput
     #region MIDI_Notes_Inputs
 
     /// <summary>
+    /// Returns all notes name of MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<string> MidiInputNotesName(string midiFilePath)
+    {
+        // Create NotesNumber list
+        List<string> NotesName = new List<string>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Copy .mid file into .txt file
+        string textFilePath = midiFilePath.Replace(".mid", ".txt");
+        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.GetMusicTheoryNote().ToString()}"));
+
+        // Copy .txt content into NotesNumber list
+        string[] lines = File.ReadAllLines(textFilePath);
+        foreach (string line in lines)
+        {
+            NotesName.Add(line);
+        }
+
+        return NotesName;
+    }
+
+    /// <summary>
     /// Returns all notes number of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>

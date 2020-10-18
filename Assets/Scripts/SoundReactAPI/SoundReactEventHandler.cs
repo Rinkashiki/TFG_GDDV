@@ -41,6 +41,7 @@ public class SoundReactEventHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
        if(Input.GetKeyDown(KeyCode.A))
         {
             StartPlayback();
@@ -55,11 +56,23 @@ public class SoundReactEventHandler : MonoBehaviour
         }
        else if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log(Event_CurrentNoteNumber().GetValueEvent());
+            Debug.Log(Event_CurrentNoteName().GetValueEvent());
         }
+        */
     }
 
     #region MIDI_File_Events
+
+    /// <summary>
+    /// Returns NotesName event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public MIDIEvent<string> Event_NotesName(Object midiFile)
+    {
+        MIDIEvent<string> midiEvent = new MIDIEvent<string>(MidiFileInput.MidiInputNotesName(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
 
     /// <summary>
     /// Returns NotesNumber event list of the specified <paramref name="midiFile"/>
@@ -131,6 +144,16 @@ public class SoundReactEventHandler : MonoBehaviour
     #endregion
 
     #region MIDI_Play_Events
+
+    /// <summary>
+    /// Returns NoteName event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public MIDIEvent<string> Event_CurrentNoteName()
+    {
+        MIDIEvent<string> midiEvent = new MIDIEvent<string>(MidiPlayInput.MidiPlayNoteName());
+        return midiEvent;
+    }
 
     /// <summary>
     /// Returns NoteNumber event value of the current played note
