@@ -31,18 +31,41 @@ public class MidiFileInput
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file into .txt file
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.GetMusicTheoryNote().ToString()}"));
+        // Extract notes from .mid file
+        List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Copy .txt content into NotesNumber list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
+        // Extract notes name from notes list
+        foreach (Note note in notes)
         {
-            NotesName.Add(line);
+            NotesName.Add(note.NoteName.ToString() + note.Octave);
         }
 
         return NotesName;
+    }
+
+    /// <summary>
+    /// Returns all notes names of every chord in MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<string> MidiInputChordsNotesName(string midiFilePath)
+    {
+        // Create ChordsNames list
+        List<string> ChordsNames = new List<string>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract chords from .mid file
+        List<Chord> chordsList = midiFile.GetChords().ToList();
+
+        // Copy notes numbers inside each chord of chords list into ChordNumbers
+        foreach (Chord chord in chordsList)
+        {
+            ChordsNames.Add(chord.ToString());
+        }
+
+        return ChordsNames;
     }
 
     /// <summary>
@@ -58,18 +81,75 @@ public class MidiFileInput
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file into .txt file
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.NoteNumber}"));
+        // Extract notes from .mid file
+        List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Copy .txt content into NotesNumber list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
+        // Extract notes number from notes list
+        foreach (Note note in notes)
         {
-            NotesNumber.Add(int.Parse(line));
+            NotesNumber.Add(note.NoteNumber);
         }
 
         return NotesNumber;
+    }
+
+    /// <summary>
+    /// Returns all notes speed of MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<int> MidiInputNotesSpeed(string midiFilePath)
+    {
+        // Create NotesSpeed list
+        List<int> NotesSpeed = new List<int>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract notes from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Note> notes = midiFile.GetNotes().ToList();
+
+        // Extract notes velocity from notes list
+        foreach (Note note in notes)
+        {
+            NotesSpeed.Add(note.Velocity);
+        }
+
+        return NotesSpeed;
+    }
+
+    /// <summary>
+    /// Returns all notes number of every chord in MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<int[]> MidiInputChordsNotesNumber(string midiFilePath)
+    {
+        // Create ChordsNumbers list
+        List<int[]> ChordsNumbers = new List<int[]>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Copy .mid file chords into a list
+        List<Chord> chordsList = midiFile.GetChords().ToList();
+
+        // Copy notes numbers inside each chord of chords list into ChordNumbers
+        foreach (Chord chord in chordsList)
+        {
+            Note[] chordNotes = chord.Notes.ToArray();
+            int[] notes = new int[chord.Notes.Count()];
+            
+            for (int i = 0; i < chord.Notes.Count(); i++)
+            {
+                notes[i] = chordNotes[i].NoteNumber;
+            }
+
+            ChordsNumbers.Add(notes);
+        }
+
+        return ChordsNumbers;
     }
 
     /// <summary>
@@ -85,16 +165,14 @@ public class MidiFileInput
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file into .txt file
+        // Extract notes from .mid file
         TempoMap tempo = midiFile.GetTempoMap();
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds}"));
+        List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Copy .txt content into NotesTime list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
+        // Extract noteOn times from notes list
+        foreach (Note note in notes)
         {
-            NotesOnTime.Add(float.Parse(line) * microSecToSec);
+            NotesOnTime.Add(note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
         }
 
         return NotesOnTime;
@@ -113,16 +191,14 @@ public class MidiFileInput
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file into .txt file
+        // Extract notes from .mid file
         TempoMap tempo = midiFile.GetTempoMap();
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds}"));
+        List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Copy .txt content into NotesTime list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
+        // Extract noteOff times from notes list
+        foreach (Note note in notes)
         {
-            NotesOffTime.Add(float.Parse(line) * microSecToSec);
+            NotesOffTime.Add(note.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
         }
 
         return NotesOffTime;
@@ -142,46 +218,17 @@ public class MidiFileInput
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file into .txt file
+        // Extract notes from .mid file
         TempoMap tempo = midiFile.GetTempoMap();
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds}"));
+        List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Copy .txt content into NotesNumber list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
+        // Extract notes length from notes list
+        foreach (Note note in notes)
         {
-            NotesLength.Add(float.Parse(line) * microSecToSec);
+            NotesLength.Add(note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
         }
 
         return NotesLength;
-    }
-
-    /// <summary>
-    /// Returns all notes speed of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int> MidiInputNotesSpeed(string midiFilePath)
-    {
-        // Create NotesSpeed list
-        List<int> NotesSpeed = new List<int>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Copy .mid file into .txt file
-        string textFilePath = midiFilePath.Replace(".mid", ".txt");
-        File.WriteAllLines(textFilePath, midiFile.GetNotes().Select(n => $"{n.Velocity}"));
-
-        // Copy .txt content into NotesNumber list
-        string[] lines = File.ReadAllLines(textFilePath);
-        foreach (string line in lines)
-        {
-            NotesSpeed.Add(int.Parse(line));
-        }
-
-        return NotesSpeed;
     }
 
     #endregion

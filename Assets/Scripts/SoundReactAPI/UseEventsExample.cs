@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class UseEventsExample : MonoBehaviour
@@ -10,10 +11,13 @@ public class UseEventsExample : MonoBehaviour
     void Start()
     {
         // VERY IMPORTANT CALL THIS before anything related with MIDI playback
-        MidiPlayEventHandler.PlaybackSetUp(midiFile);
-        /*
+        //MidiPlayEventHandler.PlaybackSetUp(midiFile);
+        //var startTime = System.DateTime.Now;
+        //List<float> notes = MidiFileInput.MidiInputNoteOffTimes(AssetDatabase.GetAssetPath(midiFile));
+        //Debug.Log((System.DateTime.Now - startTime).Milliseconds);
+        
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0).GetValueEvent();
-        Debug.Log(BPM);
+        Debug.Log("BPM : " + BPM);
         List<string> names = MidiFileEventHandler.Event_NotesName(midiFile).GetListEvent();
         List<int> numbers = MidiFileEventHandler.Event_NotesNumber(midiFile).GetListEvent();
         List<float> timesOn = MidiFileEventHandler.Event_NoteOnTimes(midiFile).GetListEvent();
@@ -24,7 +28,7 @@ public class UseEventsExample : MonoBehaviour
         {
             Debug.Log("NoteName: " + names[i] + "  NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i] + "  NoteLength: " + lengths[i] + "  NoteSpeed: " + speeds[i]);
         }
-        */
+        
     }
 
     // Update is called once per frame
