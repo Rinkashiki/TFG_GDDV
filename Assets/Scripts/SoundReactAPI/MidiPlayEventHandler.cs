@@ -55,7 +55,7 @@ public class MidiPlayEventHandler
 
     #endregion
 
-    #region MIDI_Play_Events
+    #region MIDI_Play_Note_Events
 
     /// <summary>
     /// Returns NoteName event value of the current played note
@@ -116,6 +116,74 @@ public class MidiPlayEventHandler
         MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayNoteLength());
         return midiEvent;
     }
+
+    #endregion
+
+    #region MIDI_Play_Chord_Events
+
+    /// <summary>
+    /// Returns ChordNotesName event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<string> Event_CurrentChordNotesName()
+    {
+        MIDIEvent<string> midiEvent = new MIDIEvent<string>(MidiPlayInput.MidiPlayChordNotesName());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordNotesNumber event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<int[]> Event_CurrentChordNotesNumber()
+    {
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiPlayInput.MidiPlayChordNotesNumber());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordSpeed event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<int> Event_CurrentChordSpeed()
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayChordSpeed());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordOnTime event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_CurrentChordOnTime()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayChordOnTime());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordOffTime event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_CurrentChordOffTime()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayChordOffTime());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordLength event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_CurrentChordLength()
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiPlayInput.MidiPlayChordLength());
+        return midiEvent;
+    }
+
+    #endregion
+
+    #region MIDI_Play_BPM_Event
 
     /// <summary>
     /// Returns BPM event value at the current playback moment of the specified <paramref name="midiFile"/>

@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class MidiFileEventHandler
 {
-    #region MIDI_File_Events
+    #region MIDI_File_Note_Events
 
     /// <summary>
     /// Returns NotesName event list of the specified <paramref name="midiFile"/>
@@ -45,7 +45,7 @@ public class MidiFileEventHandler
     }
 
     /// <summary>
-    /// Returns NotesOnTime event list in seconds of the specified <paramref name="midiFile"/>
+    /// Returns NoteOnTimes event list in seconds of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
@@ -56,7 +56,7 @@ public class MidiFileEventHandler
     }
 
     /// <summary>
-    /// Returns NotesOffTime event list in seconds of the specified <paramref name="midiFile"/>
+    /// Returns NoteOffTimes event list in seconds of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
@@ -76,6 +76,80 @@ public class MidiFileEventHandler
         MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputNotesLength(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
+
+    #endregion
+
+    #region MIDI_File_Chord_Events
+
+    /// <summary>
+    /// Returns ChordsName event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<string> Event_ChordsNotesName(Object midiFile)
+    {
+        MIDIEvent<string> midiEvent = new MIDIEvent<string>(MidiFileInput.MidiInputChordsNotesName(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordsSpeed event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<int> Event_ChordsSpeed(Object midiFile)
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputChordsSpeed(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordsNumber event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<int[]> Event_ChordsNotesNumber(Object midiFile)
+    {
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiFileInput.MidiInputChordsNotesNumber(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordOnTimes event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_ChordOnTimes(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputChordOnTimes(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordOffTimes event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_ChordOffTimes(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputChordOffTimes(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordsLength event list of the specified <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static MIDIEvent<float> Event_ChordsLength(Object midiFile)
+    {
+        MIDIEvent<float> midiEvent = new MIDIEvent<float>(MidiFileInput.MidiInputChordsLength(AssetDatabase.GetAssetPath(midiFile)));
+        return midiEvent;
+    }
+
+    #endregion
+
+    #region MIDI_File_BPM_Event
 
     /// <summary>
     /// Returns BPM event value at given MIDI <paramref name="time"/> of the specified <paramref name="midiFile"/>
