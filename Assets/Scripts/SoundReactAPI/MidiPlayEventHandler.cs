@@ -78,12 +78,22 @@ public class MidiPlayEventHandler
     }
 
     /// <summary>
-    /// Returns NoteSpeed event value of the current played note
+    /// Returns NoteOnSpeed event value of the current played note
     /// </summary>
     /// <returns></returns>
-    public static MIDIEvent<int> Event_CurrentNoteSpeed()
+    public static MIDIEvent<int> Event_CurrentNoteOnSpeed()
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteSpeed());
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteOnSpeed());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns NoteOffSpeed event value of the current played note
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<int> Event_CurrentNoteOffSpeed()
+    {
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteOffSpeed());
         return midiEvent;
     }
 
@@ -142,12 +152,22 @@ public class MidiPlayEventHandler
     }
 
     /// <summary>
-    /// Returns ChordSpeed event value of the current played chord
+    /// Returns ChordOnSpeed event value of the current played chord
     /// </summary>
     /// <returns></returns>
-    public static MIDIEvent<int> Event_CurrentChordSpeed()
+    public static MIDIEvent<int[]> Event_CurrentChordOnSpeed()
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayChordSpeed());
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiPlayInput.MidiPlayChordOnSpeed());
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns ChordOffSpeed event value of the current played chord
+    /// </summary>
+    /// <returns></returns>
+    public static MIDIEvent<int[]> Event_CurrentChordOffSpeed()
+    {
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiPlayInput.MidiPlayChordOffSpeed());
         return midiEvent;
     }
 

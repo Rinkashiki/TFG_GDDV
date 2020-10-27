@@ -23,10 +23,11 @@ public class UseEventsExample : MonoBehaviour
         List<float> timesOn = MidiFileEventHandler.Event_NoteOnTimes(midiFile).GetListEvent();
         List<float> timesOff = MidiFileEventHandler.Event_NoteOffTimes(midiFile).GetListEvent();
         List<float> lengths = MidiFileEventHandler.Event_NotesLength(midiFile).GetListEvent();
-        List<int> speeds = MidiFileEventHandler.Event_NotesSpeed(midiFile).GetListEvent();
+        List<int> speedsOn = MidiFileEventHandler.Event_NoteOnSpeeds(midiFile).GetListEvent();
+        List<int> speedsOff = MidiFileEventHandler.Event_NoteOffSpeeds(midiFile).GetListEvent();
         for (int i = 0; i < numbers.Count; i++)
         {
-            Debug.Log("NoteName: " + names[i] + "  NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i] + "  NoteLength: " + lengths[i] + "  NoteSpeed: " + speeds[i]);
+            Debug.Log("NoteName: " + names[i] + "  NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i] + "  NoteLength: " + lengths[i] + "  NoteOnSpeed: " + speedsOn[i] + "  NoteOffSpeed: " + speedsOff[i]);
         }
         
     }

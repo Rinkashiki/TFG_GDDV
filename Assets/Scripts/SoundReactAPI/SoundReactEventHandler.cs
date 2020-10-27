@@ -92,7 +92,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// <returns></returns>
     public MIDIEvent<int> Event_NotesSpeed(Object midiFile)
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNotesSpeed(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNoteOnSpeeds(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
@@ -171,7 +171,7 @@ public class SoundReactEventHandler : MonoBehaviour
     /// <returns></returns>
     public MIDIEvent<int> Event_CurrentNoteSpeed()
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteSpeed());
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiPlayInput.MidiPlayNoteOnSpeed());
         return midiEvent;
     }
 
