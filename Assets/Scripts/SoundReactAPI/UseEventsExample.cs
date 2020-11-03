@@ -11,10 +11,7 @@ public class UseEventsExample : MonoBehaviour
     void Start()
     {
         // VERY IMPORTANT CALL THIS before anything related with MIDI playback
-        //MidiPlayEventHandler.PlaybackSetUp(midiFile);
-        //var startTime = System.DateTime.Now;
-        //List<float> notes = MidiFileInput.MidiInputNoteOffTimes(AssetDatabase.GetAssetPath(midiFile));
-        //Debug.Log((System.DateTime.Now - startTime).Milliseconds);
+        MidiPlayEventHandler.PlaybackSetUp(midiFile);
         
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0).GetValueEvent();
         Debug.Log("BPM : " + BPM);
@@ -23,11 +20,11 @@ public class UseEventsExample : MonoBehaviour
         List<float> timesOn = MidiFileEventHandler.Event_NoteOnTimes(midiFile).GetListEvent();
         List<float> timesOff = MidiFileEventHandler.Event_NoteOffTimes(midiFile).GetListEvent();
         List<float> lengths = MidiFileEventHandler.Event_NotesLength(midiFile).GetListEvent();
-        List<int> speedsOn = MidiFileEventHandler.Event_NoteOnSpeeds(midiFile).GetListEvent();
-        List<int> speedsOff = MidiFileEventHandler.Event_NoteOffSpeeds(midiFile).GetListEvent();
+        List<int> velocitiesOn = MidiFileEventHandler.Event_NoteOnVelocities(midiFile).GetListEvent();
+        List<int> velocitiesOff = MidiFileEventHandler.Event_NoteOffVelocities(midiFile).GetListEvent();
         for (int i = 0; i < numbers.Count; i++)
         {
-            Debug.Log("NoteName: " + names[i] + "  NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i] + "  NoteLength: " + lengths[i] + "  NoteOnSpeed: " + speedsOn[i] + "  NoteOffSpeed: " + speedsOff[i]);
+            Debug.Log("NoteName: " + names[i] + "  NoteNumber: " + numbers[i] + "  NoteOnTime: " + timesOn[i] + "  NoteOffTime: " + timesOff[i] + "  NoteLength: " + lengths[i] + "  NoteOnVelocity: " + velocitiesOn[i] + "  NoteOffVelocity: " + velocitiesOff[i]);
         }
         
     }

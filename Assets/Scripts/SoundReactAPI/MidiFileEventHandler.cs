@@ -34,24 +34,24 @@ public class MidiFileEventHandler
     }
 
     /// <summary>
-    /// Returns NoteOnSpeeds event list of the specified <paramref name="midiFile"/>
+    /// Returns NoteOnVelocities event list of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public static MIDIEvent<int> Event_NoteOnSpeeds(Object midiFile)
+    public static MIDIEvent<int> Event_NoteOnVelocities(Object midiFile)
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNoteOnSpeeds(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNoteOnVelocities(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
     /// <summary>
-    /// Returns NoteOffSpeeds event list of the specified <paramref name="midiFile"/>
+    /// Returns NoteOffVelocities event list of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public static MIDIEvent<int> Event_NoteOffSpeeds(Object midiFile)
+    public static MIDIEvent<int> Event_NoteOffVelocities(Object midiFile)
     {
-        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNoteOffSpeeds(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<int> midiEvent = new MIDIEvent<int>(MidiFileInput.MidiInputNoteOffVelocities(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
@@ -115,24 +115,24 @@ public class MidiFileEventHandler
     }
 
     /// <summary>
-    /// Returns ChordOnSpeeds event list of the specified <paramref name="midiFile"/>
+    /// Returns ChordOnVelocities event list of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public static MIDIEvent<int[]> Event_ChordOnSpeeds(Object midiFile)
+    public static MIDIEvent<int[]> Event_ChordOnVelocities(Object midiFile)
     {
-        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiFileInput.MidiInputChordsNoteOnSpeeds(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiFileInput.MidiInputChordsNoteOnVelocities(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 
     /// <summary>
-    /// Returns ChordOffSpeeds event list of the specified <paramref name="midiFile"/>
+    /// Returns ChordOffVelocities event list of the specified <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public static MIDIEvent<int[]> Event_ChordOffSpeeds(Object midiFile)
+    public static MIDIEvent<int[]> Event_ChordOffVelocities(Object midiFile)
     {
-        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiFileInput.MidiInputChordsNoteOffSpeeds(AssetDatabase.GetAssetPath(midiFile)));
+        MIDIEvent<int[]> midiEvent = new MIDIEvent<int[]>(MidiFileInput.MidiInputChordsNoteOffVelocities(AssetDatabase.GetAssetPath(midiFile)));
         return midiEvent;
     }
 

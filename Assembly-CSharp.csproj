@@ -535,7 +535,6 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiFileInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiPlayEventHandler.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiPlayInput.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\SoundReactEventHandler.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\UseEventsExample.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <None Include="Assets\MIDI\Gurenge.txt" />

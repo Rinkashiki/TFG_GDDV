@@ -69,14 +69,14 @@ public class MidiFileInput
     }
 
     /// <summary>
-    /// Returns all note on speeds of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all note on velocities of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<int> MidiInputNoteOnSpeeds(string midiFilePath)
+    public static List<int> MidiInputNoteOnVelocities(string midiFilePath)
     {
-        // Create NoteOnSpeeds list
-        List<int> NoteOnSpeeds = new List<int>();
+        // Create NoteOnVelocities list
+        List<int> NoteOnVelocities = new List<int>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -87,21 +87,21 @@ public class MidiFileInput
         // Extract note on velocities from notes list
         foreach (Note note in notes)
         {
-            NoteOnSpeeds.Add(note.Velocity);
+            NoteOnVelocities.Add(note.Velocity);
         }
 
-        return NoteOnSpeeds;
+        return NoteOnVelocities;
     }
 
     /// <summary>
-    /// Returns all note off speed of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all note off velocities of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<int> MidiInputNoteOffSpeeds(string midiFilePath)
+    public static List<int> MidiInputNoteOffVelocities(string midiFilePath)
     {
-        // Create NoteOffSpeeds list
-        List<int> NoteOffSpeeds = new List<int>();
+        // Create NoteOffVelocities list
+        List<int> NoteOffVelocities = new List<int>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -112,10 +112,10 @@ public class MidiFileInput
         // Extract note off velocities from notes list
         foreach (Note note in notes)
         {
-            NoteOffSpeeds.Add(note.OffVelocity);
+            NoteOffVelocities.Add(note.OffVelocity);
         }
 
-        return NoteOffSpeeds;
+        return NoteOffVelocities;
     }
 
     /// <summary>
@@ -260,14 +260,14 @@ public class MidiFileInput
     }
 
     /// <summary>
-    /// Returns all chords note on speeds of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all chords note on velocities of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<int[]> MidiInputChordsNoteOnSpeeds(string midiFilePath)
+    public static List<int[]> MidiInputChordsNoteOnVelocities(string midiFilePath)
     {
-        // Create ChordsNoteOnSpeed list
-        List<int[]> ChordsNoteOnSpeed = new List<int[]>();
+        // Create ChordsNoteOnVelocities list
+        List<int[]> ChordsNoteOnVelocities = new List<int[]>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -286,21 +286,21 @@ public class MidiFileInput
                 OnSpeeds[i] = chordNotes[i].Velocity;
             }
 
-            ChordsNoteOnSpeed.Add(OnSpeeds);
+            ChordsNoteOnVelocities.Add(OnSpeeds);
         }
 
-        return ChordsNoteOnSpeed;
+        return ChordsNoteOnVelocities;
     }
 
     /// <summary>
-    /// Returns all chords note off speeds of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all chords note off velocities of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<int[]> MidiInputChordsNoteOffSpeeds(string midiFilePath)
+    public static List<int[]> MidiInputChordsNoteOffVelocities(string midiFilePath)
     {
-        // Create ChordsNoteOffSpeed list
-        List<int[]> ChordsNoteOffSpeed = new List<int[]>();
+        // Create ChordsNoteOffVelocities list
+        List<int[]> ChordsNoteOffVelocities = new List<int[]>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -319,10 +319,10 @@ public class MidiFileInput
                 OffSpeeds[i] = chordNotes[i].OffVelocity;
             }
 
-            ChordsNoteOffSpeed.Add(OffSpeeds);
+            ChordsNoteOffVelocities.Add(OffSpeeds);
         }
 
-        return ChordsNoteOffSpeed;
+        return ChordsNoteOffVelocities;
     }
 
     /// <summary>
