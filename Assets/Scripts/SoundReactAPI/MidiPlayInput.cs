@@ -5,7 +5,6 @@ using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 #endregion
 
@@ -23,22 +22,14 @@ public class MidiPlayInput
     private static Playback midiPlayback;
 
     // Notes collections variables
-    private static List<string> notesName = new List<string>();
-    private static List<int> notesNumber = new List<int>();
-    private static List<int> noteOnVelocities = new List<int>();
-    private static List<int> noteOffVelocities = new List<int>();
+    private static List<MIDINoteEvent> noteOnEvents = new List<MIDINoteEvent>();
+    private static List<MIDINoteEvent> noteOffEvents = new List<MIDINoteEvent>();
     private static List<float> noteOnTimes = new List<float>();
-    private static List<float> noteOffTimes = new List<float>();
-    private static List<float> notesLength = new List<float>();
-    
+
     // Chords collection variables
-    private static List<string> chordsName = new List<string>();
-    private static List<int[]> chordsNumber = new List<int[]>();
-    private static List<int[]> chordOnVelocities = new List<int[]>();
-    private static List<int[]> chordOffVelocities = new List<int[]>();
+    private static List<MIDIChordEvent> chordOnEvents = new List<MIDIChordEvent>();
+    private static List<MIDIChordEvent> chordOffEvents = new List<MIDIChordEvent>();
     private static List<float> chordOnTimes = new List<float>();
-    private static List<float> chordOffTimes = new List<float>();
-    private static List<float> chordsLength = new List<float>();
 
     #endregion
 
@@ -50,24 +41,26 @@ public class MidiPlayInput
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath)
     {
-        // Extract Chord Events from MIDI file
-        notesName = MidiFileInput.MidiInputNotesName(midiFilePath);
-        notesNumber = MidiFileInput.MidiInputNotesNumber(midiFilePath);
-        noteOnVelocities = MidiFileInput.MidiInputNoteOnVelocities(midiFilePath);
-        noteOffVelocities = MidiFileInput.MidiInputNoteOffVelocities(midiFilePath);
-        noteOnTimes = MidiFileInput.MidiInputNoteOnTimes(midiFilePath);
-        noteOffTimes = MidiFileInput.MidiInputNoteOffTimes(midiFilePath);
-        notesLength = MidiFileInput.MidiInputNotesLength(midiFilePath);
+        // Extract Notes Events from MIDI file
+        noteOnEvents = MidiFileInput.MidiInputNoteOnEvents(midiFilePath);
+        noteOffEvents = MidiFileInput.MidiInputNoteOffEvents(midiFilePath);
 
-        // Extract Note Events from MIDI file
-        chordsName = MidiFileInput.MidiInputChordsNotesName(midiFilePath);
-        chordsNumber = MidiFileInput.MidiInputChordsNotesNumber(midiFilePath);
-        chordOnVelocities = MidiFileInput.MidiInputChordsNoteOnVelocities(midiFilePath);
-        chordOffVelocities = MidiFileInput.MidiInputChordsNoteOffVelocities(midiFilePath);
-        chordOnTimes = MidiFileInput.MidiInputChordOnTimes(midiFilePath);
-        chordOffTimes = MidiFileInput.MidiInputChordOffTimes(midiFilePath);
-        chordsLength = MidiFileInput.MidiInputChordsLength(midiFilePath);
-        
+        // Fill noteOnTimes list
+        foreach (MIDINoteEvent noteEvent in noteOnEvents)
+        {
+            noteOnTimes.Add(noteEvent.GetNoteTime());
+        }
+
+        // Extract Chords Events from MIDI file
+        chordOnEvents = MidiFileInput.MidiInputChordOnEvents(midiFilePath);
+        chordOffEvents = MidiFileInput.MidiInputChordOffEvents(midiFilePath);
+
+        // Fill noteOnTimes list
+        foreach (MIDIChordEvent chordEvent in chordOnEvents)
+        {
+            chordOnTimes.Add(chordEvent.GetChordTime());
+        }
+
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
@@ -121,87 +114,29 @@ public class MidiPlayInput
     #region MIDI_Play_Notes_Input
 
     /// <summary>
-    /// Returns the current played note name
+    /// Return the current played Note On event
     /// </summary>
     /// <returns></returns>
-    public static string MidiPlayNoteName()
+    public static MIDINoteEvent MidiPlayNoteOnEvent()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
 
-        return notesName[index];
+        return noteOnEvents[index];
+
     }
 
     /// <summary>
-    /// Returns the current played note number
+    /// Return the current played Note Off event
     /// </summary>
     /// <returns></returns>
-    public static int MidiPlayNoteNumber()
+    public static MIDINoteEvent MidiPlayNoteOffEvent()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
 
-        return notesNumber[index];
-    }
+        return noteOffEvents[index];
 
-    /// <summary>
-    /// Returns the current played note on velocity
-    /// </summary>
-    /// <returns></returns>
-    public static int MidiPlayNoteOnVelocity()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOnVelocities[index];
-    }
-
-    /// <summary>
-    /// Returns the current played note off velocity
-    /// </summary>
-    /// <returns></returns>
-    public static int MidiPlayNoteOffVelocity()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOffVelocities[index];
-    }
-
-    /// <summary>
-    /// Returns the current played note on time
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayNoteOnTime()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOnTimes[index];
-    }
-
-    /// <summary>
-    /// Returns the current played note off time
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayNoteOffTime()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOffTimes[index];
-    }
-
-    /// <summary>
-    /// Returns the current played note length
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayNoteLength()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return notesLength[index];
     }
 
 
@@ -210,87 +145,29 @@ public class MidiPlayInput
     #region MIDI_Play_Chords_Input
 
     /// <summary>
-    /// Returns the current played chord notes name
+    /// Return the current played Chord On event
     /// </summary>
     /// <returns></returns>
-    public static string MidiPlayChordNotesName()
+    public static MIDIChordEvent MidiPlayChordOnEvent()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
 
-        return chordsName[index];
+        return chordOnEvents[index];
+
     }
 
     /// <summary>
-    /// Returns the current played chord notes number
+    /// Return the current played Chord Off event
     /// </summary>
     /// <returns></returns>
-    public static int[] MidiPlayChordNotesNumber()
+    public static MIDIChordEvent MidiPlayChordOffEvent()
     {
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
 
-        return chordsNumber[index];
-    }
+        return chordOffEvents[index];
 
-    /// <summary>
-    /// Returns the current played chord note on velocities
-    /// </summary>
-    /// <returns></returns>
-    public static int[] MidiPlayChordOnVelocity()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOnVelocities[index];
-    }
-
-    /// <summary>
-    /// Returns the current played chord note off velocities
-    /// </summary>
-    /// <returns></returns>
-    public static int[] MidiPlayChordOffVelocity()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOnVelocities[index];
-    }
-
-    /// <summary>
-    /// Returns the current played chord on time
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayChordOnTime()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOnTimes[index];
-    }
-
-    /// <summary>
-    /// Returns the current played chord off time
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayChordOffTime()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOffTimes[index];
-    }
-
-    /// <summary>
-    /// Returns the current played chord length
-    /// </summary>
-    /// <returns></returns>
-    public static float MidiPlayChordLength()
-    {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordsLength[index];
     }
 
     #endregion

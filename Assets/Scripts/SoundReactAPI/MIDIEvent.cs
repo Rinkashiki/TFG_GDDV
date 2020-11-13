@@ -1,45 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MIDIEvent<T>
+﻿public abstract class MIDIEvent
 {
     #region Class_Variables
 
-    private List<T> listEvent;
-    private T valueEvent;
+    public enum Type {NoteOn, NoteOff, ChordOn, ChordOff};
 
     #endregion
 
-    #region Constructors
+    #region Other_Utility_Functions
 
-    // MIDI List Event Constructor
-    public MIDIEvent(List<T> listEvent)
-    {
-        this.listEvent = listEvent;
-    }
-
-    // MIDI Value Event Constructor
-    public MIDIEvent(T valueEvent)
-    {
-        this.valueEvent = valueEvent;
-    }
-
-    #endregion
-
-    #region MIDI_Events_Getters
-
-    // MIDI List Event Getter
-    public List<T> GetListEvent()
-    {
-        return listEvent;
-    }
-
-    // MIDI Value Event Getter
-    public T GetValueEvent()
-    {
-        return valueEvent;
-    }
+    public abstract void PrintEvent();
 
     #endregion
 }

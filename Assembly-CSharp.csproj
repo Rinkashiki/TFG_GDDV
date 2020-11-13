@@ -530,7 +530,9 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\ChordsRandomizerUtilities.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\NotesRandomizerUtilities.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Tools\Randomizer\Utilities\TimedEventsRandomizerUtilities.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MIDIChordEvent.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MIDIEvent.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MIDINoteEvent.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiFileEventHandler.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiFileInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiPlayEventHandler.cs" />

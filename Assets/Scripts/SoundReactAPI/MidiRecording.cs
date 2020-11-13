@@ -14,8 +14,11 @@ public class MidiRecording : MonoBehaviour
     private static Recording recording;
     private DevicesConnector connector;
 
-    private MidiEvent currentNoteOnEvent;
-    private MidiEvent currentNoteOffEvent;
+    private MIDINoteEvent currentNoteOnEvent;
+    private MIDINoteEvent currentNoteOffEvent;
+
+    public static bool showNoteOnEvents = true;
+    public static bool showNoteOffEvents = true;
 
     #region Units
 
@@ -73,36 +76,56 @@ public class MidiRecording : MonoBehaviour
     private static void OnEventReceived(object sender, MidiEventReceivedEventArgs e)
     {
         var midiDevice = (MidiDevice)sender;
-        if (e.Event.EventType.Equals(MidiEventType.NoteOn))
+        if (showNoteOnEvents && e.Event.EventType.Equals(MidiEventType.NoteOn))
         {
-            float time = recording.GetDuration<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
             string inputEvent = e.Event.ToString();
-            int length = (inputEvent.IndexOf(",")) - (inputEvent.IndexOf("(") + 1);
-            int noteNumber = int.Parse(inputEvent.Substring(inputEvent.IndexOf("(") + 1, length));
-            length = (inputEvent.IndexOf(")")) - (inputEvent.IndexOf(",") + 2);
-            int noteVelocity = int.Parse(inputEvent.Substring(inputEvent.IndexOf(",") + 2, length));
-            Debug.Log($"Note On event received from '{midiDevice.Name}' at {time}: Note Number : {noteNumber}  Note Velocity : {noteVelocity}");
+            MIDINoteEvent receivedNoteEvent = buildEvent(e.Event.ToString());
+            Debug.Log($"Note On event received from '{midiDevice.Name}' at {receivedNoteEvent.GetNoteTime()}: Note Number: {receivedNoteEvent.GetNoteNumber()}  Note Velocity: {receivedNoteEvent.GetNoteVelocity()}");
         }
-        else if (e.Event.EventType.Equals(MidiEventType.NoteOff))
+        else if (showNoteOffEvents && e.Event.EventType.Equals(MidiEventType.NoteOff))
         {
-            float time = recording.GetDuration<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
             string inputEvent = e.Event.ToString();
-            int length = (inputEvent.IndexOf(",")) - (inputEvent.IndexOf("(") + 1);
-            int noteNumber = int.Parse(inputEvent.Substring(inputEvent.IndexOf("(") + 1, length));
-            length = (inputEvent.IndexOf(")")) - (inputEvent.IndexOf(",") + 2);
-            int noteVelocity = int.Parse(inputEvent.Substring(inputEvent.IndexOf(",") + 2, length));
-            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {time}: Note Number : {noteNumber}  Note Velocity : {noteVelocity}");
+            MIDINoteEvent receivedNoteEvent = buildEvent(e.Event.ToString());
+            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {receivedNoteEvent.GetNoteTime()}: Note Number: {receivedNoteEvent.GetNoteNumber()}  Note Velocity: {receivedNoteEvent.GetNoteVelocity()}");
         }
     }
 
-    public MidiEvent getCurrentNoteOnEvent()
+    public MIDINoteEvent getCurrentNoteOnEvent()
     {
         return currentNoteOnEvent;
     }
 
-    public MidiEvent getCurrentNoteOffEvent()
+    public MIDINoteEvent getCurrentNoteOffEvent()
     {
         return currentNoteOffEvent;
+    }
+
+    private static MIDINoteEvent buildEvent(string inputEvent)
+    {
+        MIDINoteEvent noteEvent;
+
+        // Note Time
+        float time = recording.GetDuration<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
+
+        // Note Number
+        int length = (inputEvent.IndexOf(",")) - (inputEvent.IndexOf("(") + 1);
+        int noteNumber = int.Parse(inputEvent.Substring(inputEvent.IndexOf("(") + 1, length));
+
+        //Note Velocity
+        length = (inputEvent.IndexOf(")")) - (inputEvent.IndexOf(",") + 2);
+        int noteVelocity = int.Parse(inputEvent.Substring(inputEvent.IndexOf(",") + 2, length));
+
+        //Create the MIDI Event
+        if (inputEvent.Contains("On"))
+        {
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOn, noteNumber.ToString(), noteNumber, noteVelocity, time, 0);
+        }
+        else
+        {
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOff, noteNumber.ToString(), noteNumber, noteVelocity, time, 0);
+        }
+
+        return noteEvent;
     }
 
 }

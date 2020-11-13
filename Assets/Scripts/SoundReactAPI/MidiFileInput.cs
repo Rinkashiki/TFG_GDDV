@@ -3,7 +3,6 @@
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 #endregion
@@ -19,114 +18,14 @@ public class MidiFileInput
     #region MIDI_Notes_Inputs
 
     /// <summary>
-    /// Returns all notes name of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Note On events of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<string> MidiInputNotesName(string midiFilePath)
+    public static List<MIDINoteEvent> MidiInputNoteOnEvents(string midiFilePath)
     {
-        // Create NotesNumber list
-        List<string> NotesName = new List<string>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract notes from .mid file
-        List<Note> notes = midiFile.GetNotes().ToList();
-
-        // Extract notes name from notes list
-        foreach (Note note in notes)
-        {
-            NotesName.Add(note.NoteName.ToString() + note.Octave);
-        }
-
-        return NotesName;
-    }
-
-    /// <summary>
-    /// Returns all notes number of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int> MidiInputNotesNumber(string midiFilePath)
-    {
-        // Create NotesNumber list
-        List<int> NotesNumber = new List<int>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract notes from .mid file
-        List<Note> notes = midiFile.GetNotes().ToList();
-
-        // Extract notes number from notes list
-        foreach (Note note in notes)
-        {
-            NotesNumber.Add(note.NoteNumber);
-        }
-
-        return NotesNumber;
-    }
-
-    /// <summary>
-    /// Returns all note on velocities of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int> MidiInputNoteOnVelocities(string midiFilePath)
-    {
-        // Create NoteOnVelocities list
-        List<int> NoteOnVelocities = new List<int>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract notes from .mid file
-        List<Note> notes = midiFile.GetNotes().ToList();
-
-        // Extract note on velocities from notes list
-        foreach (Note note in notes)
-        {
-            NoteOnVelocities.Add(note.Velocity);
-        }
-
-        return NoteOnVelocities;
-    }
-
-    /// <summary>
-    /// Returns all note off velocities of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int> MidiInputNoteOffVelocities(string midiFilePath)
-    {
-        // Create NoteOffVelocities list
-        List<int> NoteOffVelocities = new List<int>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract notes from .mid file
-        List<Note> notes = midiFile.GetNotes().ToList();
-
-        // Extract note off velocities from notes list
-        foreach (Note note in notes)
-        {
-            NoteOffVelocities.Add(note.OffVelocity);
-        }
-
-        return NoteOffVelocities;
-    }
-
-    /// <summary>
-    /// Returns all noteOn times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<float> MidiInputNoteOnTimes(string midiFilePath)
-    {
-        // Create NotesTime list
-        List<float> NoteOnTimes = new List<float>();
+        // Create NoteOnEvents list
+        List<MIDINoteEvent> NoteOnEvents = new List<MIDINoteEvent>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -135,24 +34,36 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Extract noteOn times from notes list
+        // Declare Note properties
+        string NoteName;
+        int NoteNumber;
+        int NoteVelocity;
+        float NoteTime;
+        float NoteLength;
+
+        // Extract notes properties from notes list
         foreach (Note note in notes)
         {
-            NoteOnTimes.Add(note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
+            NoteName = note.NoteName.ToString() + note.Octave;
+            NoteNumber = note.NoteNumber;
+            NoteVelocity = note.Velocity;
+            NoteTime = note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            NoteOnEvents.Add(new MIDINoteEvent(MIDIEvent.Type.NoteOn, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
         }
 
-        return NoteOnTimes;
+        return NoteOnEvents;
     }
 
     /// <summary>
-    /// Returns all noteOff times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Note Off events of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<float> MidiInputNoteOffTimes(string midiFilePath)
+    public static List<MIDINoteEvent> MidiInputNoteOffEvents(string midiFilePath)
     {
-        // Create NotesTime list
-        List<float> NoteOffTimes = new List<float>();
+        // Create NoteOffEvents list
+        List<MIDINoteEvent> NoteOffEvents = new List<MIDINoteEvent>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
@@ -161,40 +72,25 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Extract noteOff times from notes list
+        // Declare Note properties
+        string NoteName;
+        int NoteNumber;
+        int NoteVelocity;
+        float NoteTime;
+        float NoteLength;
+
+        // Extract notes properties from notes list
         foreach (Note note in notes)
         {
-            NoteOffTimes.Add(note.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
+            NoteName = note.NoteName.ToString() + note.Octave;
+            NoteNumber = note.NoteNumber;
+            NoteVelocity = note.OffVelocity;
+            NoteTime = note.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            NoteOffEvents.Add(new MIDINoteEvent(MIDIEvent.Type.NoteOff, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
         }
 
-        return NoteOffTimes;
-
-    }
-
-    /// <summary>
-    /// Returns all notes length in seconds of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<float> MidiInputNotesLength(string midiFilePath)
-    {
-        // Create NotesLength list
-        List<float> NotesLength = new List<float>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract notes from .mid file
-        TempoMap tempo = midiFile.GetTempoMap();
-        List<Note> notes = midiFile.GetNotes().ToList();
-
-        // Extract notes length from notes list
-        foreach (Note note in notes)
-        {
-            NotesLength.Add(note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
-        }
-
-        return NotesLength;
+        return NoteOffEvents;
     }
 
     #endregion
@@ -202,205 +98,101 @@ public class MidiFileInput
     #region MIDI_Chords_Inputs
 
     /// <summary>
-    /// Returns all chords notes names of every chord in MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Chord On events of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<string> MidiInputChordsNotesName(string midiFilePath)
+    public static List<MIDIChordEvent> MidiInputChordOnEvents(string midiFilePath)
     {
-        // Create ChordsNames list
-        List<string> ChordsNames = new List<string>();
+        // Create ChordOnEvents list
+        List<MIDIChordEvent> ChordOnEvents = new List<MIDIChordEvent>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Extract chords from .mid file
-        List<Chord> chordsList = midiFile.GetChords().ToList();
+        // Extract notes from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Chord> chords = midiFile.GetChords().ToList();
 
-        // Extract chords notes name from chords list
-        foreach (Chord chord in chordsList)
+        // Declare Note properties
+        string ChordNotesNames;
+        int[] ChordNotesNumbers;
+        int[] ChordNotesVelocities;
+        float ChordTime;
+        float ChordLength;
+
+        // Extract chords properties from chords list
+        foreach (Chord chord in chords)
         {
-            ChordsNames.Add(chord.ToString());
-        }
-
-        return ChordsNames;
-    }
-
-    /// <summary>
-    /// Returns all chords notes number of every chord in MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int[]> MidiInputChordsNotesNumber(string midiFilePath)
-    {
-        // Create ChordsNumbers list
-        List<int[]> ChordsNumbers = new List<int[]>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Copy .mid file chords into a list
-        List<Chord> chordsList = midiFile.GetChords().ToList();
-
-        // Extract chords notes number from chords list
-        foreach (Chord chord in chordsList)
-        {
+            // Extract notes numbers and velocities
             Note[] chordNotes = chord.Notes.ToArray();
             int[] notes = new int[chord.Notes.Count()];
+            int[] velocities = new int[chord.Notes.Count()];
 
             for (int i = 0; i < chord.Notes.Count(); i++)
             {
                 notes[i] = chordNotes[i].NoteNumber;
+                velocities[i] = chordNotes[i].Velocity;
             }
 
-            ChordsNumbers.Add(notes);
+            ChordNotesNames = chord.ToString();
+            ChordNotesNumbers = notes;
+            ChordNotesVelocities = velocities;
+            ChordTime = chord.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            ChordLength = chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            ChordOnEvents.Add(new MIDIChordEvent(MIDIEvent.Type.ChordOn, ChordNotesNames, ChordNotesNumbers, ChordNotesVelocities, ChordTime, ChordLength));
         }
 
-        return ChordsNumbers;
+        return ChordOnEvents;
     }
 
     /// <summary>
-    /// Returns all chords note on velocities of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Chord On events of MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<int[]> MidiInputChordsNoteOnVelocities(string midiFilePath)
+    public static List<MIDIChordEvent> MidiInputChordOffEvents(string midiFilePath)
     {
-        // Create ChordsNoteOnVelocities list
-        List<int[]> ChordsNoteOnVelocities = new List<int[]>();
+        // Create ChordOffEvents list
+        List<MIDIChordEvent> ChordOffEvents = new List<MIDIChordEvent>();
 
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Copy .mid file chords into a list
-        List<Chord> chordsList = midiFile.GetChords().ToList();
+        // Extract notes from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Chord> chords = midiFile.GetChords().ToList();
 
-        // Extract chords notes number from chords list
-        foreach (Chord chord in chordsList)
+        // Declare Note properties
+        string ChordNotesNames;
+        int[] ChordNotesNumbers;
+        int[] ChordNotesVelocities;
+        float ChordTime;
+        float ChordLength;
+
+        // Extract chords properties from chords list
+        foreach (Chord chord in chords)
         {
+            // Extract notes numbers and velocities
             Note[] chordNotes = chord.Notes.ToArray();
-            int[] OnSpeeds = new int[chord.Notes.Count()];
+            int[] notes = new int[chord.Notes.Count()];
+            int[] velocities = new int[chord.Notes.Count()];
 
             for (int i = 0; i < chord.Notes.Count(); i++)
             {
-                OnSpeeds[i] = chordNotes[i].Velocity;
+                notes[i] = chordNotes[i].NoteNumber;
+                velocities[i] = chordNotes[i].OffVelocity;
             }
 
-            ChordsNoteOnVelocities.Add(OnSpeeds);
+            ChordNotesNames = chord.ToString();
+            ChordNotesNumbers = notes;
+            ChordNotesVelocities = velocities;
+            ChordTime = chord.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            ChordLength = chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+            ChordOffEvents.Add(new MIDIChordEvent(MIDIEvent.Type.ChordOff, ChordNotesNames, ChordNotesNumbers, ChordNotesVelocities, ChordTime, ChordLength));
         }
 
-        return ChordsNoteOnVelocities;
-    }
-
-    /// <summary>
-    /// Returns all chords note off velocities of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<int[]> MidiInputChordsNoteOffVelocities(string midiFilePath)
-    {
-        // Create ChordsNoteOffVelocities list
-        List<int[]> ChordsNoteOffVelocities = new List<int[]>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Copy .mid file chords into a list
-        List<Chord> chordsList = midiFile.GetChords().ToList();
-
-        // Extract chords notes number from chords list
-        foreach (Chord chord in chordsList)
-        {
-            Note[] chordNotes = chord.Notes.ToArray();
-            int[] OffSpeeds = new int[chord.Notes.Count()];
-
-            for (int i = 0; i < chord.Notes.Count(); i++)
-            {
-                OffSpeeds[i] = chordNotes[i].OffVelocity;
-            }
-
-            ChordsNoteOffVelocities.Add(OffSpeeds);
-        }
-
-        return ChordsNoteOffVelocities;
-    }
-
-    /// <summary>
-    /// Returns all chordOn times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<float> MidiInputChordOnTimes(string midiFilePath)
-    {
-        // Create ChordOnTimes list
-        List<float> ChordOnTimes = new List<float>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract chords from .mid file
-        TempoMap tempo = midiFile.GetTempoMap();
-        List<Chord> chordsList = midiFile.GetChords().ToList();
-
-        // Extract chords note on times from chords list
-        foreach (Chord chord in chordsList)
-        {
-            ChordOnTimes.Add(chord.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
-        }
-
-        return ChordOnTimes;
-    }
-
-    /// <summary>
-    /// Returns all chordOff times in seconds of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<float> MidiInputChordOffTimes(string midiFilePath)
-    {
-        // Create ChordOffTimes list
-        List<float> ChordOffTimes = new List<float>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract chords from .mid file
-        TempoMap tempo = midiFile.GetTempoMap();
-        List<Chord> chordsList = midiFile.GetChords().ToList();
-
-        // Extract chords note off times from chords list
-        foreach (Chord chord in chordsList)
-        {
-            ChordOffTimes.Add(chord.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
-        }
-
-        return ChordOffTimes;
-    }
-
-    /// <summary>
-    /// Returns all chords length in seconds of MIDI file stored in <paramref name="midiFilePath"/>
-    /// </summary>
-    /// <param name="midiFilePath"></param>
-    /// <returns></returns>
-    public static List<float> MidiInputChordsLength(string midiFilePath)
-    {
-        // Create ChordsLength list
-        List<float> ChordsLength = new List<float>();
-
-        // Read MIDI file
-        var midiFile = MidiFile.Read(midiFilePath);
-
-        // Extract chords from .mid file
-        TempoMap tempo = midiFile.GetTempoMap();
-        List<Chord> chordsList = midiFile.GetChords().ToList();
-
-        // Extract chords length from chords list
-        foreach (Chord chord in chordsList)
-        {
-            ChordsLength.Add(chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec);
-        }
-
-        return ChordsLength;
+        return ChordOffEvents;
     }
 
     #endregion
