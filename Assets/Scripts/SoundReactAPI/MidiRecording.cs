@@ -1,24 +1,29 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿#region Dependencies
+
+using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MidiRecording : MonoBehaviour
+#endregion
+
+public class MidiRecording
 {
-    private InputDevice inputDevice;
-    private OutputDevice outputDevice;
+    #region MIDI_Recording_Variables
+
+    private static InputDevice inputDevice;
+    private static OutputDevice outputDevice;
 
     private static Recording recording;
-    private DevicesConnector connector;
+    private static DevicesConnector connector;
 
-    private MIDINoteEvent currentNoteOnEvent;
-    private MIDINoteEvent currentNoteOffEvent;
+    private static MIDINoteEvent currentNoteOnEvent;
+    private static MIDINoteEvent currentNoteOffEvent;
 
-    public static bool showNoteOnEvents = true;
-    public static bool showNoteOffEvents = true;
+    private static bool showNoteOnEvents;
+    private static bool showNoteOffEvents;
+
+    #endregion
 
     #region Units
 
@@ -26,43 +31,25 @@ public class MidiRecording : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("Pulsa A para empezar a detectar entrada MIDI");
-        RecordingSetUp();
-    }
+    #region MIDI_Recording_Actions
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            StartRecording();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            StopRecording();
-        }
-    }
-
-    private void RecordingSetUp()
+    public static void RecordingSetUp()
     {
         inputDevice = InputDevice.GetById(0);
         outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
         recording = new Recording(TempoMap.Default, inputDevice);
     }
 
-    private void StartRecording()
+    public static void StartRecording()
     {
         connector = inputDevice.Connect(outputDevice);
         inputDevice.EventReceived += OnEventReceived;
         inputDevice.StartEventsListening();
         recording.Start();
-        Debug.Log("Pulsa S para dejar de detectar entrada MIDI");
+        Debug.Log("Detectando Entrada MIDI");
     }
 
-    private void StopRecording()
+    public static void StopRecording()
     {
         recording.Stop();
         recording.Dispose();
@@ -70,6 +57,8 @@ public class MidiRecording : MonoBehaviour
         connector.Disconnect();
         Debug.Log("Se ha dejado de detectar entrada MIDI");
     }
+
+    #endregion
 
     /*Función a modificar. Declarar dos variables, currentNoteOnEvent y currentNoteOffEvent. Cuando se procese un evento de alguno de esos tipos,
     almaceno en la variable correspondiente dicho evento. Al proporcionarse getters, podré accederlas desde una clase superior*/
@@ -79,26 +68,42 @@ public class MidiRecording : MonoBehaviour
         if (showNoteOnEvents && e.Event.EventType.Equals(MidiEventType.NoteOn))
         {
             string inputEvent = e.Event.ToString();
-            MIDINoteEvent receivedNoteEvent = buildEvent(e.Event.ToString());
-            Debug.Log($"Note On event received from '{midiDevice.Name}' at {receivedNoteEvent.GetNoteTime()}: Note Number: {receivedNoteEvent.GetNoteNumber()}  Note Velocity: {receivedNoteEvent.GetNoteVelocity()}");
+            currentNoteOnEvent = buildEvent(e.Event.ToString());
+            Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent.GetNoteTime()}: Note Number: {currentNoteOnEvent.GetNoteNumber()}  Note Velocity: {currentNoteOnEvent.GetNoteVelocity()}");
         }
         else if (showNoteOffEvents && e.Event.EventType.Equals(MidiEventType.NoteOff))
         {
             string inputEvent = e.Event.ToString();
-            MIDINoteEvent receivedNoteEvent = buildEvent(e.Event.ToString());
-            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {receivedNoteEvent.GetNoteTime()}: Note Number: {receivedNoteEvent.GetNoteNumber()}  Note Velocity: {receivedNoteEvent.GetNoteVelocity()}");
+            currentNoteOffEvent = buildEvent(e.Event.ToString());
+            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
         }
     }
 
-    public MIDINoteEvent getCurrentNoteOnEvent()
+    #region MIDI_Recording_Getters
+
+    public static MIDINoteEvent GetCurrentNoteOnEvent()
     {
         return currentNoteOnEvent;
     }
 
-    public MIDINoteEvent getCurrentNoteOffEvent()
+    public static MIDINoteEvent GetCurrentNoteOffEvent()
     {
         return currentNoteOffEvent;
     }
+
+    public static void ShowNoteOnEvents(bool show)
+    {
+        showNoteOnEvents = show;
+    }
+
+    public static void ShowNoteOffEvents(bool show)
+    {
+        showNoteOffEvents = show;
+    }
+
+    #endregion
+
+    #region Other_Utility_Functions
 
     private static MIDINoteEvent buildEvent(string inputEvent)
     {
@@ -127,5 +132,7 @@ public class MidiRecording : MonoBehaviour
 
         return noteEvent;
     }
+
+    #endregion
 
 }
