@@ -1,8 +1,10 @@
 ﻿#region Dependencies
 
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 
 #endregion
@@ -69,13 +71,18 @@ public class MidiRecording
         {
             string inputEvent = e.Event.ToString();
             currentNoteOnEvent = buildEvent(e.Event.ToString());
-            Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent.GetNoteTime()}: Note Number: {currentNoteOnEvent.GetNoteNumber()}  Note Velocity: {currentNoteOnEvent.GetNoteVelocity()}");
+            Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOnEvent.GetNoteNumber()}  Note Velocity: {currentNoteOnEvent.GetNoteVelocity()}");
         }
         else if (showNoteOffEvents && e.Event.EventType.Equals(MidiEventType.NoteOff))
         {
             string inputEvent = e.Event.ToString();
             currentNoteOffEvent = buildEvent(e.Event.ToString());
-            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
+            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
+        }
+        else if (e.Event.EventType.Equals(MidiEventType.PitchBend))
+        {
+            float time = recording.GetDuration<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
+            Debug.Log($"Event received from '{midiDevice.Name}' at {time}: {e.Event.ToString()}");
         }
     }
 
@@ -90,6 +97,10 @@ public class MidiRecording
     {
         return currentNoteOffEvent;
     }
+
+    #endregion
+
+    #region MIDI_Recording_Shows
 
     public static void ShowNoteOnEvents(bool show)
     {
@@ -114,7 +125,12 @@ public class MidiRecording
 
         // Note Number
         int length = (inputEvent.IndexOf(",")) - (inputEvent.IndexOf("(") + 1);
-        int noteNumber = int.Parse(inputEvent.Substring(inputEvent.IndexOf("(") + 1, length));
+        string noteText = inputEvent.Substring(inputEvent.IndexOf("(") + 1, length);
+        int noteNumber = int.Parse(noteText);
+
+        // Note Name
+        string noteName = NoteUtilities.GetNoteName(SevenBitNumber.Parse(noteText)).ToString() + NoteUtilities.GetNoteOctave(SevenBitNumber.Parse(noteText));
+        noteName = noteName.Contains("Sharp") ? noteName.Replace("Sharp", "#") : noteName;
 
         //Note Velocity
         length = (inputEvent.IndexOf(")")) - (inputEvent.IndexOf(",") + 2);
@@ -123,11 +139,11 @@ public class MidiRecording
         //Create the MIDI Event
         if (inputEvent.Contains("On"))
         {
-            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOn, noteNumber.ToString(), noteNumber, noteVelocity, time, 0);
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOn, noteName, noteNumber, noteVelocity, time);
         }
         else
         {
-            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOff, noteNumber.ToString(), noteNumber, noteVelocity, time, 0);
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOff, noteName, noteNumber, noteVelocity, time);
         }
 
         return noteEvent;

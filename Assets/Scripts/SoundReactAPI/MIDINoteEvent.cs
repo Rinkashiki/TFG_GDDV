@@ -14,7 +14,7 @@ public class MIDINoteEvent : MIDIEvent
 
     #endregion
 
-    #region Note_Event_Constructor
+    #region Note_Event_Constructors
 
     public MIDINoteEvent(Type type, string name, int number, int velocity, float time, float length)
     {
@@ -24,6 +24,16 @@ public class MIDINoteEvent : MIDIEvent
         NoteVelocity = velocity;
         NoteTime = time;
         NoteLength = length;
+    }
+
+    // Constructor for MIDIRecording. Can´t know at construction moment the note length
+    public MIDINoteEvent(Type type, string name, int number, int velocity, float time)
+    {
+        eventType = type;
+        NoteName = name;
+        NoteNumber = number;
+        NoteVelocity = velocity;
+        NoteTime = time;
     }
 
     #endregion
