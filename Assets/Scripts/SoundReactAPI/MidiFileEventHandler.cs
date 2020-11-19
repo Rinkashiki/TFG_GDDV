@@ -15,9 +15,10 @@ public class MidiFileEventHandler
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
-    public static List<MIDINoteEvent> Event_NoteOnList(Object midiFile)
+    public static List<MIDINoteEvent> Event_NoteOnList(Object midiFile, int track)
     {
-        List<MIDINoteEvent> midiEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDINoteEvent>[] midiTrackEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDINoteEvent> midiEvent = midiTrackEvent[track];
         return midiEvent;
     }
 

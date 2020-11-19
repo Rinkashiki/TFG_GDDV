@@ -22,7 +22,7 @@ public class MidiPlayInput
     private static Playback midiPlayback;
 
     // Notes collections variables
-    private static List<MIDINoteEvent> noteOnEvents = new List<MIDINoteEvent>();
+    private static List<MIDINoteEvent>[] noteOnEvents;
     private static List<MIDINoteEvent> noteOffEvents = new List<MIDINoteEvent>();
     private static List<float> noteOnTimes = new List<float>();
 
@@ -46,7 +46,7 @@ public class MidiPlayInput
         noteOffEvents = MidiFileInput.MidiInputNoteOffEvents(midiFilePath);
 
         // Fill noteOnTimes list
-        foreach (MIDINoteEvent noteEvent in noteOnEvents)
+        foreach (MIDINoteEvent noteEvent in noteOnEvents[0])
         {
             noteOnTimes.Add(noteEvent.GetNoteTime());
         }
@@ -122,7 +122,7 @@ public class MidiPlayInput
         // Compute the corresponding index with current time of the MIDI playback
         int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
 
-        return noteOnEvents[index];
+        return noteOnEvents[0][index];
 
     }
 

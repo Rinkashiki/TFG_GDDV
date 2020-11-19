@@ -1,9 +1,11 @@
 ﻿#region Dependencies 
 
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 #endregion
 
@@ -22,19 +24,27 @@ public class MidiFileInput
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<MIDINoteEvent> MidiInputNoteOnEvents(string midiFilePath)
+    public static List<MIDINoteEvent>[] MidiInputNoteOnEvents(string midiFilePath)
     {
-        // Create NoteOnEvents list
-        List<MIDINoteEvent> NoteOnEvents = new List<MIDINoteEvent>();
-
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Extract notes from .mid file
+        // Extract tracks from .mid file
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
+        // Create NoteOnEvents collection
+        List<FourBitNumber> channels = midiFile.GetChannels().ToList();
+        List<MIDINoteEvent>[] NoteOnEvents = new List<MIDINoteEvent>[channels.Count()];
+
+        // Initialize each list
+        for (int i = 0; i < NoteOnEvents.Length; i++)
+        {
+            NoteOnEvents[i] = new List<MIDINoteEvent>();
+        }
+
         // Declare Note properties
+        int NoteTrack;
         string NoteName;
         int NoteNumber;
         int NoteVelocity;
@@ -44,12 +54,14 @@ public class MidiFileInput
         // Extract notes properties from notes list
         foreach (Note note in notes)
         {
+            NoteTrack = channels.IndexOf(note.Channel);
             NoteName = note.NoteName.ToString() + note.Octave;
+            NoteName = NoteName.Contains("Sharp") ? NoteName.Replace("Sharp", "#") : NoteName;
             NoteNumber = note.NoteNumber;
             NoteVelocity = note.Velocity;
             NoteTime = note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
             NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            NoteOnEvents.Add(new MIDINoteEvent(MIDIEvent.Type.NoteOn, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
+            NoteOnEvents[NoteTrack].Add(new MIDINoteEvent(MIDIEvent.Type.NoteOn, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
         }
 
         return NoteOnEvents;

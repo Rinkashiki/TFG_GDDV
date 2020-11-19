@@ -17,16 +17,16 @@ public class UseEventsExample : MonoBehaviour
         MidiPlayEventHandler.PlaybackSetUp(midiFile);
 
         // VERY IMPORTANT CALL THIS before anything related with MIDI recording
-        MidiRecording.RecordingSetUp();
+       // MidiRecording.RecordingSetUp();
         MidiRecording.ShowNoteOnEvents(true);
         MidiRecording.ShowNoteOffEvents(true);
 
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0);
-        //Debug.Log("BPM : " + BPM);
-        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile);
+        Debug.Log("BPM : " + BPM);
+        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile, 1);
         foreach (MIDINoteEvent noteEvent in NoteOnEvents)
         {
-            //noteEvent.PrintEvent();
+            noteEvent.PrintEvent();
         }  
     }
 
