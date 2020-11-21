@@ -20,16 +20,42 @@ public class MidiFileInput
     #region MIDI_Notes_Inputs
 
     /// <summary>
-    /// Returns all Note On events of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Note On events from one track MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
-    public static List<MIDINoteEvent>[] MidiInputNoteOnEvents(string midiFilePath)
+    public static List<MIDINoteEvent> MidiInputNoteOnEvents(string midiFilePath)
+    {
+        // Create NoteOnEvents list
+        List<MIDINoteEvent> NoteOnEvents = new List<MIDINoteEvent>();
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract notes from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Note> notes = midiFile.GetNotes().ToList();
+
+        // Build note events from notes list
+        foreach (Note note in notes)
+        {
+            NoteOnEvents.Add(BuildNoteEvent(MIDIEvent.Type.NoteOn, note, tempo));
+        }
+
+        return NoteOnEvents;
+    }
+
+    /// <summary>
+    /// Returns all Note On events from multiple track MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<MIDINoteEvent>[] MidiInputNoteOnEventsTracks(string midiFilePath)
     {
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
-        // Extract tracks from .mid file
+        // Extract notes from .mid file
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
@@ -43,32 +69,21 @@ public class MidiFileInput
             NoteOnEvents[i] = new List<MIDINoteEvent>();
         }
 
-        // Declare Note properties
+        // Declare Note track
         int NoteTrack;
-        string NoteName;
-        int NoteNumber;
-        int NoteVelocity;
-        float NoteTime;
-        float NoteLength;
 
-        // Extract notes properties from notes list
+        // Build note events from notes list
         foreach (Note note in notes)
         {
             NoteTrack = channels.IndexOf(note.Channel);
-            NoteName = note.NoteName.ToString() + note.Octave;
-            NoteName = NoteName.Contains("Sharp") ? NoteName.Replace("Sharp", "#") : NoteName;
-            NoteNumber = note.NoteNumber;
-            NoteVelocity = note.Velocity;
-            NoteTime = note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            NoteOnEvents[NoteTrack].Add(new MIDINoteEvent(MIDIEvent.Type.NoteOn, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
+            NoteOnEvents[NoteTrack].Add(BuildNoteEvent(MIDIEvent.Type.NoteOn, note, tempo));
         }
 
         return NoteOnEvents;
     }
 
     /// <summary>
-    /// Returns all Note Off events of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Note Off events from one track MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
@@ -84,22 +99,47 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Declare Note properties
-        string NoteName;
-        int NoteNumber;
-        int NoteVelocity;
-        float NoteTime;
-        float NoteLength;
-
-        // Extract notes properties from notes list
+        // Build note events from notes list
         foreach (Note note in notes)
         {
-            NoteName = note.NoteName.ToString() + note.Octave;
-            NoteNumber = note.NoteNumber;
-            NoteVelocity = note.OffVelocity;
-            NoteTime = note.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            NoteOffEvents.Add(new MIDINoteEvent(MIDIEvent.Type.NoteOff, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength));
+            NoteOffEvents.Add(BuildNoteEvent(MIDIEvent.Type.NoteOff, note, tempo));
+        }
+
+        return NoteOffEvents;
+    }
+
+    /// <summary>
+    /// Returns all Note Off events from multiple track MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<MIDINoteEvent>[] MidiInputNoteOffEventsTracks(string midiFilePath)
+    {
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract notes from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Note> notes = midiFile.GetNotes().ToList();
+
+        // Create NoteOffEvents collection
+        List<FourBitNumber> channels = midiFile.GetChannels().ToList();
+        List<MIDINoteEvent>[] NoteOffEvents = new List<MIDINoteEvent>[channels.Count()];
+
+        // Initialize each list
+        for (int i = 0; i < NoteOffEvents.Length; i++)
+        {
+            NoteOffEvents[i] = new List<MIDINoteEvent>();
+        }
+
+        // Declare Note track
+        int NoteTrack;;
+
+        // Build note events from notes list
+        foreach (Note note in notes)
+        {
+            NoteTrack = channels.IndexOf(note.Channel);
+            NoteOffEvents[NoteTrack].Add(BuildNoteEvent(MIDIEvent.Type.NoteOff, note, tempo));
         }
 
         return NoteOffEvents;
@@ -110,7 +150,7 @@ public class MidiFileInput
     #region MIDI_Chords_Inputs
 
     /// <summary>
-    /// Returns all Chord On events of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Chord On events from one track MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
@@ -126,40 +166,54 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Chord> chords = midiFile.GetChords().ToList();
 
-        // Declare Note properties
-        string ChordNotesNames;
-        int[] ChordNotesNumbers;
-        int[] ChordNotesVelocities;
-        float ChordTime;
-        float ChordLength;
-
-        // Extract chords properties from chords list
+        // Build chord events from chords list
         foreach (Chord chord in chords)
         {
-            // Extract notes numbers and velocities
-            Note[] chordNotes = chord.Notes.ToArray();
-            int[] notes = new int[chord.Notes.Count()];
-            int[] velocities = new int[chord.Notes.Count()];
-
-            for (int i = 0; i < chord.Notes.Count(); i++)
-            {
-                notes[i] = chordNotes[i].NoteNumber;
-                velocities[i] = chordNotes[i].Velocity;
-            }
-
-            ChordNotesNames = chord.ToString();
-            ChordNotesNumbers = notes;
-            ChordNotesVelocities = velocities;
-            ChordTime = chord.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            ChordLength = chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            ChordOnEvents.Add(new MIDIChordEvent(MIDIEvent.Type.ChordOn, ChordNotesNames, ChordNotesNumbers, ChordNotesVelocities, ChordTime, ChordLength));
+            ChordOnEvents.Add(BuildChordEvent(MIDIEvent.Type.ChordOn, chord, tempo));
         }
 
         return ChordOnEvents;
     }
 
     /// <summary>
-    /// Returns all Chord On events of MIDI file stored in <paramref name="midiFilePath"/>
+    /// Returns all Chord On events from multiple track MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<MIDIChordEvent>[] MidiInputChordOnEventsTracks(string midiFilePath)
+    {
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract chords from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Chord> chords = midiFile.GetChords().ToList();
+
+        // Create ChordOnEvents collection
+        List<FourBitNumber> channels = midiFile.GetChannels().ToList();
+        List<MIDIChordEvent>[] ChordOnEvents = new List<MIDIChordEvent>[channels.Count()];
+
+        // Initialize each list
+        for (int i = 0; i < ChordOnEvents.Length; i++)
+        {
+            ChordOnEvents[i] = new List<MIDIChordEvent>();
+        }
+
+        // Declare Chord track
+        int ChordTrack;
+
+        // Build chord events from chords list
+        foreach (Chord chord in chords)
+        {
+            ChordTrack = channels.IndexOf(chord.Channel);
+            ChordOnEvents[ChordTrack].Add(BuildChordEvent(MIDIEvent.Type.ChordOn, chord, tempo));
+        }
+
+        return ChordOnEvents;
+    }
+
+    /// <summary>
+    /// Returns all Chord Off events from one track MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     /// <returns></returns>
@@ -175,33 +229,47 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Chord> chords = midiFile.GetChords().ToList();
 
-        // Declare Note properties
-        string ChordNotesNames;
-        int[] ChordNotesNumbers;
-        int[] ChordNotesVelocities;
-        float ChordTime;
-        float ChordLength;
-
-        // Extract chords properties from chords list
+        // Build chord events from chords list
         foreach (Chord chord in chords)
         {
-            // Extract notes numbers and velocities
-            Note[] chordNotes = chord.Notes.ToArray();
-            int[] notes = new int[chord.Notes.Count()];
-            int[] velocities = new int[chord.Notes.Count()];
+            ChordOffEvents.Add(BuildChordEvent(MIDIEvent.Type.ChordOff, chord, tempo));
+        }
 
-            for (int i = 0; i < chord.Notes.Count(); i++)
-            {
-                notes[i] = chordNotes[i].NoteNumber;
-                velocities[i] = chordNotes[i].OffVelocity;
-            }
+        return ChordOffEvents;
+    }
 
-            ChordNotesNames = chord.ToString();
-            ChordNotesNumbers = notes;
-            ChordNotesVelocities = velocities;
-            ChordTime = chord.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            ChordLength = chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
-            ChordOffEvents.Add(new MIDIChordEvent(MIDIEvent.Type.ChordOff, ChordNotesNames, ChordNotesNumbers, ChordNotesVelocities, ChordTime, ChordLength));
+    /// <summary>
+    /// Returns all Chord Off events from multiple track MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    /// <returns></returns>
+    public static List<MIDIChordEvent>[] MidiInputChordOffEventsTracks(string midiFilePath)
+    {
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Extract chords from .mid file
+        TempoMap tempo = midiFile.GetTempoMap();
+        List<Chord> chords = midiFile.GetChords().ToList();
+
+        // Create ChordOnEvents collection
+        List<FourBitNumber> channels = midiFile.GetChannels().ToList();
+        List<MIDIChordEvent>[] ChordOffEvents = new List<MIDIChordEvent>[channels.Count()];
+
+        // Initialize each list
+        for (int i = 0; i < ChordOffEvents.Length; i++)
+        {
+            ChordOffEvents[i] = new List<MIDIChordEvent>();
+        }
+
+        // Declare Chord track
+        int ChordTrack;
+
+        // Build chord events from chords list
+        foreach (Chord chord in chords)
+        {
+            ChordTrack = channels.IndexOf(chord.Channel);
+            ChordOffEvents[ChordTrack].Add(BuildChordEvent(MIDIEvent.Type.ChordOff, chord, tempo));
         }
 
         return ChordOffEvents;
@@ -232,6 +300,71 @@ public class MidiFileInput
         BPM = tempo.TempoLine.GetValueAtTime(time).BeatsPerMinute;
 
         return BPM;
+    }
+
+    #endregion
+
+    #region Other_Utility_Functions
+
+    private static MIDINoteEvent BuildNoteEvent(MIDIEvent.Type type, Note note, TempoMap tempo)
+    {
+        string NoteName = note.NoteName.ToString() + note.Octave;
+        NoteName = NoteName.Contains("Sharp") ? NoteName.Replace("Sharp", "#") : NoteName;
+        int NoteNumber = note.NoteNumber;
+        int NoteVelocity;
+        float NoteTime;
+        if (type == MIDIEvent.Type.NoteOn)
+        {
+            NoteVelocity = note.Velocity;
+            NoteTime = note.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+        }
+        else
+        {
+            NoteVelocity = note.OffVelocity;
+            NoteTime = note.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+        }
+        float NoteLength = note.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+
+        MIDINoteEvent noteEvent = new MIDINoteEvent(type, NoteName, NoteNumber, NoteVelocity, NoteTime, NoteLength);
+        return noteEvent;
+    }
+
+    private static MIDIChordEvent BuildChordEvent(MIDIEvent.Type type, Chord chord, TempoMap tempo)
+    {
+        // Extract notes numbers and velocities
+        Note[] chordNotes = chord.Notes.ToArray();
+        int[] notes = new int[chord.Notes.Count()];
+        int[] velocities = new int[chord.Notes.Count()];
+
+        for (int i = 0; i < chord.Notes.Count(); i++)
+        {
+            notes[i] = chordNotes[i].NoteNumber;
+            if (type == MIDIEvent.Type.ChordOn)
+            {
+                velocities[i] = chordNotes[i].Velocity;
+            }
+            else
+            {
+                velocities[i] = chordNotes[i].OffVelocity;
+            }
+        }
+
+        string ChordNotesNames = chord.ToString();
+        int[] ChordNotesNumbers = notes;
+        int[] ChordNotesVelocities = velocities;
+        float ChordTime;
+        if (type == MIDIEvent.Type.ChordOn)
+        {
+            ChordTime = chord.TimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+        }
+        else
+        {
+            ChordTime = chord.EndTimeAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+        }
+        float ChordLength = chord.LengthAs<MetricTimeSpan>(tempo).TotalMicroseconds * microSecToSec;
+
+        MIDIChordEvent chordEvent = new MIDIChordEvent(type, ChordNotesNames, ChordNotesNumbers, ChordNotesVelocities, ChordTime, ChordLength);
+        return chordEvent;
     }
 
     #endregion

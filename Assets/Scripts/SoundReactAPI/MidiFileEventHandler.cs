@@ -11,19 +11,30 @@ public class MidiFileEventHandler
     #region MIDI_File_Note_Events
 
     /// <summary>
-    /// Returns Note On events list the specified <paramref name="midiFile"/>
+    /// Returns Note On events list from the specified one track <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static List<MIDINoteEvent> Event_NoteOnList(Object midiFile)
+    {
+        List<MIDINoteEvent> midiEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns Note On events list of the specified track from multiple track <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
     public static List<MIDINoteEvent> Event_NoteOnList(Object midiFile, int track)
     {
-        List<MIDINoteEvent>[] midiTrackEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDINoteEvent>[] midiTrackEvent = MidiFileInput.MidiInputNoteOnEventsTracks(AssetDatabase.GetAssetPath(midiFile));
         List<MIDINoteEvent> midiEvent = midiTrackEvent[track];
         return midiEvent;
     }
 
     /// <summary>
-    /// Returns Note Off events list the specified <paramref name="midiFile"/>
+    /// Returns Note Off events list from the specified one track <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
@@ -33,12 +44,25 @@ public class MidiFileEventHandler
         return midiEvent;
     }
 
+    /// <summary>
+    /// Returns Note Off events list of the specified track from multiple track <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <param name="track"></param>
+    /// <returns></returns>
+    public static List<MIDINoteEvent> Event_NoteOffList(Object midiFile, int track)
+    {
+        List<MIDINoteEvent>[] midiTrackEvent = MidiFileInput.MidiInputNoteOffEventsTracks(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDINoteEvent> midiEvent = midiTrackEvent[track];
+        return midiEvent;
+    }
+
     #endregion
 
     #region MIDI_File_Chord_Events
 
     /// <summary>
-    /// Returns Chord On events list the specified <paramref name="midiFile"/>
+    /// Returns Chord On events list from the specified one track <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
@@ -49,13 +73,39 @@ public class MidiFileEventHandler
     }
 
     /// <summary>
-    /// Returns Chord Off events list the specified <paramref name="midiFile"/>
+    /// Returns Chord On events list of the specified track from multiple track <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <param name="track"></param>
+    /// <returns></returns>
+    public static List<MIDIChordEvent> Event_ChordOnList(Object midiFile, int track)
+    {
+        List<MIDIChordEvent>[] midiTrackEvent = MidiFileInput.MidiInputChordOnEventsTracks(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDIChordEvent> midiEvent = midiTrackEvent[track];
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns Chord Off events list from the specified one track <paramref name="midiFile"/>
     /// </summary>
     /// <param name="midiFile"></param>
     /// <returns></returns>
     public static List<MIDIChordEvent> Event_ChordOffList(Object midiFile)
     {
         List<MIDIChordEvent> midiEvent = MidiFileInput.MidiInputChordOffEvents(AssetDatabase.GetAssetPath(midiFile));
+        return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns Chord Off events list of the specified track from multiple track <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <param name="track"></param>
+    /// <returns></returns>
+    public static List<MIDIChordEvent> Event_ChordOffList(Object midiFile, int track)
+    {
+        List<MIDIChordEvent>[] midiTrackEvent = MidiFileInput.MidiInputChordOffEventsTracks(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDIChordEvent> midiEvent = midiTrackEvent[track];
         return midiEvent;
     }
 

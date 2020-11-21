@@ -23,8 +23,8 @@ public class UseEventsExample : MonoBehaviour
 
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0);
         Debug.Log("BPM : " + BPM);
-        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile, 1);
-        foreach (MIDINoteEvent noteEvent in NoteOnEvents)
+        List<MIDIChordEvent> NoteOnEvents = MidiFileEventHandler.Event_ChordOnList(midiFile, 3);
+        foreach (MIDIChordEvent noteEvent in NoteOnEvents)
         {
             noteEvent.PrintEvent();
         }  
