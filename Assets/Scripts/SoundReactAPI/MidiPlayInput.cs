@@ -5,6 +5,7 @@ using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 #endregion
 
@@ -23,12 +24,16 @@ public class MidiPlayInput
 
     // Notes collections variables
     private static List<MIDINoteEvent> noteOnEvents;
-    private static List<MIDINoteEvent> noteOffEvents = new List<MIDINoteEvent>();
+    private static List<MIDINoteEvent>[] noteOnEventsTracks;
+    private static List<MIDINoteEvent> noteOffEvents;
+    private static List<MIDINoteEvent>[] noteOffEventsTracks;
     private static List<float> noteOnTimes = new List<float>();
 
     // Chords collection variables
-    private static List<MIDIChordEvent> chordOnEvents = new List<MIDIChordEvent>();
-    private static List<MIDIChordEvent> chordOffEvents = new List<MIDIChordEvent>();
+    private static List<MIDIChordEvent> chordOnEvents;
+    private static List<MIDIChordEvent>[] chordOnEventsTracks;
+    private static List<MIDIChordEvent> chordOffEvents;
+    private static List<MIDIChordEvent>[] chordOffEventsTracks;
     private static List<float> chordOnTimes = new List<float>();
 
     #endregion
@@ -36,7 +41,7 @@ public class MidiPlayInput
     #region MIDI_Play_Handlers
 
     /// <summary>
-    /// Prepares the variable that controls playback of the MIDI file stores in <paramref name="midiFilePath"/>
+    /// Prepares the variable that controls playback of one track MIDI file stored in <paramref name="midiFilePath"/>
     /// </summary>
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath)
@@ -68,10 +73,67 @@ public class MidiPlayInput
         var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
 
         // Extract playback from MIDI file
+        midiPlayback = new Playback(midiFile.GetNotes(), midiFile.GetTempoMap(), outputDevice, new MidiClockSettings
+        {
+            CreateTickGeneratorCallback = () => new RegularPrecisionTickGenerator()
+        });
+    }
+
+    /// <summary>
+    /// Prepares the variable that controls playback of the multiple track MIDI file stored in <paramref name="midiFilePath"/>
+    /// </summary>
+    /// <param name="midiFilePath"></param>
+    public static void MidiPlaybackSetUp(string midiFilePath, int track)
+    {
+        // Extract Notes Events from MIDI file
+        noteOnEventsTracks = MidiFileInput.MidiInputNoteOnEventsTracks(midiFilePath);
+        noteOffEventsTracks = MidiFileInput.MidiInputNoteOffEventsTracks(midiFilePath);
+
+        // Fill noteOnTimes list
+        foreach (MIDINoteEvent noteEvent in noteOnEventsTracks[track])
+        {
+            noteOnTimes.Add(noteEvent.GetNoteTime());
+        }
+
+        // Extract Chords Events from MIDI file
+        chordOnEventsTracks = MidiFileInput.MidiInputChordOnEventsTracks(midiFilePath);
+        chordOffEventsTracks = MidiFileInput.MidiInputChordOffEventsTracks(midiFilePath);
+
+        // Fill noteOnTimes list
+        foreach (MIDIChordEvent chordEvent in chordOnEventsTracks[track])
+        {
+            chordOnTimes.Add(chordEvent.GetChordTime());
+        }
+
+        // Read MIDI file
+        var midiFile = MidiFile.Read(midiFilePath);
+
+        // Define the output device
+        var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
+
+        List<TrackChunk> midiTracks = midiFile.GetTrackChunks().ToList();
+        List<TrackChunk> tracks = new List<TrackChunk>();
+
+        // Initialize each list
+        foreach (TrackChunk trk in midiTracks)
+        {
+            if (trk.Events.Any(x => x is NoteEvent))
+            {
+                tracks.Add(trk);
+            }
+        }
+
+        // Create playback from MIDI file
+        midiPlayback = new Playback(tracks.ToArray()[track].GetNotes(), midiFile.GetTempoMap(), outputDevice, new MidiClockSettings
+        {
+            CreateTickGeneratorCallback = () => new RegularPrecisionTickGenerator()
+        });
+        /*
         midiPlayback = midiFile.GetPlayback(outputDevice, new MidiClockSettings
         {
             CreateTickGeneratorCallback = () => new RegularPrecisionTickGenerator()
         });
+        */
     }
 
     /// <summary>

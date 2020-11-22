@@ -14,7 +14,7 @@ public class UseEventsExample : MonoBehaviour
         Debug.Log("Recording Controls -> Start: 'I'  Stop: 'O'  Get Event: 'P'");
 
         // VERY IMPORTANT CALL THIS before anything related with MIDI playback
-        MidiPlayEventHandler.PlaybackSetUp(midiFile);
+        MidiPlayEventHandler.PlaybackSetUp(midiFile, 3);
 
         // VERY IMPORTANT CALL THIS before anything related with MIDI recording
        // MidiRecording.RecordingSetUp();
@@ -23,10 +23,10 @@ public class UseEventsExample : MonoBehaviour
 
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0);
         Debug.Log("BPM : " + BPM);
-        List<MIDIChordEvent> NoteOnEvents = MidiFileEventHandler.Event_ChordOnList(midiFile, 3);
-        foreach (MIDIChordEvent noteEvent in NoteOnEvents)
+        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile, 0);
+        foreach (MIDINoteEvent noteEvent in NoteOnEvents)
         {
-            noteEvent.PrintEvent();
+            //noteEvent.PrintEvent();
         }  
     }
 
@@ -36,14 +36,17 @@ public class UseEventsExample : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             MidiPlayEventHandler.StartPlayback();
+            Debug.Log("Start playing MIDI");
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             MidiPlayEventHandler.StopPlayback();
+            Debug.Log("Stop playing MIDI");
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             MidiPlayEventHandler.ReleasePlaybackResources();
+            Debug.Log("Release MIDI");
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {

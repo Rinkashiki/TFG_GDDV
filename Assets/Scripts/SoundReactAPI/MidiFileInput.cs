@@ -59,26 +59,32 @@ public class MidiFileInput
         TempoMap tempo = midiFile.GetTempoMap();
         List<Note> notes = midiFile.GetNotes().ToList();
 
-        // Create NoteOnEvents collection
-        List<FourBitNumber> channels = midiFile.GetChannels().ToList();
-        List<MIDINoteEvent>[] NoteOnEvents = new List<MIDINoteEvent>[channels.Count()];
+        // Extract tracks collection
+        List<TrackChunk> midiTracks = midiFile.GetTrackChunks().ToList();
+        List<TrackChunk> tracks = new List<TrackChunk>();
 
         // Initialize each list
-        for (int i = 0; i < NoteOnEvents.Length; i++)
+        foreach (TrackChunk track in midiTracks)
         {
-            NoteOnEvents[i] = new List<MIDINoteEvent>();
+            if(track.Events.Any(x => x is NoteEvent))
+            {
+                tracks.Add(track);
+            }
         }
 
-        // Declare Note track
-        int NoteTrack;
+        // Declare Create NoteOnEvents collection track
+        List<MIDINoteEvent>[] NoteOnEvents = new List<MIDINoteEvent>[tracks.Count()];
 
         // Build note events from notes list
-        foreach (Note note in notes)
+        for (int i = 0; i < tracks.Count(); i++)
         {
-            NoteTrack = channels.IndexOf(note.Channel);
-            NoteOnEvents[NoteTrack].Add(BuildNoteEvent(MIDIEvent.Type.NoteOn, note, tempo));
-        }
+            NoteOnEvents[i] = new List<MIDINoteEvent>();
 
+            foreach (Note note in notes)
+            {
+                NoteOnEvents[i].Add(BuildNoteEvent(MIDIEvent.Type.NoteOn, note, tempo));
+            }
+        }
         return NoteOnEvents;
     }
 

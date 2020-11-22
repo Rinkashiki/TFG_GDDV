@@ -19,6 +19,11 @@ public class MidiPlayEventHandler
         MidiPlayInput.MidiPlaybackSetUp(AssetDatabase.GetAssetPath(midiFile));
     }
 
+    public static void PlaybackSetUp(Object midiFile, int track)
+    {
+        MidiPlayInput.MidiPlaybackSetUp(AssetDatabase.GetAssetPath(midiFile), track);
+    }
+
     /// <summary>
     /// Starts playing MIDI
     /// </summary>
