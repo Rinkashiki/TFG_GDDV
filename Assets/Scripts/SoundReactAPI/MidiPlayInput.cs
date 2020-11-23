@@ -1,8 +1,10 @@
 ﻿#region Dependencies
 
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.MusicTheory;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,19 +24,17 @@ public class MidiPlayInput
     // Playback variable
     private static Playback midiPlayback;
 
-    // Notes collections variables
-    private static List<MIDINoteEvent> noteOnEvents;
-    private static List<MIDINoteEvent>[] noteOnEventsTracks;
-    private static List<MIDINoteEvent> noteOffEvents;
-    private static List<MIDINoteEvent>[] noteOffEventsTracks;
-    private static List<float> noteOnTimes = new List<float>();
+    // Played Events
+    private static MidiEvent playedEventOn;
+    private static MidiEvent playedEventOff;
 
-    // Chords collection variables
-    private static List<MIDIChordEvent> chordOnEvents;
-    private static List<MIDIChordEvent>[] chordOnEventsTracks;
-    private static List<MIDIChordEvent> chordOffEvents;
-    private static List<MIDIChordEvent>[] chordOffEventsTracks;
-    private static List<float> chordOnTimes = new List<float>();
+    // Notes variables
+    private static MIDINoteEvent currentNoteOnEvent;
+    private static MIDINoteEvent currentNoteOffEvent;
+
+    // Chords variables
+    private static MIDIChordEvent currentChordOnEvent;
+    private static MIDIChordEvent currentChordOffEvent;
 
     #endregion
 
@@ -46,26 +46,6 @@ public class MidiPlayInput
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath)
     {
-        // Extract Notes Events from MIDI file
-        noteOnEvents = MidiFileInput.MidiInputNoteOnEvents(midiFilePath);
-        noteOffEvents = MidiFileInput.MidiInputNoteOffEvents(midiFilePath);
-
-        // Fill noteOnTimes list
-        foreach (MIDINoteEvent noteEvent in noteOnEvents)
-        {
-            noteOnTimes.Add(noteEvent.GetNoteTime());
-        }
-
-        // Extract Chords Events from MIDI file
-        chordOnEvents = MidiFileInput.MidiInputChordOnEvents(midiFilePath);
-        chordOffEvents = MidiFileInput.MidiInputChordOffEvents(midiFilePath);
-
-        // Fill noteOnTimes list
-        foreach (MIDIChordEvent chordEvent in chordOnEvents)
-        {
-            chordOnTimes.Add(chordEvent.GetChordTime());
-        }
-
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
@@ -85,26 +65,6 @@ public class MidiPlayInput
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath, int track)
     {
-        // Extract Notes Events from MIDI file
-        noteOnEventsTracks = MidiFileInput.MidiInputNoteOnEventsTracks(midiFilePath);
-        noteOffEventsTracks = MidiFileInput.MidiInputNoteOffEventsTracks(midiFilePath);
-
-        // Fill noteOnTimes list
-        foreach (MIDINoteEvent noteEvent in noteOnEventsTracks[track])
-        {
-            noteOnTimes.Add(noteEvent.GetNoteTime());
-        }
-
-        // Extract Chords Events from MIDI file
-        chordOnEventsTracks = MidiFileInput.MidiInputChordOnEventsTracks(midiFilePath);
-        chordOffEventsTracks = MidiFileInput.MidiInputChordOffEventsTracks(midiFilePath);
-
-        // Fill noteOnTimes list
-        foreach (MIDIChordEvent chordEvent in chordOnEventsTracks[track])
-        {
-            chordOnTimes.Add(chordEvent.GetChordTime());
-        }
-
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
@@ -151,6 +111,7 @@ public class MidiPlayInput
     /// </summary>
     public static void PlayMidi()
     {
+        midiPlayback.EventPlayed += OnEventPlayed;
         midiPlayback.Start();
     }
 
@@ -181,11 +142,8 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDINoteEvent MidiPlayNoteOnEvent()
     {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOnEvents[index];
-
+        currentNoteOnEvent = buildEvent(playedEventOn.ToString());
+        return currentNoteOnEvent;
     }
 
     /// <summary>
@@ -194,13 +152,9 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDINoteEvent MidiPlayNoteOffEvent()
     {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetNoteIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return noteOffEvents[index];
-
+        currentNoteOffEvent = buildEvent(playedEventOff.ToString());
+        return currentNoteOffEvent;
     }
-
 
     #endregion
 
@@ -212,11 +166,7 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDIChordEvent MidiPlayChordOnEvent()
     {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOnEvents[index];
-
+        return currentChordOnEvent;
     }
 
     /// <summary>
@@ -225,11 +175,7 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDIChordEvent MidiPlayChordOffEvent()
     {
-        // Compute the corresponding index with current time of the MIDI playback
-        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
-
-        return chordOffEvents[index];
-
+        return currentChordOffEvent;
     }
 
     #endregion
@@ -249,26 +195,53 @@ public class MidiPlayInput
 
     #endregion
 
-    #region Other_Utility_Functions
-
-    private static int GetNoteIndex(float targetTime)
+    private static void OnEventPlayed(object sender, MidiEventPlayedEventArgs e)
     {
-        // Compute the corresponding index
-        float nearest = noteOnTimes.OrderBy(x => System.Math.Abs(x - targetTime)).First();
-        int index = noteOnTimes.IndexOf(nearest);
-        index = noteOnTimes[index] > targetTime ? index-- : index;
-
-        return index;
+        float time = midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
+        //Debug.Log($"{time} {e.Event.ToString()}");
+        if (e.Event.EventType.Equals(MidiEventType.NoteOn))
+        {
+            playedEventOn = e.Event;
+        }
+        else if (e.Event.EventType.Equals(MidiEventType.NoteOff))
+        {
+            playedEventOff = e.Event;
+        }
     }
 
-    private static int GetChordIndex(float targetTime)
-    {
-        // Compute the corresponding index
-        float nearest = chordOnTimes.OrderBy(x => System.Math.Abs(x - targetTime)).First();
-        int index = chordOnTimes.IndexOf(nearest);
-        index = chordOnTimes[index] > targetTime ? index-- : index;
+    #region Other_Utility_Functions
 
-        return index;
+    private static MIDINoteEvent buildEvent(string inputEvent)
+    {
+        MIDINoteEvent noteEvent;
+
+        // Note Time
+        float time = midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
+
+        // Note Number
+        int length = (inputEvent.IndexOf(",")) - (inputEvent.IndexOf("(") + 1);
+        string noteText = inputEvent.Substring(inputEvent.IndexOf("(") + 1, length);
+        int noteNumber = int.Parse(noteText);
+
+        // Note Name
+        string noteName = NoteUtilities.GetNoteName(SevenBitNumber.Parse(noteText)).ToString() + NoteUtilities.GetNoteOctave(SevenBitNumber.Parse(noteText));
+        noteName = noteName.Contains("Sharp") ? noteName.Replace("Sharp", "#") : noteName;
+
+        //Note Velocity
+        length = (inputEvent.IndexOf(")")) - (inputEvent.IndexOf(",") + 2);
+        int noteVelocity = int.Parse(inputEvent.Substring(inputEvent.IndexOf(",") + 2, length));
+
+        //Create the MIDI Event
+        if (inputEvent.Contains("On"))
+        {
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOn, noteName, noteNumber, noteVelocity, time);
+        }
+        else
+        {
+            noteEvent = new MIDINoteEvent(MIDIEvent.Type.NoteOff, noteName, noteNumber, noteVelocity, time);
+        }
+
+        return noteEvent;
     }
 
     #endregion

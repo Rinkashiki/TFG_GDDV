@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee71c92f8eefc047acdedcd4965a75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midiFile: {fileID: 102900000, guid: f7eb6f8efa507884ea8a37b37b64ecdd, type: 3}
+  midiFile: {fileID: 102900000, guid: 47dee19b5f0b0244f8f8d92d273407cb, type: 3}
 --- !u!4 &1917510879
 Transform:
   m_ObjectHideFlags: 0
