@@ -14,7 +14,7 @@ public class UseEventsExample : MonoBehaviour
         Debug.Log("Recording Controls -> Start: 'I'  Stop: 'O'  Get Event: 'P'");
 
         // VERY IMPORTANT CALL THIS before anything related with MIDI playback
-        MidiPlayEventHandler.PlaybackSetUp(midiFile);
+        MidiPlayEventHandler.PlaybackSetUp(midiFile, 3);
 
         // VERY IMPORTANT CALL THIS before anything related with MIDI recording
        // MidiRecording.RecordingSetUp();
@@ -23,7 +23,7 @@ public class UseEventsExample : MonoBehaviour
 
         long BPM = MidiFileEventHandler.Event_BPMAtTime(midiFile, 0);
         Debug.Log("BPM : " + BPM);
-        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile);
+        List<MIDINoteEvent> NoteOnEvents = MidiFileEventHandler.Event_NoteOnList(midiFile, 3);
         foreach (MIDINoteEvent noteEvent in NoteOnEvents)
         {
             //noteEvent.PrintEvent();

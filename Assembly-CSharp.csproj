@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\AudioExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\AudioInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\CircularBuffer.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\ControlName.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\DryWetMidi\Common\DataTypes\DataTypesUtilities.cs" />

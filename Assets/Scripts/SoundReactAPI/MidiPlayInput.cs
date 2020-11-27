@@ -33,8 +33,11 @@ public class MidiPlayInput
     private static MIDINoteEvent currentNoteOffEvent;
 
     // Chords variables
-    private static MIDIChordEvent currentChordOnEvent;
-    private static MIDIChordEvent currentChordOffEvent;
+    private static List<MIDIChordEvent> ChordOnCollection;
+    private static List<MIDIChordEvent>[] ChordOnCollectionTracks;
+    private static List<MIDIChordEvent> ChordOffCollection;
+    private static List<MIDIChordEvent>[] ChordOffCollectionTracks;
+    private static List<float> chordOnTimes = new List<float>();
 
     #endregion
 
@@ -46,6 +49,15 @@ public class MidiPlayInput
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath)
     {
+        ChordOnCollection = MidiFileInput.MidiInputChordOnEvents(midiFilePath);
+        ChordOffCollection = MidiFileInput.MidiInputChordOffEvents(midiFilePath);
+
+        // Fill noteOnTimes list
+        foreach (MIDIChordEvent chordEvent in ChordOnCollection)
+        {
+            chordOnTimes.Add(chordEvent.GetChordTime());
+        }
+
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
@@ -65,6 +77,15 @@ public class MidiPlayInput
     /// <param name="midiFilePath"></param>
     public static void MidiPlaybackSetUp(string midiFilePath, int track)
     {
+        ChordOnCollectionTracks = MidiFileInput.MidiInputChordOnEventsTracks(midiFilePath);
+        ChordOffCollectionTracks = MidiFileInput.MidiInputChordOffEventsTracks(midiFilePath);
+
+        // Fill noteOnTimes list
+        foreach (MIDIChordEvent chordEvent in ChordOnCollectionTracks[track])
+        {
+            chordOnTimes.Add(chordEvent.GetChordTime());
+        }
+
         // Read MIDI file
         var midiFile = MidiFile.Read(midiFilePath);
 
@@ -166,7 +187,16 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDIChordEvent MidiPlayChordOnEvent()
     {
-        return currentChordOnEvent;
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
+        return ChordOnCollection[index];
+    }
+
+    public static MIDIChordEvent MidiPlayChordOnEvent(int track)
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
+        return ChordOnCollectionTracks[track][index];
     }
 
     /// <summary>
@@ -175,7 +205,16 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDIChordEvent MidiPlayChordOffEvent()
     {
-        return currentChordOffEvent;
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
+        return ChordOffCollection[index];
+    }
+
+    public static MIDIChordEvent MidiPlayChordOffEvent(int track)
+    {
+        // Compute the corresponding index with current time of the MIDI playback
+        int index = GetChordIndex(midiPlayback.GetCurrentTime<MetricTimeSpan>().TotalMicroseconds * microSecToSec);
+        return ChordOffCollectionTracks[track][index];
     }
 
     #endregion
@@ -244,5 +283,15 @@ public class MidiPlayInput
         return noteEvent;
     }
 
-    #endregion
-}
+    private static int GetChordIndex(float targetTime)
+    {
+        // Compute the corresponding index
+        float nearest = chordOnTimes.OrderBy(x => System.Math.Abs(x - targetTime)).First();
+        int index = chordOnTimes.IndexOf(nearest);
+        index = chordOnTimes[index] > targetTime ? index-- : index;
+
+        return index;
+    }
+
+        #endregion
+    }
