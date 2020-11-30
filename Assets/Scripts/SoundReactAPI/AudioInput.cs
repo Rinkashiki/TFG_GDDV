@@ -1,5 +1,6 @@
 ﻿#region Dependencies
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,12 @@ public class AudioInput : MonoBehaviour
     #region Audio_Input_Variables
 
     private AudioSource audioSrc;
-    public static float[] samples = new float[512];
-    public float[] freqBand = new float[8];
-    public static float[] bandBuffer = new float[8];
+    private float[] samples = new float[512];
+    private float[] freqBand = new float[8];
+    private float[] bandBuffer = new float[8];
     private float[] bufferDecrease = new float[8];
 
-    public float Amplitude, AmplitudeBuffer;
+    private float Amplitude, AmplitudeBuffer;
     private float AmplitudHighest = 10;
 
     #endregion
@@ -36,6 +37,8 @@ public class AudioInput : MonoBehaviour
         BandBuffer();
         ComputeAmplitude();
     }
+
+    #region Compute_Functions
 
     private void GetSpectrumAudioSource()
     {
@@ -101,4 +104,52 @@ public class AudioInput : MonoBehaviour
         }
 
     }
+
+    #endregion
+
+    #region Audio_Getters
+
+    public float[] GetSamples()
+    {
+        return samples;
+    }
+
+    public float[] GetFreqBand()
+    {
+        return freqBand;
+    }
+
+    public float GetFreqBand(int band)
+    {
+        if(band < 0 || band > 7)
+        {
+            throw new ArgumentOutOfRangeException("band", "There are 8 bands. Band parameter must be between 0 and 7");
+        }
+        return freqBand[band];
+    }
+
+    public float[] GetBandBuffer()
+    {
+        return bandBuffer;
+    }
+
+    public float GetBandBuffer(int band)
+    {
+        if (band < 0 || band > 7)
+        {
+            throw new ArgumentOutOfRangeException("band", "There are 8 bands. Band parameter must be between 0 and 7");
+        }
+        return bandBuffer[band];
+    }
+
+    public float GetAmplitude()
+    {
+        return Amplitude;
+    }
+
+    public float GetAmplitudeBuffer()
+    {
+        return AmplitudeBuffer;
+    }
+    #endregion
 }
