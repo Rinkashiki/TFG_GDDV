@@ -725,7 +725,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 16134
+  m_LastSelectedObjectID: -6102
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52

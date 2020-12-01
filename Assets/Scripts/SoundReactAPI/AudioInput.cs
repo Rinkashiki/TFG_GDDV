@@ -151,5 +151,6 @@ public class AudioInput : MonoBehaviour
     {
         return AmplitudeBuffer;
     }
+
     #endregion
 }
