@@ -1021,7 +1021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425745303}
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 0, y: 1, z: -5}
+  m_LocalPosition: {x: 0, y: 2.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1044,7 +1044,6 @@ MonoBehaviour:
   rotMultiplier: 1
   startBrightness: 0.5
   brightnessMultiplier: 0.5
-  audioInput: {fileID: 345437131}
   cubes: []
 --- !u!1 &1565545192
 GameObject:
@@ -1242,6 +1241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1747745731}
   - component: {fileID: 1747745732}
+  - component: {fileID: 1747745733}
   m_Layer: 0
   m_Name: CubeBands
   m_TagString: Untagged
@@ -1288,7 +1288,6 @@ MonoBehaviour:
   rotMultiplier: 0
   startBrightness: 0.5
   brightnessMultiplier: 0.5
-  audioInput: {fileID: 345437131}
   cubes:
   - {fileID: 713231836}
   - {fileID: 1914124376}
@@ -1298,6 +1297,19 @@ MonoBehaviour:
   - {fileID: 180374386}
   - {fileID: 471456504}
   - {fileID: 1565545192}
+--- !u!114 &1747745733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747745730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565f65a30ae2af843871ca1ef7193cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioInput: {fileID: 345437131}
 --- !u!1 &1914124376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,7 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee71c92f8eefc047acdedcd4965a75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midiFile: {fileID: 102900000, guid: 905ee98a6252740498d8e66708b77521, type: 3}
+  midiFile: {fileID: 102900000, guid: f7eb6f8efa507884ea8a37b37b64ecdd, type: 3}
 --- !u!4 &1917510879
 Transform:
   m_ObjectHideFlags: 0
