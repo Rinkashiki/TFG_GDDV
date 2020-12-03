@@ -51,4 +51,22 @@ public class SoundReact : MonoBehaviour
     }
 
     #endregion
+
+    #region MIDI_Functions
+
+    public void NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            if (numberColorAssociation.ContainsKey(number))
+            {
+                go.GetComponent<MeshRenderer>().material.color = numberColorAssociation[number];
+            }
+
+        }
+    }
+
+    #endregion
 }

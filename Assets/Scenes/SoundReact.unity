@@ -323,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &345437131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 1425745306}
   - component: {fileID: 1425745305}
   - component: {fileID: 1425745304}
+  - component: {fileID: 1425745309}
   - component: {fileID: 1425745308}
   m_Layer: 0
   m_Name: Cube
@@ -952,7 +953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1425745304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1021,7 +1022,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425745303}
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 0, y: 2.5, z: -4}
+  m_LocalPosition: {x: 0, y: 1, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1036,15 +1037,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425745303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2146cb3cd65b1c34f88fa12d534d29ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aff2fbc5885c13459fa7a53a384bce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScale: 1
-  scaleMultiplier: 0.5
-  rotMultiplier: 1
-  startBrightness: 0.5
-  brightnessMultiplier: 0.5
-  cubes: []
+  midiFile: {fileID: 102900000, guid: 47dee19b5f0b0244f8f8d92d273407cb, type: 3}
+--- !u!114 &1425745309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425745303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565f65a30ae2af843871ca1ef7193cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioInput: {fileID: 0}
 --- !u!1 &1565545192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1747745731
 Transform:
   m_ObjectHideFlags: 0

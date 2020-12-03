@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioReact\AudioInput.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MidiExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\CircularBuffer.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\ControlName.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\DataTypes\DataTypesUtilities.cs" />

@@ -164,9 +164,16 @@ public class MidiPlayInput
     /// </summary>
     /// <returns></returns>
     public static MIDINoteEvent MidiPlayNoteOnEvent()
-    { 
-        currentNoteOnEvent = buildEvent(playedEventOn.ToString());
-        return currentNoteOnEvent;
+    {
+        if (playedEventOn != null)
+        {
+            currentNoteOnEvent = buildEvent(playedEventOn.ToString());
+            return currentNoteOnEvent;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /// <summary>
@@ -175,8 +182,15 @@ public class MidiPlayInput
     /// <returns></returns>
     public static MIDINoteEvent MidiPlayNoteOffEvent()
     {
-        currentNoteOffEvent = buildEvent(playedEventOff.ToString());
-        return currentNoteOffEvent;
+        if (playedEventOn != null)
+        {
+            currentNoteOffEvent = buildEvent(playedEventOff.ToString());
+            return currentNoteOffEvent;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     #endregion
