@@ -14,40 +14,32 @@ public class SoundReact : MonoBehaviour
 
     public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale)
     {
-        go.transform.localScale = new Vector3(((audioInput.GetAmplitudeBuffer() * scaleFactor) * axis.x) + startScale,
-                                              ((audioInput.GetAmplitudeBuffer() * scaleFactor) * axis.y) + startScale,
-                                              ((audioInput.GetAmplitudeBuffer() * scaleFactor) * axis.z) + startScale);
+        GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     public void AmplitudeRotate(GameObject go, Vector3 axis, float rotFactor)
     {
-        go.transform.Rotate(axis, audioInput.GetAmplitudeBuffer() * rotFactor);
+        GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     public void AmplitudeBright(GameObject go, float brightFactor, float startBrightness)
     {
-        float colorValue = startBrightness + audioInput.GetAmplitudeBuffer() * brightFactor;
-        Color color = new Color(colorValue, colorValue, colorValue);
-        go.GetComponent<MeshRenderer>().material.color = color;
+        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
     {
-        go.transform.localScale = new Vector3(((audioInput.GetBandBuffer(band) * scaleFactor) * axis.x) + startScale,
-                                               ((audioInput.GetBandBuffer(band) * scaleFactor) * axis.y) + startScale,
-                                               ((audioInput.GetBandBuffer(band) * scaleFactor) * axis.z) + startScale);
+        GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     public void BandRotate(GameObject go, int band, Vector3 axis, float rotFactor)
     {
-        go.transform.Rotate(axis, audioInput.GetBandBuffer(band) * rotFactor);
+        GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     public void BandBright(GameObject go, int band, float brightFactor, float startBrightness)
     {
-        float colorValue = startBrightness + audioInput.GetBandBuffer(band) * brightFactor;
-        Color color = new Color(colorValue, colorValue, colorValue);
-        go.GetComponent<MeshRenderer>().material.color = color;
+        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     #endregion
