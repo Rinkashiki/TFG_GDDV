@@ -27,6 +27,11 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    public void AmplitudeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor)
+    {
+        GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
     public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetBandBuffer(band)));

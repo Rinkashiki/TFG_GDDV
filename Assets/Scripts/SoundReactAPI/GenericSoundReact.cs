@@ -31,5 +31,28 @@ public class GenericSoundReact : MonoBehaviour
         go.transform.Rotate(axis, value * rotFactor);
     }
 
+    public static void ChangeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        Vector3[] vertices = mesh.vertices;
+
+        int length = (int) (Mathf.Abs(mesh.bounds.max.z) + Mathf.Abs(mesh.bounds.min.z));
+        int width = (int)(Mathf.Abs(mesh.bounds.max.x) + Mathf.Abs(mesh.bounds.min.x));
+
+        for (int i = 0, z = 0; z <= length; z++)
+        {
+            for (int x = 0; x <= width; x++)
+            {
+                vertices[i].y = value * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) * heightFactor;
+                i++;
+            }
+        }
+
+        mesh.vertices = vertices;
+        mesh.RecalculateNormals();
+    }
+
     #endregion
+
 }
