@@ -10,30 +10,31 @@ public class TerrainGenerator : MonoBehaviour
     Vector3[] vertices;
     int[] triangles;
 
-    private int width = 30;
-    private int length = 30;
+    private int width = 30; // Number of quads in x-direction
+    private int length = 8; 
 
     public AudioInput audioInput;
     public float scaleFactor;
 
-    private int currentLine = 0;
+    private float currentLine = 0;
     private int globalVert = 0;
     private int globalTris = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-
-        CreateTerrain();
+        //mesh = new Mesh();
+        //GetComponent<MeshFilter>().mesh = mesh;
+        //CreateTerrainLine2();
+        //CreateTerrain();
         //UpdateTerrain();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateTerrain();
+        CreateTerrainLine();
+        //UpdateTerrain();
         //UpdateTerrainLine();
     }
 
@@ -91,6 +92,7 @@ public class TerrainGenerator : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+    /*
     private void UpdateTerrainLine()
     {
        for (int z = 0; z <= length; z++)
@@ -105,39 +107,74 @@ public class TerrainGenerator : MonoBehaviour
 
         mesh.RecalculateNormals();
     }
+    */
 
     private void CreateTerrainLine()
     {
-        for (int i = 0; i < 2; i++)
+        Mesh newMesh = new Mesh();
+
+        Vector3[] oldVertices = GetComponent<MeshFilter>().mesh.vertices;
+        int[] oldTriangles = GetComponent<MeshFilter>().mesh.triangles;
+        int oldVertLength = oldVertices.Length;
+        int oldTriLength = oldTriangles.Length;
+
+        Vector3[] vertices = new Vector3[2 * length + oldVertLength];
+        int[] triangles = new int[6 * (length -1) + oldTriLength];
+
+        // Old vertices
+        for (int i = 0; i < oldVertLength; i++)
         {
-            for (int x = 0; x <= width; x++)
-            {
-                float y = audioInput.GetAmplitudeBuffer() * 0.5f + Mathf.PerlinNoise(x * 0.2f, currentLine * 0.2f) * 2;
-                vertices[(currentLine + i) * length + x] = new Vector3(x, 0, currentLine + i);
-            }
+            vertices[i] = oldVertices[i];
         }
 
-            for (int x = 0; x < width; x++)
+        // New vertices 
+        for(int i = 0, x = 0; x < 2; x++)
+        {
+            for (int z = 0; z < length; z++)
             {
-                triangles[globalTris + 0] = globalVert + 0;
-                triangles[globalTris + 1] = globalVert + width + 1;
-                triangles[globalTris + 2] = globalVert + 1;
-                triangles[globalTris + 3] = globalVert + 1;
-                triangles[globalTris + 4] = globalVert + width + 1;
-                triangles[globalTris + 5] = globalVert + width + 2;
-
-                globalVert++;
-                globalTris += 6;
+                vertices[i + oldVertLength] = new Vector3(x * 0.01f + currentLine, audioInput.GetAmplitudeBuffer(), z);
+                if (x == 0 && oldVertLength != 0)
+                {
+                    vertices[i + oldVertLength - length] = vertices[i + oldVertLength];
+                }
+                i++;
             }
+            currentLine += 0.01f;
+        }
 
-        currentLine = (currentLine + 2) % (width + 1);
+        // Old triangles
+        for (int i = 0; i < oldTriLength; i++)
+        {
+            triangles[i] = oldTriangles[i];
+        }
+        
+        // New triangles
+        int vert = 0;
+        int tris = 0;
 
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
+        for (int z = 0; z < length - 1; z++)
+        {
+            triangles[tris + oldTriLength] = vert + oldVertLength;
+            triangles[tris + 1 + oldTriLength] = vert + oldVertLength + length;
+            triangles[tris + 2 + oldTriLength] = vert + oldVertLength + 1;
+            triangles[tris + 3 + oldTriLength] = vert + oldVertLength + 1;
+            triangles[tris + 4 + oldTriLength] = vert + oldVertLength + length;
+            triangles[tris + 5 + oldTriLength] = vert + oldVertLength + length + 1;
 
-        mesh.RecalculateNormals();
+            vert++;
+            tris += 6;
+        }
+
+        newMesh.vertices = vertices;
+        newMesh.triangles = triangles;
+
+        GetComponent<MeshFilter>().mesh.Clear();
+        GetComponent<MeshFilter>().mesh = newMesh;
+
+       //newMesh.RecalculateNormals();
     }
 
+    /*
     private void OnDrawGizmos()
     {
         for (int i = 0; i < vertices.Length; i++)
@@ -146,4 +183,5 @@ public class TerrainGenerator : MonoBehaviour
             Gizmos.DrawSphere(vertices[i], 0.1f);
         }
     }
+    */
 }
