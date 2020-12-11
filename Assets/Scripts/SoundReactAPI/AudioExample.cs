@@ -15,6 +15,8 @@ public class AudioExample : MonoBehaviour
     //public GameObject terrain;
     private Mesh terrainMesh;
 
+    private float currentWidth = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,8 @@ public class AudioExample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTerrain();
+        CreateTerrain();
+        //UpdateTerrain();
         //UpdateCubes();
     }
 
@@ -41,5 +44,10 @@ public class AudioExample : MonoBehaviour
     private void UpdateTerrain()
     {
         soundReact.AmplitudeTerrainHeightMap(terrainMesh, 0.5f, scaleMultiplier);
+    }
+
+    private void CreateTerrain()
+    {
+        currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 8, currentWidth, 0.01f, 10);
     }
 }

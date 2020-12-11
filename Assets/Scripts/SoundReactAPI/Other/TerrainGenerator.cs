@@ -132,7 +132,7 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int z = 0; z < length; z++)
             {
-                vertices[i + oldVertLength] = new Vector3(x * 0.01f + currentLine, audioInput.GetAmplitudeBuffer(), z);
+                vertices[i + oldVertLength] = new Vector3(x * 0.01f * audioInput.GetAmplitudeBuffer() + currentLine, audioInput.GetAmplitudeBuffer(), z);
                 if (x == 0 && oldVertLength != 0)
                 {
                     vertices[i + oldVertLength - length] = vertices[i + oldVertLength];
