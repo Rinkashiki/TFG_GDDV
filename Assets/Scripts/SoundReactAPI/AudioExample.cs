@@ -48,6 +48,6 @@ public class AudioExample : MonoBehaviour
 
     private void CreateTerrain()
     {
-        currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 8, currentWidth, 0.01f, 10);
+        currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 8, currentWidth, 0.02f, 10);
     }
 }

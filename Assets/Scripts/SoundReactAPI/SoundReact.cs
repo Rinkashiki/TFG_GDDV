@@ -34,7 +34,7 @@ public class SoundReact : MonoBehaviour
 
     public float AmplitudeGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
     {
-        currentWidth = GenericSoundReact.CreateTerrainLine(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        currentWidth = GenericSoundReact.CreateTerrainLine2(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
         return currentWidth;
     }
 
