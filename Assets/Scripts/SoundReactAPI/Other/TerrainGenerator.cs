@@ -11,7 +11,7 @@ public class TerrainGenerator : MonoBehaviour
     int[] triangles;
 
     private int width = 30; // Number of quads in x-direction
-    private int length = 8; 
+    private int length = 30; 
 
     public AudioInput audioInput;
     public float scaleFactor;
@@ -23,18 +23,18 @@ public class TerrainGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //mesh = new Mesh();
-        //GetComponent<MeshFilter>().mesh = mesh;
-        //CreateTerrainLine2();
-        //CreateTerrain();
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        //CreateTerrainLine();
+        CreateTerrain();
         //UpdateTerrain();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CreateTerrainLine();
-        //UpdateTerrain();
+        //CreateTerrainLine();
+        UpdateTerrain();
         //UpdateTerrainLine();
     }
 

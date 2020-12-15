@@ -21,13 +21,15 @@ public class AudioExample : MonoBehaviour
     void Start()
     {
         soundReact = GetComponent<SoundReact>();
+        this.transform.Rotate(Vector3.right, 180);
         terrainMesh = GetComponent<MeshFilter>().mesh;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CreateTerrain();
+        CreateTerrainBands();
+        //CreateTerrainAmplitude();
         //UpdateTerrain();
         //UpdateCubes();
     }
@@ -46,8 +48,13 @@ public class AudioExample : MonoBehaviour
         soundReact.AmplitudeTerrainHeightMap(terrainMesh, 0.5f, scaleMultiplier);
     }
 
-    private void CreateTerrain()
+    private void CreateTerrainAmplitude()
     {
         currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 8, currentWidth, 0.02f, 10);
+    }
+
+    private void CreateTerrainBands()
+    {
+        currentWidth = soundReact.BandGenerateTerrainLine(terrainMesh, 16, currentWidth, 0.1f, 4);
     }
 }

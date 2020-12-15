@@ -63,69 +63,6 @@ public class GenericSoundReact : MonoBehaviour
 
         Vector3[] oldVertices = mesh.vertices;
         int[] oldTriangles = mesh.triangles;
-        int oldVertLength = oldVertices.Length;
-        int oldTriLength = oldTriangles.Length;
-
-        Vector3[] vertices = new Vector3[2 * length + oldVertLength];
-        int[] triangles = new int[6 * (length - 1) + oldTriLength];
-
-        // Old vertices
-        for (int i = 0; i < oldVertLength; i++)
-        {
-            vertices[i] = oldVertices[i];
-        }
-
-        // New vertices 
-        for (int i = 0, x = 0; x < 2; x++)
-        {
-            for (int z = 0; z < length; z++)
-            {
-                vertices[i + oldVertLength] = new Vector3(x * step * value + currentWidth, value * heightFactor, z);
-                if (x == 0 && oldVertLength != 0)
-                {
-                    vertices[i + oldVertLength - length] = vertices[i + oldVertLength];
-                }
-                i++;
-            }
-            currentWidth += step;
-        }
-
-        // Old triangles
-        for (int i = 0; i < oldTriLength; i++)
-        {
-            triangles[i] = oldTriangles[i];
-        }
-
-        // New triangles
-        int vert = 0;
-        int tris = 0;
-
-        for (int z = 0; z < length - 1; z++)
-        {
-            triangles[tris + oldTriLength] = vert + oldVertLength;
-            triangles[tris + 1 + oldTriLength] = vert + oldVertLength + length;
-            triangles[tris + 2 + oldTriLength] = vert + oldVertLength + 1;
-            triangles[tris + 3 + oldTriLength] = vert + oldVertLength + 1;
-            triangles[tris + 4 + oldTriLength] = vert + oldVertLength + length;
-            triangles[tris + 5 + oldTriLength] = vert + oldVertLength + length + 1;
-
-            vert++;
-            tris += 6;
-        }
-
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-
-        return currentWidth;
-    }
-
-    public static float CreateTerrainLine2(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
-    {
-        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-
-        Vector3[] oldVertices = mesh.vertices;
-        int[] oldTriangles = mesh.triangles;
         Vector3[] vertices;
         int[] triangles;
 
@@ -144,7 +81,7 @@ public class GenericSoundReact : MonoBehaviour
             triangles = new int[6 * (length - 1)];
         }
         
-        else if (oldVertLength > 10000)
+        else if (oldVertLength > 100000)
         {
             vertices = new Vector3[oldVertLength];
             triangles = new int[oldTriLength];
@@ -168,7 +105,7 @@ public class GenericSoundReact : MonoBehaviour
         {
             for (int z = 0; z < length; z++)
             {
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step * value + currentWidth, value * heightFactor, z);
+                vertices[i + oldVertLength - vertIni] = new Vector3(x * step * value + currentWidth, -value * heightFactor, z);
                 i++;
             }
             currentWidth += step;
@@ -214,6 +151,140 @@ public class GenericSoundReact : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
 
+        mesh.RecalculateNormals();
+
+        return currentWidth;
+    }
+
+    public static float CreateTerrainLineBands(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float[] bands)
+    {
+        float bandSum = 0;
+        for(int i = 0; i < bands.Length; i++)
+        {
+            bandSum += bands[i];
+        }
+
+        float advanceFactor = Mathf.Clamp(bandSum / bands.Length, 0, 1.5f);
+
+        Vector3[] oldVertices = mesh.vertices;
+        int[] oldTriangles = mesh.triangles;
+        Vector3[] vertices;
+        int[] triangles;
+
+        int oldVertLength = oldVertices.Length;
+        int oldTriLength = oldTriangles.Length;
+
+        int xFin = 1;
+        int vertIni = 0;
+        int trisIni = 0;
+        int trisOffset = oldVertLength <= 0 ? trisOffset = 0 : trisOffset = length;
+
+        if (oldVertLength <= 0)
+        {
+            xFin = 2;
+            vertices = new Vector3[2 * length];
+            triangles = new int[6 * (length - 1)];
+        }
+
+        else if (oldVertLength > 50000)
+        {
+            vertices = new Vector3[oldVertLength];
+            triangles = new int[oldTriLength];
+            vertIni = length;
+            trisIni = 6 * (length - 1);
+        }
+        else
+        {
+            vertices = new Vector3[length + oldVertLength];
+            triangles = new int[6 * (length - 1) + oldTriLength];
+        }
+
+        // Old vertices
+        for (int i = 0; i < oldVertLength - vertIni; i++)
+        {
+            vertices[i] = oldVertices[i + vertIni];
+        }
+
+        // New vertices
+        int bandIndex = 0;
+        int bandCount = 0;
+        float height = 0;
+        
+        for (int i = 0, x = 0; x < xFin; x++)
+        {
+            for (int z = 0; z < length; z++)
+            {
+                if (bandCount == (length / bands.Length))
+                {
+                    bandCount = 0;
+                    bandIndex++;
+                }
+                bandCount++;
+                if (oldVertLength > 0)
+                {
+                    //height = (-bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f) + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    height = (-bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                }
+                else
+                {
+                    //height = (-bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f));
+                    height = -bands[bandIndex] * heightFactor;
+                }
+                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z);
+                i++;
+            }
+            currentWidth += step * advanceFactor;
+            bandCount = 0;
+            bandIndex = 0;
+        }
+        
+
+        // Old triangles
+        for (int i = 0; i < oldTriLength - trisIni; i++)
+        {
+            triangles[i] = oldTriangles[i + trisIni];
+        }
+
+        // New triangles
+        int vert = 0;
+        int tris = 0;
+        /*      
+        //ClockWise
+        for (int z = 0; z < length - 1; z++)
+        {
+            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
+            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
+            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+
+            vert++;
+            tris += 6;
+        }
+        */
+        
+        //Counter ClockWise
+        for (int z = 0; z < length - 1; z++)
+        {
+            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
+            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
+
+            vert++;
+            tris += 6;
+        }
+     
+        mesh.Clear();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+
+        mesh.RecalculateNormals();
+        //mesh.RecalculateTangents();
+   
         return currentWidth;
     }
 

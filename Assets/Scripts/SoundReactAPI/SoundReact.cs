@@ -34,7 +34,7 @@ public class SoundReact : MonoBehaviour
 
     public float AmplitudeGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
     {
-        currentWidth = GenericSoundReact.CreateTerrainLine2(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        currentWidth = GenericSoundReact.CreateTerrainLine(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
         return currentWidth;
     }
 
@@ -51,6 +51,12 @@ public class SoundReact : MonoBehaviour
     public void BandBright(GameObject go, int band, float brightFactor, float startBrightness)
     {
         GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public float BandGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
+    {
+        currentWidth = GenericSoundReact.CreateTerrainLineBands(mesh, length, currentWidth, step, heightFactor, audioInput.GetBandBuffer());
+        return currentWidth;
     }
 
     #endregion
