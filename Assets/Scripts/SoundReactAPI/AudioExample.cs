@@ -21,7 +21,7 @@ public class AudioExample : MonoBehaviour
     void Start()
     {
         soundReact = GetComponent<SoundReact>();
-        this.transform.Rotate(Vector3.right, 180);
+        //this.transform.Rotate(Vector3.right, 180);
         terrainMesh = GetComponent<MeshFilter>().mesh;
     }
 

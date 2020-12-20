@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Create_Functions
 
-    public static float CreateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
+    public static float CreateTerrainLineAmplitude(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
@@ -186,7 +187,7 @@ public class GenericSoundReact : MonoBehaviour
             triangles = new int[6 * (length - 1)];
         }
 
-        else if (oldVertLength > 50000)
+        else if (oldVertLength > 3000 * length)
         {
             vertices = new Vector3[oldVertLength];
             triangles = new int[oldTriLength];
@@ -222,13 +223,13 @@ public class GenericSoundReact : MonoBehaviour
                 bandCount++;
                 if (oldVertLength > 0)
                 {
-                    //height = (-bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f) + vertices[i + oldVertLength - vertIni - length].y) / 2;
-                    height = (-bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    //height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f) + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    height = (bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
                 }
                 else
                 {
-                    //height = (-bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f));
-                    height = -bands[bandIndex] * heightFactor;
+                    //height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f));
+                    height = bands[bandIndex] * heightFactor;
                 }
                 vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z);
                 i++;
@@ -248,23 +249,24 @@ public class GenericSoundReact : MonoBehaviour
         // New triangles
         int vert = 0;
         int tris = 0;
-        /*      
+            
         //ClockWise
         for (int z = 0; z < length - 1; z++)
         {
             triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
             triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni; 
+            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
+            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
 
             vert++;
             tris += 6;
         }
-        */
+       
         
         //Counter ClockWise
+        /*
         for (int z = 0; z < length - 1; z++)
         {
             triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
@@ -277,7 +279,7 @@ public class GenericSoundReact : MonoBehaviour
             vert++;
             tris += 6;
         }
-     
+        */     
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -286,6 +288,19 @@ public class GenericSoundReact : MonoBehaviour
         //mesh.RecalculateTangents();
    
         return currentWidth;
+    }
+
+    public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption)
+    {
+        if (soundOption)
+        {
+            GameObject go = (GameObject)Instantiate(obj, position, rotation);
+            return go;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     #endregion

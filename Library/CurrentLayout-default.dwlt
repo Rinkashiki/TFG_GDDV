@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 56
+  controlID: 68
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 107
+  controlID: 119
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 108
+  controlID: 120
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -456,9 +456,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 108.565605, y: -75.63949, z: 44.6906}
+    m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: 108.565605, y: -75.63949, z: 44.6906}
+    m_Value: {x: 0.0000988033, y: -0.00006606235, z: 0.00009997918}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -504,20 +504,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.059113823, y: 0.66586465, z: -0.05304158, w: -0.7419267}
+    m_Target: {x: -0.17989178, y: 0.4734469, z: -0.099426486, w: -0.8565905}
     speed: 2
-    m_Value: {x: -0.058230568, y: 0.66255176, z: -0.05177745, w: -0.7449521}
+    m_Value: {x: -0.17987865, y: 0.47341236, z: -0.09941923, w: -0.85652804}
   m_Size:
-    m_Target: 414.8658
+    m_Target: 10
     speed: 2
-    m_Value: 434.41446
+    m_Value: 10.00015
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
-    m_SpeedNormalized: 0.5
+    m_Speed: 0.9
+    m_SpeedNormalized: 0.47
     m_SpeedMin: 0.01
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -574,19 +574,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials
+    - Assets/Scripts/SoundReactAPI
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Materials
+  - Assets/Scripts/SoundReactAPI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UNIVERSIDAD\PROYECTOS\SoundReactAPI\TFG_GDDV
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 26}
-    m_SelectedIDs: c43f0000
-    m_LastClickedID: 16324
+    m_SelectedIDs: d43f0000
+    m_LastClickedID: 16340
     m_ExpandedIDs: 00000000323e0000bc3f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0

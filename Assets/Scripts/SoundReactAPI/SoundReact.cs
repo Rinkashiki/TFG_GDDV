@@ -34,7 +34,7 @@ public class SoundReact : MonoBehaviour
 
     public float AmplitudeGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
     {
-        currentWidth = GenericSoundReact.CreateTerrainLine(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        currentWidth = GenericSoundReact.CreateTerrainLineAmplitude(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
         return currentWidth;
     }
 
@@ -74,6 +74,16 @@ public class SoundReact : MonoBehaviour
                 go.GetComponent<MeshRenderer>().material.color = numberColorAssociation[number];
             }
 
+        }
+    }
+
+    public void NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
         }
     }
 
