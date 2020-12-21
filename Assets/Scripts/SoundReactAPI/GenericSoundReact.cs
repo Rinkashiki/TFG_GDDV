@@ -187,7 +187,7 @@ public class GenericSoundReact : MonoBehaviour
             triangles = new int[6 * (length - 1)];
         }
 
-        else if (oldVertLength > 3000 * length)
+        else if (oldVertLength > 500 * length)
         {
             vertices = new Vector3[oldVertLength];
             triangles = new int[oldTriLength];
@@ -243,7 +243,7 @@ public class GenericSoundReact : MonoBehaviour
         // Old triangles
         for (int i = 0; i < oldTriLength - trisIni; i++)
         {
-            triangles[i] = oldTriangles[i + trisIni];
+            triangles[i] = oldTriangles[i];
         }
 
         // New triangles
@@ -285,8 +285,8 @@ public class GenericSoundReact : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
-        //mesh.RecalculateTangents();
-   
+        //mesh.RecalculateBounds();
+
         return currentWidth;
     }
 
