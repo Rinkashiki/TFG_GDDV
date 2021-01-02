@@ -25,7 +25,7 @@ public class DrawLine : MonoBehaviour
         }
         line = GetComponent<LineRenderer>();
         line.positionCount = positions.Length;
-        line.widthMultiplier = 0.05f;
+        line.widthMultiplier = 0.1f;
         line.SetPositions(initPos);
         dist = Vector3.Distance(positions[currentPos], positions[currentPos + 1]);
         currentPos++;

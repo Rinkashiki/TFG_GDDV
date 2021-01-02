@@ -82,7 +82,7 @@ public class GenericSoundReact : MonoBehaviour
             triangles = new int[6 * (length - 1)];
         }
         
-        else if (oldVertLength > 100000)
+        else if (oldVertLength > 500 * length)
         {
             vertices = new Vector3[oldVertLength];
             triangles = new int[oldTriLength];
@@ -106,42 +106,30 @@ public class GenericSoundReact : MonoBehaviour
         {
             for (int z = 0; z < length; z++)
             {
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step * value + currentWidth, -value * heightFactor, z);
+                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, value * heightFactor, z);
                 i++;
             }
-            currentWidth += step;
+            currentWidth += step * Mathf.Clamp(value, 0, 1.5f); ;
         }
 
         // Old triangles
         for (int i = 0; i < oldTriLength - trisIni; i++)
         {
-            triangles[i] = oldTriangles[i + trisIni];
+            triangles[i] = oldTriangles[i];
         }
 
         // New triangles
         int vert = 0;
         int tris = 0;
-        /*
-        for (int z = 0; z < length - 1; z++)
-        {
-            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
 
-            vert++;
-            tris += 6;
-        }
-        */
+        //ClockWise
         for (int z = 0; z < length - 1; z++)
         {
             triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
+            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
+            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
+            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
             triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
 
             vert++;
@@ -157,7 +145,7 @@ public class GenericSoundReact : MonoBehaviour
         return currentWidth;
     }
 
-    public static float CreateTerrainLineBands(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float[] bands)
+    public static float CreateTerrainLineBands(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float noiseFactor, float[] bands)
     {
         float bandSum = 0;
         for(int i = 0; i < bands.Length; i++)
@@ -223,14 +211,16 @@ public class GenericSoundReact : MonoBehaviour
                 bandCount++;
                 if (oldVertLength > 0)
                 {
-                    //height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f) + vertices[i + oldVertLength - vertIni - length].y) / 2;
-                    height = (bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    //height = (bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    //height = Mathf.Abs(height - vertices[i + oldVertLength - vertIni - length].y) > 5 ? height - height / 1.5f : height ;
                 }
                 else
                 {
-                    //height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * 0.2f, z * 0.2f));
-                    height = bands[bandIndex] * heightFactor;
+                    height = bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
+                    //height = bands[bandIndex] * heightFactor;
                 }
+                //Debug.Log(height);
                 vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z);
                 i++;
             }
@@ -285,7 +275,6 @@ public class GenericSoundReact : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
-        //mesh.RecalculateBounds();
 
         return currentWidth;
     }

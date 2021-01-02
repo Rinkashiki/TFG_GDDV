@@ -8,6 +8,7 @@ public class AudioExample : MonoBehaviour
     public float startScale, scaleMultiplier;
     public float rotMultiplier;
     public float startBrightness, brightnessMultiplier;
+    public float heightFactor, noiseFactor;
     private SoundReact soundReact;
 
     public GameObject[] cubes;
@@ -50,11 +51,11 @@ public class AudioExample : MonoBehaviour
 
     private void CreateTerrainAmplitude()
     {
-        currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 8, currentWidth, 0.02f, 10);
+        currentWidth = soundReact.AmplitudeGenerateTerrainLine(terrainMesh, 16, currentWidth, 0.1f, 10);
     }
 
     private void CreateTerrainBands()
     {
-        currentWidth = soundReact.BandGenerateTerrainLine(terrainMesh, 16, currentWidth, 0.1f, 4);
+        currentWidth = soundReact.BandGenerateTerrainLine(terrainMesh, 16, currentWidth, 0.1f, heightFactor, noiseFactor);
     }
 }
