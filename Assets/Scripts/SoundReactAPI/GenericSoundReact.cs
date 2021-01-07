@@ -54,6 +54,20 @@ public class GenericSoundReact : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+    public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        light.intensity = Mathf.Clamp(intensityFactor * value, 0, 8);
+    }
+
+    public static void ChangeLightRange(Light light, float rangeFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        light.range = rangeFactor * value;
+    }
+
     #endregion
 
     #region Generic_Create_Functions

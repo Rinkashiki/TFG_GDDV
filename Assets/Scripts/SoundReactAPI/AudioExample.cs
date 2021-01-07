@@ -5,31 +5,41 @@ using UnityEngine;
 public class AudioExample : MonoBehaviour
 {
 
-    public float startScale, scaleMultiplier;
-    public float rotMultiplier;
-    public float startBrightness, brightnessMultiplier;
-    public float heightFactor, noiseFactor;
+    [SerializeField] private float startScale, scaleMultiplier;
+    [SerializeField] private float rotMultiplier;
+    [SerializeField] private float startBrightness, brightnessMultiplier;
+    
     private SoundReact soundReact;
 
-    public GameObject[] cubes;
+    // Cubes variables
+    [SerializeField] private GameObject[] cubes;
 
-    //public GameObject terrain;
+    // Terrain variables
+    [SerializeField] private float heightFactor, noiseFactor;
     private Mesh terrainMesh;
-
     private float currentWidth = 0;
+
+    //Light variables
+    private Light sceneLight;
+    [SerializeField] private float intensityFactor;
+    [SerializeField] private float rangeFactor;
+
 
     // Start is called before the first frame update
     void Start()
     {
         soundReact = GetComponent<SoundReact>();
-        //this.transform.Rotate(Vector3.right, 180);
-        terrainMesh = GetComponent<MeshFilter>().mesh;
+        //terrainMesh = GetComponent<MeshFilter>().mesh;
+        sceneLight = GetComponent<Light>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        CreateTerrainBands();
+        LightIntensity();
+        LightRange();
+        //CreateTerrainBands();
         //CreateTerrainAmplitude();
         //UpdateTerrain();
         //UpdateCubes();
@@ -57,5 +67,15 @@ public class AudioExample : MonoBehaviour
     private void CreateTerrainBands()
     {
         currentWidth = soundReact.BandGenerateTerrainLine(terrainMesh, 16, currentWidth, 0.1f, heightFactor, noiseFactor);
+    }
+
+    private void LightIntensity()
+    {
+        soundReact.AmplitudeLightIntensity(sceneLight, intensityFactor);
+    }
+
+    private void LightRange()
+    {
+        soundReact.AmplitudeLightRange(sceneLight, rangeFactor);
     }
 }

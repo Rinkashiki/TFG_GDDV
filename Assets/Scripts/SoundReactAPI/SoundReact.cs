@@ -38,6 +38,17 @@ public class SoundReact : MonoBehaviour
         return currentWidth;
     }
 
+    public void AmplitudeLightIntensity(Light light, float intensityFactor)
+    {
+
+        GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
+    public void AmplitudeLightRange(Light light, float rangeFactor)
+    {
+        GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
     public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetBandBuffer(band)));
