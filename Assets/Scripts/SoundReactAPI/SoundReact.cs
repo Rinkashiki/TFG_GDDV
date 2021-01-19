@@ -32,11 +32,13 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    /*
     public float AmplitudeGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
     {
         currentWidth = GenericSoundReact.CreateTerrainLineAmplitude(mesh, length, currentWidth, step, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
         return currentWidth;
     }
+    */
 
     public void AmplitudeLightIntensity(Light light, float intensityFactor)
     {
@@ -46,7 +48,20 @@ public class SoundReact : MonoBehaviour
 
     public void AmplitudeLightRange(Light light, float rangeFactor)
     {
+
         GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
+    public GameObject AmplitudeDrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor)
+    {
+        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.Amplitude);
+        return polygon;
+    }
+
+    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor)
+    {
+        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor);
+        return terrain;
     }
 
     public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
@@ -64,11 +79,13 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
+    /*
     public float BandGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float noiseFactor)
     {
         currentWidth = GenericSoundReact.CreateTerrainLineBands(mesh, length, currentWidth, step, heightFactor, noiseFactor, audioInput.GetBandBuffer());
         return currentWidth;
     }
+    */
 
     #endregion
 

@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class GenericSoundReact : MonoBehaviour
 {
+    #region Generic_SoundReact_Const
+
+    public enum MusicDataType { Amplitude, FreqBand, NoteEvent, ChordEvent};
+
+    #endregion
+
     #region Generic_Change_Propertiy_Functions
 
     public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, Numeric property)
@@ -72,6 +78,7 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Create_Functions
 
+    
     public static float CreateTerrainLineAmplitude(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -158,7 +165,7 @@ public class GenericSoundReact : MonoBehaviour
 
         return currentWidth;
     }
-
+    
     public static float CreateTerrainLineBands(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float noiseFactor, float[] bands)
     {
         float bandSum = 0;
@@ -293,6 +300,18 @@ public class GenericSoundReact : MonoBehaviour
         return currentWidth;
     }
 
+    public static GameObject GenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor)
+    {
+        GameObject terrainObj = new GameObject();
+        terrainObj.name = "terrain";
+        terrainObj.AddComponent<MeshFilter>();
+        terrainObj.AddComponent<MeshRenderer>();
+        GenerateTerrain terrain = terrainObj.AddComponent<GenerateTerrain>();
+        terrain.SetParams(terrainObj.GetComponent<MeshFilter>().mesh, terrainObj.GetComponent<MeshRenderer>(), length, startWidth, step, heightfactor, noiseFactor);
+
+        return terrainObj;
+    }
+
     public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption)
     {
         if (soundOption)
@@ -304,6 +323,17 @@ public class GenericSoundReact : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public static GameObject DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor, MusicDataType type)
+    {
+        GameObject polygon = new GameObject();
+        polygon.name = "polygon";
+        polygon.AddComponent<LineRenderer>();
+        DrawPolygon line = polygon.AddComponent<DrawPolygon>();
+        line.SetParams(polygonVert, lineColor, lineWidth, drawSpeedFactor, type);
+
+        return polygon;
     }
 
     #endregion
