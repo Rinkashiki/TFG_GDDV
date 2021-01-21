@@ -23,13 +23,18 @@ public class AudioExample : MonoBehaviour
     [SerializeField] private float rangeFactor;
 
     //Draw Polygon variables
-    private LineRenderer line;
     private Color lineColor = new Color(238, 126, 60);
     private float lineWidth = 0.1f;
     private float drawSpeedFactor = 0.015f;
     private Vector3[] polygonVert = {new Vector2(-1.5f, -1), new Vector2(-0.5f, 0) , new Vector2(-1.5f, 1) , new Vector2(-0.5f, 1),
                                    new Vector2(0, 2), new Vector2(0.5f, 1), new Vector2(1.5f, 1), new Vector2(0.5f, 0), new Vector2(1.5f, -1),
                                    new Vector2(-1.5f, -1)};
+
+    //Keyboard draw polygon variables
+    private Color klineColor = new Color(238, 126, 60);
+    private float klineWidth = 0.1f;
+    private float kdrawSpeedFactor = 00000.1f;
+    private Dictionary<int, Vector2> numberDirAssociation = new Dictionary<int, Vector2>();
 
 
     // Start is called before the first frame update
@@ -41,7 +46,9 @@ public class AudioExample : MonoBehaviour
         //sceneLight = GetComponent<Light>();
         //line = GetComponent<LineRenderer>();
 
-        soundReact.AmplitudeDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
+        //soundReact.AmplitudeDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
+        InitDic();
+        soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
         //soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
 
     }
@@ -77,5 +84,17 @@ public class AudioExample : MonoBehaviour
     private void LightRange()
     {
         soundReact.AmplitudeLightRange(sceneLight, rangeFactor);
+    }
+
+    private void InitDic()
+    {
+        float x, y;
+        for (int i = 1; i <= 127; i++)
+        {
+            x = Random.Range(-10, 10);
+            y = Random.Range(-10, 10);
+
+            numberDirAssociation.Add(i, new Vector2(x, y).normalized);
+        }
     }
 }

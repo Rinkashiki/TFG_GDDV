@@ -67,16 +67,20 @@ public class MidiRecording
     private static void OnEventReceived(object sender, MidiEventReceivedEventArgs e)
     {
         var midiDevice = (MidiDevice)sender;
-        if (showNoteOnEvents && e.Event.EventType.Equals(MidiEventType.NoteOn))
+        if (e.Event.EventType.Equals(MidiEventType.NoteOn))
         {
             string inputEvent = e.Event.ToString();
             currentNoteOnEvent = buildEvent(e.Event.ToString());
+            currentNoteOffEvent = null;
+            if (showNoteOnEvents)
             Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOnEvent.GetNoteNumber()}  Note Velocity: {currentNoteOnEvent.GetNoteVelocity()}");
         }
-        else if (showNoteOffEvents && e.Event.EventType.Equals(MidiEventType.NoteOff))
+        else if (e.Event.EventType.Equals(MidiEventType.NoteOff))
         {
             string inputEvent = e.Event.ToString();
             currentNoteOffEvent = buildEvent(e.Event.ToString());
+            currentNoteOnEvent = null;
+            if(showNoteOffEvents)
             Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
         }
         else if (e.Event.EventType.Equals(MidiEventType.PitchBend))
@@ -84,6 +88,7 @@ public class MidiRecording
             float time = recording.GetDuration<MetricTimeSpan>().TotalMicroseconds * microSecToSec;
             Debug.Log($"Event received from '{midiDevice.Name}' at {time}: {e.Event.ToString()}");
         }
+
     }
 
     #region MIDI_Recording_Getters

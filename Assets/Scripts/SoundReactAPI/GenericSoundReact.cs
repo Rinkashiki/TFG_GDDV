@@ -336,6 +336,17 @@ public class GenericSoundReact : MonoBehaviour
         return polygon;
     }
 
+    public static GameObject KeyboardDrawPolygon(Dictionary<int, Vector2> numberDirAssociation, Color lineColor, float lineWidth, float drawSpeedFactor)
+    {
+        GameObject keyboardPolygon = new GameObject();
+        keyboardPolygon.name = "keyboardPolygon";
+        keyboardPolygon.AddComponent<LineRenderer>();
+        KeyBoardDrawPolygon line = keyboardPolygon.AddComponent<KeyBoardDrawPolygon>();
+        line.SetParams(numberDirAssociation, lineColor, lineWidth, drawSpeedFactor);
+
+        return keyboardPolygon;
+    }
+
     #endregion
 
 }

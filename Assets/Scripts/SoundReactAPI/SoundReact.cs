@@ -58,6 +58,12 @@ public class SoundReact : MonoBehaviour
         return polygon;
     }
 
+    public GameObject NoteNumberDrawPolygon(Dictionary<int, Vector2> numberDirAssociation, Color lineColor, float lineWidth, float drawSpeedFactor)
+    {
+        GameObject polygon = GenericSoundReact.KeyboardDrawPolygon(numberDirAssociation, lineColor, lineWidth, drawSpeedFactor);
+        return polygon;
+    }
+
     public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor)
     {
         GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor);
