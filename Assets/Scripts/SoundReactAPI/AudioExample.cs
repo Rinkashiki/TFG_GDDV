@@ -42,14 +42,12 @@ public class AudioExample : MonoBehaviour
     {
         soundReact = GetComponent<SoundReact>();
 
-        //terrainMesh = GetComponent<MeshFilter>().mesh;
         //sceneLight = GetComponent<Light>();
-        //line = GetComponent<LineRenderer>();
 
         //soundReact.AmplitudeDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
-        InitDic();
-        soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
-        //soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
+        //InitDic();
+        //soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
+        soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
 
     }
 

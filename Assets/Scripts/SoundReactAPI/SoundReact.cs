@@ -32,6 +32,30 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
+    public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
+    public void AmplitudeAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor)
+    {
+        GenericSoundReact.CustomAddForce(body, forceDir, mode, forceFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+
+    }
+
+    public void AmplitudeAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor)
+    {
+        GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+
+    }
+
+
+
     /*
     public float AmplitudeGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor)
     {
@@ -85,6 +109,28 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
+    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public void BandPhysicProperty2D(Rigidbody2D body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public void BandAddForce(Rigidbody body, int band, Vector3 forceDir, ForceMode mode, float forceFactor)
+    {
+        GenericSoundReact.CustomAddForce(body, forceDir, mode, forceFactor, new Numeric(audioInput.GetBandBuffer(band)));
+
+    }
+
+    public void BandAddForce2D(Rigidbody2D body, int band, Vector2 forceDir, ForceMode2D mode, float forceFactor)
+    {
+        GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(audioInput.GetBandBuffer(band)));
+
+    }
+
     /*
     public float BandGenerateTerrainLine(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float noiseFactor)
     {
@@ -97,7 +143,7 @@ public class SoundReact : MonoBehaviour
 
     #region MIDI_Functions
 
-    public void NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation)
+    public void Play_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -111,13 +157,101 @@ public class SoundReact : MonoBehaviour
         }
     }
 
-    public void NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    public void Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
 
             GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
+        }
+    }
+
+    public void Play_NoteNumberPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            GenericSoundReact.ChangePhysicProperty(body, fpp,fppFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Play_NoteNumberPhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Play_NoteNumberAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            GenericSoundReact.CustomAddForce(body, forceDir, mode, forceFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Play_NoteNumberAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor)
+    {
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Record_NoteNumberPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Record_NoteNumberPhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+
+            GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Record_NoteNumberAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+
+            GenericSoundReact.CustomAddForce(body, forceDir, mode, forceFactor, new Numeric(number));
+
+        }
+    }
+
+    public void Record_NoteNumberAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+
+            GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(number));
+
         }
     }
 

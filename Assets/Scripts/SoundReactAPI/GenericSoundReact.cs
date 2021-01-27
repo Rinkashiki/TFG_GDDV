@@ -9,6 +9,9 @@ public class GenericSoundReact : MonoBehaviour
 
     public enum MusicDataType { Amplitude, FreqBand, NoteEvent, ChordEvent};
 
+    public enum FloatPhysicProperties { angularDrag, angularVelocity, drag, mass, inertia };
+    public enum VectorPhysicProperties { centerOfMass, inertiaTensor, velocity };
+
     #endregion
 
     #region Generic_Change_Propertiy_Functions
@@ -74,11 +77,131 @@ public class GenericSoundReact : MonoBehaviour
         light.range = rangeFactor * value;
     }
 
+    //Physics related functions
+
+    public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        float newFpp = fppFactor * value;
+
+        switch (fpp)
+        {
+            case FloatPhysicProperties.angularDrag:
+                body.angularDrag *= newFpp;
+            break;
+
+            case FloatPhysicProperties.angularVelocity:
+                body.angularVelocity *= newFpp;
+            break;
+
+            case FloatPhysicProperties.drag:
+                body.drag *= newFpp;
+            break;
+
+            case FloatPhysicProperties.mass:
+                body.mass *= newFpp;
+            break;
+
+            default:
+            break;
+        }
+
+    }
+
+    public static void ChangePhysicProperty(Rigidbody body, VectorPhysicProperties vpp, Numeric property, Vector3 axis)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        Vector3 newVpp = axis * value;
+
+        switch (vpp)
+        {
+            case VectorPhysicProperties.centerOfMass:
+                body.centerOfMass += newVpp;
+                break;
+
+            case VectorPhysicProperties.inertiaTensor:
+                body.inertiaTensor += newVpp;
+                break;
+
+            case VectorPhysicProperties.velocity:
+                body.velocity += newVpp;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public static void ChangePhysicProperty2D(Rigidbody2D body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        float newFpp = fppFactor * value;
+
+        switch (fpp)
+        {
+            case FloatPhysicProperties.angularDrag:
+                body.angularDrag *= newFpp;
+                break;
+
+            case FloatPhysicProperties.angularVelocity:
+                body.angularVelocity *= newFpp;
+                break;
+
+            case FloatPhysicProperties.drag:
+                body.drag *= newFpp;
+                break;
+
+            case FloatPhysicProperties.inertia:
+                body.inertia += newFpp;
+                break;
+
+            case FloatPhysicProperties.mass:
+                body.mass *= newFpp;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public static void ChangePhysicProperty2D(Rigidbody2D body, VectorPhysicProperties vpp, Numeric property, Vector2 axis)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        Vector2 newVpp = axis * value;
+
+        switch (vpp)
+        {
+            case VectorPhysicProperties.centerOfMass:
+                body.centerOfMass += newVpp;
+                break;
+
+
+            case VectorPhysicProperties.velocity:
+                body.velocity += newVpp;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public static void CustomAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        body.AddForce(value * forceFactor * forceDir, mode);
+    }
+
+    public static void CustomAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+        body.AddForce(value * forceFactor * forceDir, mode);
+    }
+
     #endregion
 
     #region Generic_Create_Functions
 
-    
+
     public static float CreateTerrainLineAmplitude(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
