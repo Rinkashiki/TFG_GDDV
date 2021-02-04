@@ -14,7 +14,7 @@ public class GenericSoundReact : MonoBehaviour
 
     #endregion
 
-    #region Generic_Change_Propertiy_Functions
+    #region Generic_Change_Property_Functions
 
     public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, Numeric property)
     {
@@ -63,6 +63,38 @@ public class GenericSoundReact : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+    public static void ChangeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        Vector3[] vertices = mesh.vertices;
+        Vector3[] normals = mesh.normals;
+        Vector2[] uvs = mesh.uv;
+
+        Vector3 normal = Vector3.zero;
+        Vector3 factor = Vector3.zero;
+        float x, y, z;
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            normal = normals[i].normalized;
+            factor = value * normal * heightFactor;
+            x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2);
+            x = x * 0.5f + 0.5f;
+            y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2);
+            y = y * 0.5f + 0.5f;
+            z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2);
+            z = z * 0.5f + 0.5f; //PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor)
+            vertices[i] = factor * PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor) + initPos[i];//Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor)
+            //vertices[i].x = value * normal.x * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].x;
+            //vertices[i].y = value * normal.y * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].y; 
+            //vertices[i].z = value * normal.z * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].z; 
+        }
+
+        mesh.vertices = vertices;
+        //mesh.RecalculateNormals();
+    }
+
     public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -77,7 +109,9 @@ public class GenericSoundReact : MonoBehaviour
         light.range = rangeFactor * value;
     }
 
-    //Physics related functions
+    #endregion
+
+    #region Generic_Physic_Functions
 
     public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
     {
@@ -471,5 +505,24 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     #endregion
+
+    private static float PerlinNoise3D(float x, float y, float z)
+    {
+        y += 1;
+        z += 2;
+        float xy = _perlin3DFixed(x, y);
+        float xz = _perlin3DFixed(x, z);
+        float yz = _perlin3DFixed(y, z);
+        float yx = _perlin3DFixed(y, x);
+        float zx = _perlin3DFixed(z, x);
+        float zy = _perlin3DFixed(z, y);
+
+        return xy * xz * yz * yx * zx * zy;
+    }
+
+    static float _perlin3DFixed(float a, float b)
+    {
+        return Mathf.Sin(Mathf.PI * Mathf.PerlinNoise(a, b));
+    }
 
 }

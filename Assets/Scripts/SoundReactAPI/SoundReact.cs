@@ -32,6 +32,11 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    public void AmplitudeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    {
+        GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
     public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
     {
         GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));

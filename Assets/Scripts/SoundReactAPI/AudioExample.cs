@@ -16,6 +16,7 @@ public class AudioExample : MonoBehaviour
     [SerializeField] private float heightFactor, noiseFactor;
     private Mesh terrainMesh;
     private float currentWidth = 0;
+    private Vector3[] initPos;
 
     //Light variables
     private Light sceneLight;
@@ -36,6 +37,12 @@ public class AudioExample : MonoBehaviour
     private float kdrawSpeedFactor = 00000.1f;
     private Dictionary<int, Vector2> numberDirAssociation = new Dictionary<int, Vector2>();
 
+    //Add forces
+    private Rigidbody body;
+    private Vector3 forceDir = Vector3.right;
+    private float forceFactor = 0.01f;
+    private float mu = 0.4f;
+    private Vector3 fRoz;
 
     // Start is called before the first frame update
     void Start()
@@ -45,19 +52,53 @@ public class AudioExample : MonoBehaviour
         //sceneLight = GetComponent<Light>();
 
         //soundReact.AmplitudeDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
+
         //InitDic();
         //soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
-        soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
 
+        //soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
+
+        /*
+        MidiRecording.RecordingSetUp();
+        MidiRecording.StartRecording();
+        body = GetComponent<Rigidbody>();
+        fRoz = new Vector3(mu * body.mass * Physics.gravity.y, 0, 0);
+        */
+
+        terrainMesh = GetComponent<MeshFilter>().mesh;
+        initPos = new Vector3[terrainMesh.vertices.Length];
+        for (int i = 0; i < initPos.Length; i++)
+        {
+            initPos[i] = terrainMesh.vertices[i];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //LightIntensity();
+
         //LightRange();
+
         //UpdateTerrain();
+
         //UpdateCubes();
+
+        /*
+        soundReact.Record_NoteNumberAddForce(body, forceDir, ForceMode.Impulse, forceFactor);
+        if (body.velocity.x > 0)
+            body.AddForce(fRoz);
+
+        if (body.velocity.x <= 0)
+            body.velocity = Vector3.zero;
+        */
+
+        soundReact.AmplitudeVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
+    }
+
+    private void OnApplicationQuit()
+    {
+        //MidiRecording.StopRecording();
     }
 
     private void UpdateCubes()
