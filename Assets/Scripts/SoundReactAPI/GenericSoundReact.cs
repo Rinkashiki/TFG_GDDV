@@ -74,18 +74,19 @@ public class GenericSoundReact : MonoBehaviour
         Vector3 normal = Vector3.zero;
         Vector3 factor = Vector3.zero;
         float x, y, z;
+        float waveSpeed = 0.3f;
 
         for (int i = 0; i < vertices.Length; i++)
         {
             normal = normals[i].normalized;
             factor = value * normal * heightFactor;
-            x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2);
-            x = x * 0.5f + 0.5f;
-            y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2);
-            y = y * 0.5f + 0.5f;
-            z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2);
-            z = z * 0.5f + 0.5f; //PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor)
-            vertices[i] = factor * PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor) + initPos[i];//Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor)
+            x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
+            //x = x * 0.5f + 0.5f;
+            y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
+            //y = y * 0.5f + 0.5f;
+            z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
+            //z = z * 0.5f + 0.5f; //PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor)
+            vertices[i] = factor * Mathf.Clamp(PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor), 0.4f, 0.8f) + initPos[i];//Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor)
             //vertices[i].x = value * normal.x * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].x;
             //vertices[i].y = value * normal.y * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].y; 
             //vertices[i].z = value * normal.z * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].z; 
