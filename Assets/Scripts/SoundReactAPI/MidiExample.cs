@@ -42,7 +42,7 @@ public class MidiExample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        soundReact.Play_NoteNumberColor(this.gameObject, numberColorAssociation);
+        soundReact.Play_NoteNumberColor(this.gameObject, numberColorAssociation, 0.5f);
 
         if (Input.GetKeyDown(KeyCode.A))
         {

@@ -41,6 +41,12 @@ public class GenericSoundReact : MonoBehaviour
         go.transform.Rotate(axis, value * rotFactor);
     }
 
+    public static void ChangeColor(GameObject go, Color color, float transitionTime)
+    {
+        Color prevColor = go.GetComponent<MeshRenderer>().material.color;
+        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, transitionTime);
+    }
+
     public static void ChangeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -507,6 +513,8 @@ public class GenericSoundReact : MonoBehaviour
 
     #endregion
 
+    #region Other_Utility_Functions
+
     private static float PerlinNoise3D(float x, float y, float z)
     {
         y += 1;
@@ -526,4 +534,5 @@ public class GenericSoundReact : MonoBehaviour
         return Mathf.Sin(Mathf.PI * Mathf.PerlinNoise(a, b));
     }
 
+    #endregion
 }

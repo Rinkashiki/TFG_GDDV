@@ -44,6 +44,9 @@ public class AudioExample : MonoBehaviour
     private float mu = 0.4f;
     private Vector3 fRoz;
 
+    //Change color
+    private Dictionary<int, Color> numberColorAssociation = new Dictionary<int, Color>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,12 +68,21 @@ public class AudioExample : MonoBehaviour
         fRoz = new Vector3(mu * body.mass * Physics.gravity.y, 0, 0);
         */
 
+        
         terrainMesh = GetComponent<MeshFilter>().mesh;
         initPos = new Vector3[terrainMesh.vertices.Length];
         for (int i = 0; i < initPos.Length; i++)
         {
             initPos[i] = terrainMesh.vertices[i];
         }
+     
+
+        
+        //MidiRecording.RecordingSetUp();
+        //MidiRecording.StartRecording();
+        InitDicColor();
+        
+
     }
 
     // Update is called once per frame
@@ -93,7 +105,10 @@ public class AudioExample : MonoBehaviour
             body.velocity = Vector3.zero;
         */
 
-        soundReact.AmplitudeVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
+        //soundReact.AmplitudeVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
+        soundReact.Record_VelocityVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
+
+        soundReact.Record_NoteNumberColor(this.gameObject, numberColorAssociation, 0.05f);
     }
 
     private void OnApplicationQuit()
@@ -134,6 +149,14 @@ public class AudioExample : MonoBehaviour
             y = Random.Range(-10, 10);
 
             numberDirAssociation.Add(i, new Vector2(x, y).normalized);
+        }
+    }
+
+    private void InitDicColor()
+    {
+        for (int i = 1; i <= 127; i++)
+        {
+            numberColorAssociation.Add(i, Random.ColorHSV());
         }
     }
 }

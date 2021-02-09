@@ -148,7 +148,7 @@ public class SoundReact : MonoBehaviour
 
     #region MIDI_Functions
 
-    public void Play_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation)
+    public void Play_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -156,7 +156,7 @@ public class SoundReact : MonoBehaviour
 
             if (numberColorAssociation.ContainsKey(number))
             {
-                go.GetComponent<MeshRenderer>().material.color = numberColorAssociation[number];
+                GenericSoundReact.ChangeColor(go, numberColorAssociation[number], transitionTime);
             }
 
         }
@@ -257,6 +257,30 @@ public class SoundReact : MonoBehaviour
 
             GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(number));
 
+        }
+    }
+
+    public void Record_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+
+            if (numberColorAssociation.ContainsKey(number))
+            {
+                GenericSoundReact.ChangeColor(go, numberColorAssociation[number], transitionTime);
+            }
+
+        }
+    }
+
+    public void Record_VelocityVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    {
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            float vel = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * 0.01f;
+
+            GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(vel));
         }
     }
 
