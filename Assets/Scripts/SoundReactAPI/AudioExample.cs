@@ -68,21 +68,21 @@ public class AudioExample : MonoBehaviour
         fRoz = new Vector3(mu * body.mass * Physics.gravity.y, 0, 0);
         */
 
-        
+        /*
         terrainMesh = GetComponent<MeshFilter>().mesh;
         initPos = new Vector3[terrainMesh.vertices.Length];
         for (int i = 0; i < initPos.Length; i++)
         {
             initPos[i] = terrainMesh.vertices[i];
         }
-     
+        */
 
-        
+
         //MidiRecording.RecordingSetUp();
         //MidiRecording.StartRecording();
-        InitDicColor();
-        
+        //InitDicColor();
 
+        GenericSoundReact.GenerateWaveTerrain(0.1f, heightFactor, noiseFactor);
     }
 
     // Update is called once per frame
@@ -106,9 +106,9 @@ public class AudioExample : MonoBehaviour
         */
 
         //soundReact.AmplitudeVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
-        soundReact.Record_VelocityVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
+        //soundReact.Record_VelocityVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
 
-        soundReact.Record_NoteNumberColor(this.gameObject, numberColorAssociation, 0.05f);
+        //soundReact.Record_NoteNumberColor(this.gameObject, numberColorAssociation, 0.05f);
     }
 
     private void OnApplicationQuit()

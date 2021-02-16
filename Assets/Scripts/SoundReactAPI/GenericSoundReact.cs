@@ -476,6 +476,18 @@ public class GenericSoundReact : MonoBehaviour
         return terrainObj;
     }
 
+    public static GameObject GenerateWaveTerrain(float step, float heightfactor, float noiseFactor)
+    {
+        GameObject terrainObj = new GameObject();
+        terrainObj.name = "waveTerrain";
+        terrainObj.AddComponent<MeshFilter>();
+        terrainObj.AddComponent<MeshRenderer>();
+        GenerateWaveTerrain terrain = terrainObj.AddComponent<GenerateWaveTerrain>();
+        terrain.SetParams(terrainObj.GetComponent<MeshFilter>().mesh, terrainObj.GetComponent<MeshRenderer>(), step, heightfactor, noiseFactor);
+
+        return terrainObj;
+    }
+
     public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption)
     {
         if (soundOption)

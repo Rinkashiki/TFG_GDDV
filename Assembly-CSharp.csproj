@@ -544,6 +544,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\MidiRecording.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\DrawPolygon.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\GenerateTerrain.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Other\GenerateWaveTerrain.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyBoardDrawPolygon.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyboardDrawLine.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
