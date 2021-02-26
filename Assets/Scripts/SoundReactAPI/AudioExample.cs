@@ -82,7 +82,7 @@ public class AudioExample : MonoBehaviour
         //MidiRecording.StartRecording();
         //InitDicColor();
 
-        GenericSoundReact.GenerateWaveTerrain(0.1f, heightFactor, noiseFactor);
+        //GenericSoundReact.GenerateWaveTerrain(0.1f, heightFactor, noiseFactor);
     }
 
     // Update is called once per frame

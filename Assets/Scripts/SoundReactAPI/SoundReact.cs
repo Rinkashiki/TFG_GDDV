@@ -59,6 +59,11 @@ public class SoundReact : MonoBehaviour
 
     }
 
+    public void AmplitudeShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
+    {
+        GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
 
 
     /*
@@ -134,6 +139,11 @@ public class SoundReact : MonoBehaviour
     {
         GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(audioInput.GetBandBuffer(band)));
 
+    }
+
+    public void BandShaderGraphMatProperty(Material mat, int band, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
+    {
+        GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /*

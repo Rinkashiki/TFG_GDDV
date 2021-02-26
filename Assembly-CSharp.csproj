@@ -549,6 +549,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyboardDrawLine.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\TerrainGenerator.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\SoundReact.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\UseEventsExample.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />

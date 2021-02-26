@@ -12,6 +12,8 @@ public class GenericSoundReact : MonoBehaviour
     public enum FloatPhysicProperties { angularDrag, angularVelocity, drag, mass, inertia };
     public enum VectorPhysicProperties { centerOfMass, inertiaTensor, velocity };
 
+    public enum MatPropertyType { ComputeBuffer, Color, ColorArray, Float, FloatArray, Int, Matrix4x4, Matrix4x4Array, Texture, Vector4, Vector4Array};
+
     #endregion
 
     #region Generic_Change_Property_Functions
@@ -114,6 +116,52 @@ public class GenericSoundReact : MonoBehaviour
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
         light.range = rangeFactor * value;
+    }
+
+    public static void ChangeShaderGraphMatProperty(Material mat, string propertyName, MatPropertyType propertyType, float factor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        switch (propertyType)
+        {
+            case MatPropertyType.ComputeBuffer:
+                break;
+
+            case MatPropertyType.Color:
+                break;
+
+            case MatPropertyType.ColorArray:
+                break;
+
+            case MatPropertyType.Float:
+                mat.SetFloat(propertyName, 1 - value * factor);
+                break;
+
+            case MatPropertyType.FloatArray:
+                break;
+
+            case MatPropertyType.Int:
+                mat.SetInt(propertyName, (int)(value * factor));
+                break;
+
+            case MatPropertyType.Matrix4x4:
+                break;
+
+            case MatPropertyType.Matrix4x4Array:
+                break;
+
+            case MatPropertyType.Texture:
+                break;
+
+            case MatPropertyType.Vector4:
+                break;
+
+            case MatPropertyType.Vector4Array:
+                break;
+
+            default:
+            break;
+        }
     }
 
     #endregion
