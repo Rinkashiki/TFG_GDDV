@@ -34,15 +34,15 @@ public class GenerateWaveTerrain : MonoBehaviour
     {
         audioInput = GameObject.FindGameObjectWithTag("AudioInput").GetComponent<AudioInput>();
 
-        wl = 4;
+        wl = 2;
 
         oldVertices = terrain.vertices;
         oldTriangles = terrain.triangles;
         oldVertLength = oldVertices.Length;
         oldTriLength = oldTriangles.Length;
 
-        vertices = new Vector3[16];
-        triangles = new int[54];
+        vertices = new Vector3[4];
+        triangles = new int[6];
 
         GenerateWaveTerrainLine();
     }
@@ -50,7 +50,7 @@ public class GenerateWaveTerrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         oldVertices = terrain.vertices;
         oldTriangles = terrain.triangles;
 
@@ -61,38 +61,89 @@ public class GenerateWaveTerrain : MonoBehaviour
         triangles = new int[oldTriLength + trisInc];
 
         vertInc = 0;
-        */
-        //GenerateWaveTerrainLine();
+        
+        GenerateWaveTerrainLine();
     }
 
     private void GenerateWaveTerrainLine()
     {
-        // Vertices
+        int wlOffset = 0;
+        int count = 0;
+
+        // Old vertices
+        for (int i = 0; i < oldVertLength; i++)
+        {
+            if (count == (wl - 2))
+            {
+                wlOffset += 2;
+                count = 0;
+            }      
+
+            vertices[i + wl + wlOffset + 1] = oldVertices[i];
+
+            count++;
+        }
+
+        // New vertices
         float height = 0;
-        int vertCount = 0;
 
-        int zCount = 0;
-        int xCount = 0;
-
-        advanceFactor = Mathf.Clamp(audioInput.GetAmplitudeBuffer(), 0, 1.5f);
-
+        //advanceFactor = Mathf.Clamp(audioInput.GetAmplitudeBuffer(), 0, 1.5f);
+        advanceFactor = 1;
         currentWL += step * advanceFactor;
+        float currentWLStep = step * advanceFactor;
 
-        for (int i = 0, x = 0; x < wl; x++)
+        // Left-Right columns
+        for (int i = 0, x = 0; x < wl; x += wl - 1)
         {
             for (int z = 0; z < wl; z++)
             {
                 height = audioInput.GetAmplitudeBuffer() * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
-                vertices[i] = new Vector3(x, 0, z);
+
+                //Left column
+                if(x == 0)
+                {
+                    vertices[i] = new Vector3(-currentWL, height, (z + 1 - wl/2 ) * currentWLStep);
+                }
+
+                //Right column
+                else
+                {
+                    vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL, height, (z + 1 - wl / 2) * currentWLStep);
+                }
                 i++;
                 vertInc++;
             }
-            zCount = 0;
-
-            if (x > 0)
-                xCount += wl - 2;
         }
 
+        if (oldVertLength > 0)
+        {
+            // Bottom-Top rows
+            int zOffset = wl;
+
+            for (int i = 0, x = 1; x < wl - 1; x++)
+            {
+                for (int z = 0; z < wl; z += wl - 1)
+                {
+                    height = audioInput.GetAmplitudeBuffer() * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
+
+                    //Bottom row
+                    if (z == 0)
+                    {
+                        vertices[zOffset] = new Vector3((x + 1 - wl / 2) * currentWLStep, height, -currentWL);
+                        zOffset += wl - 1;
+                    }
+
+                    //Top row
+                    else
+                    {
+                        vertices[zOffset] = new Vector3((x + 1 - wl / 2) * currentWLStep, height, currentWL);
+                        zOffset++;
+                    }
+                    i++;
+                    vertInc++;
+                }
+            }
+        }
         // New triangles
         int vert = 0;
         int tris = 0;
@@ -111,7 +162,7 @@ public class GenerateWaveTerrain : MonoBehaviour
             tris += 6;
         }
 
-        trisInc += 16 * 3;
+        trisInc += 8 * wl * 3;
 
         wl += 2;
 
