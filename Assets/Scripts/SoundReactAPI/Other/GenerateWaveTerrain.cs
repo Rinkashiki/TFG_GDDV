@@ -17,6 +17,7 @@ public class GenerateWaveTerrain : MonoBehaviour
     private float currentWL;
     private float step;
     private float heightFactor, noiseFactor;
+    private float maxVertOffset = 0f;
 
     //During Generation Variables
     private float advanceFactor;
@@ -27,6 +28,7 @@ public class GenerateWaveTerrain : MonoBehaviour
     private int oldVertLength;
     private int oldTriLength;
     private int vertInc, trisInc;
+    private float prevAmp, currentAmp;
 
     #endregion
     // Start is called before the first frame update
@@ -44,25 +46,32 @@ public class GenerateWaveTerrain : MonoBehaviour
         vertices = new Vector3[4];
         triangles = new int[6];
 
+        prevAmp = audioInput.GetAmplitudeBuffer();
+
         GenerateWaveTerrainLine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        oldVertices = terrain.vertices;
-        oldTriangles = terrain.triangles;
+        currentAmp = audioInput.GetAmplitudeBuffer();
 
-        oldVertLength = oldVertices.Length;
-        oldTriLength = oldTriangles.Length;
+        //if (Mathf.Abs(currentAmp - prevAmp) > 0.2f)
+        //{
+            oldVertices = terrain.vertices;
+            oldTriangles = terrain.triangles;
 
-        vertices = new Vector3[oldVertLength + (vertInc + 8)];
-        triangles = new int[oldTriLength + trisInc];
+            oldVertLength = oldVertices.Length;
+            oldTriLength = oldTriangles.Length;
 
-        vertInc = 0;
-        
-        GenerateWaveTerrainLine();
+            vertices = new Vector3[oldVertLength + (vertInc + 8)];
+            triangles = new int[oldTriLength + trisInc];
+
+            vertInc = 0;
+            prevAmp = currentAmp;
+
+            GenerateWaveTerrainLine();
+        //}
     }
 
     private void GenerateWaveTerrainLine()
@@ -91,6 +100,7 @@ public class GenerateWaveTerrain : MonoBehaviour
         advanceFactor = 1;
         currentWL += step * advanceFactor;
         float currentWLStep = step * advanceFactor;
+        float vertOffset;
 
         // Left-Right columns
         for (int i = 0, x = 0; x < wl; x += wl - 1)
@@ -98,17 +108,42 @@ public class GenerateWaveTerrain : MonoBehaviour
             for (int z = 0; z < wl; z++)
             {
                 height = audioInput.GetAmplitudeBuffer() * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
+                vertOffset = Random.Range(0, maxVertOffset);
 
                 //Left column
                 if(x == 0)
                 {
-                    vertices[i] = new Vector3(-currentWL, height, (z + 1 - wl/2 ) * currentWLStep);
+                    if (z == 0)
+                    {
+                        vertices[i] = new Vector3(-currentWL + vertOffset, height, -currentWL);
+                    }
+                    else if (z == wl - 1)
+                    {
+                        vertices[i] = new Vector3(-currentWL + vertOffset, height, currentWL);
+                    }
+                    else
+                    {
+                        vertices[i] = new Vector3(-currentWL + vertOffset, height, vertices[i + wl].z);
+                    }
+                    //vertices[i] = new Vector3(-currentWL + vertOffset, height, (z + 1 - wl/2 ) * currentWLStep);
                 }
 
                 //Right column
                 else
                 {
-                    vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL, height, (z + 1 - wl / 2) * currentWLStep);
+                    if (z == 0)
+                    {
+                        vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL + vertOffset, height, -currentWL);
+                    }
+                    else if (z == wl - 1)
+                    {
+                        vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL + vertOffset, height, currentWL);
+                    }
+                    else
+                    {
+                        vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL + vertOffset, height, vertices[i + vertices.Length - wl * 3].z);
+                    }
+                    //vertices[i + vertices.Length - wl * 2] = new Vector3(currentWL - vertOffset, height, (z + 1 - wl / 2) * currentWLStep);
                 }
                 i++;
                 vertInc++;
@@ -125,18 +160,19 @@ public class GenerateWaveTerrain : MonoBehaviour
                 for (int z = 0; z < wl; z += wl - 1)
                 {
                     height = audioInput.GetAmplitudeBuffer() * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
+                    vertOffset = Random.Range(0, maxVertOffset);
 
                     //Bottom row
                     if (z == 0)
                     {
-                        vertices[zOffset] = new Vector3((x + 1 - wl / 2) * currentWLStep, height, -currentWL);
+                        vertices[zOffset] = new Vector3(vertices[zOffset + 1].x, height, -currentWL + vertOffset);
                         zOffset += wl - 1;
                     }
 
                     //Top row
                     else
                     {
-                        vertices[zOffset] = new Vector3((x + 1 - wl / 2) * currentWLStep, height, currentWL);
+                        vertices[zOffset] = new Vector3(vertices[zOffset - 1].x, height, currentWL - vertOffset);
                         zOffset++;
                     }
                     i++;

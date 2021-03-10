@@ -1849,7 +1849,7 @@ MonoBehaviour:
   rotMultiplier: 0
   startBrightness: 0
   brightnessMultiplier: 0
-  heightFactor: 0.6
+  heightFactor: 5
   noiseFactor: 0.5
   intensityFactor: 0
   rangeFactor: 0
