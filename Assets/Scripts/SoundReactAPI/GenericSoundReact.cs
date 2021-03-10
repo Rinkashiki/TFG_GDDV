@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GenericSoundReact : MonoBehaviour
 {
@@ -162,6 +164,15 @@ public class GenericSoundReact : MonoBehaviour
             default:
             break;
         }
+    }
+
+    public static void ChangeChromaticAberration(ChromaticAberration ca, float factor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        value = Mathf.Clamp01(value * factor);
+    
+        ca.intensity.value = value;
     }
 
     #endregion

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class ShaderExample : MonoBehaviour
 {
@@ -9,17 +11,25 @@ public class ShaderExample : MonoBehaviour
     [SerializeField]
     private GameObject[] reacts;
 
+    [SerializeField]
+    private Volume vol;
+
+    private ChromaticAberration ca;
+
     // Start is called before the first frame update
     void Start()
     {
         soundReact = GetComponent<SoundReact>();
+
+        ca = (ChromaticAberration)vol.profile.components[0];
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeShaderProperty();
-        bandScale();
+        //ChangeShaderProperty();
+        //bandScale();
+        ChangeChromaticAberration();
     }
 
     private void ChangeShaderProperty()
@@ -30,6 +40,11 @@ public class ShaderExample : MonoBehaviour
             soundReact.BandShaderGraphMatProperty(react.GetComponent<MeshRenderer>().material, band, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, 0.25f);
             band++;
         }
+    }
+
+    private void ChangeChromaticAberration()
+    {
+        soundReact.AmplitudeChangeChromaticAberration(ca, 1f);
     }
 
     private void bandScale()

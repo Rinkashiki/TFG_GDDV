@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class SoundReact : MonoBehaviour
 {
@@ -62,6 +64,11 @@ public class SoundReact : MonoBehaviour
     public void AmplitudeShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
     {
         GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
+    public void AmplitudeChangeChromaticAberration(ChromaticAberration ca, float factor)
+    {
+        GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
 
