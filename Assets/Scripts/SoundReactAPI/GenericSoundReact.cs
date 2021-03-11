@@ -166,12 +166,25 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Generic_Change_Post_Processing_Functions
+
+    public static void ChangeBloom(Bloom bloom, float factor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        value = value * factor;
+
+        bloom.intensity.value = value;
+    }
+
     public static void ChangeChromaticAberration(ChromaticAberration ca, float factor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
         value = Mathf.Clamp01(value * factor);
-    
+
         ca.intensity.value = value;
     }
 

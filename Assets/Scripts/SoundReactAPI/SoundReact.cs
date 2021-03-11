@@ -71,6 +71,11 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    public void AmplitudeChangeBloom(Bloom bloom, float factor)
+    {
+        GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
 
 
     /*
@@ -151,6 +156,16 @@ public class SoundReact : MonoBehaviour
     public void BandShaderGraphMatProperty(Material mat, int band, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
     {
         GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public void BandChangeChromaticAberration(ChromaticAberration ca, int band, float factor)
+    {
+        GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public void BandChangeBloom(Bloom bloom, int band, float factor)
+    {
+        GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /*

@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 115
+  controlID: 10927
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 116
+  controlID: 10928
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 117
+  controlID: 10929
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -186,8 +186,8 @@ MonoBehaviour:
     y: 0
     width: 254
     height: 460
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -224,7 +224,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 24faffff6afbffff
+      m_ExpandedIDs: 16c6ffff6afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -311,9 +311,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.1939463, y: 0.59552073, z: 0.80035377}
+    m_Target: {x: -0.884861, y: -0.6551056, z: -4.757127}
     speed: 2
-    m_Value: {x: -0.1939463, y: 0.59552073, z: 0.80035377}
+    m_Value: {x: -0.884861, y: -0.6551056, z: -4.757127}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -359,13 +359,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.015100635, y: -0.9439774, z: 0.32712764, w: 0.042986512}
+    m_Target: {x: 0.24053814, y: 0.2156432, z: -0.054901805, w: 0.94479096}
     speed: 2
-    m_Value: {x: 0.015099263, y: -0.9438917, z: 0.32709792, w: 0.042982608}
+    m_Value: {x: 0.24053757, y: 0.21564268, z: -0.054901674, w: 0.9447887}
   m_Size:
-    m_Target: 4.22132
+    m_Target: 11.142554
     speed: 2
-    m_Value: 4.22132
+    m_Value: 11.142554
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -457,20 +457,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/SoundReactAPI/Other
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/SoundReactAPI/Other
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UNIVERSIDAD\PROYECTOS\SoundReactAPI\TFG_GDDV
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: de3f0000
-    m_LastClickedID: 16350
-    m_ExpandedIDs: 00000000403e0000b83f0000ba3f0000bc3f0000be3f0000c03f0000c23f000000ca9a3b
+    scrollPos: {x: 0, y: 78}
+    m_SelectedIDs: 403e0000
+    m_LastClickedID: 15936
+    m_ExpandedIDs: 00000000403e0000e43f0000e63f0000e83f0000ea3f0000ec3f0000ee3f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -498,7 +498,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000403e0000b83f0000ba3f0000bc3f0000be3f0000c03f0000c23f0000
+    m_ExpandedIDs: 00000000403e0000e43f0000e63f0000e83f0000ea3f0000ec3f0000ee3f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -2942
+  m_LastSelectedObjectID: 16172
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -628,8 +628,8 @@ MonoBehaviour:
     y: 0
     width: 357
     height: 731
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
