@@ -166,6 +166,13 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    public static void ChangeAnimationSpeed(Animator anim, float factor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        anim.speed = value * factor;
+    }
+
     #endregion
 
     #region Generic_Change_Post_Processing_Functions

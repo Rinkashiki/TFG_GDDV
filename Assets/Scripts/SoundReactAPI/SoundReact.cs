@@ -76,6 +76,11 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
+    public void AmplitudeAnimationSpeed(Animator anim, float factor)
+    {
+        GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
 
 
     /*
@@ -166,6 +171,11 @@ public class SoundReact : MonoBehaviour
     public void BandChangeBloom(Bloom bloom, int band, float factor)
     {
         GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetBandBuffer(band)));
+    }
+
+    public void BandAnimationSpeed(Animator anim, int band, float factor)
+    {
+        GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /*

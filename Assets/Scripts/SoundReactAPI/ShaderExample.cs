@@ -16,6 +16,7 @@ public class ShaderExample : MonoBehaviour
 
     private ChromaticAberration ca;
     private Bloom bloom;
+    private Animator[] anims;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,10 @@ public class ShaderExample : MonoBehaviour
 
         ca = (ChromaticAberration)vol.profile.components[0];
         bloom = (Bloom)vol.profile.components[1];
+        anims = new Animator[reacts.Length];
+
+        for (int i = 0; i < anims.Length; i++)
+            anims[i] = reacts[i].GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +38,7 @@ public class ShaderExample : MonoBehaviour
         bandScale();
         ChangeChromaticAberration();
         ChangeBloom();
+        ChangeAnimSpeed();
     }
 
     private void ChangeShaderProperty()
@@ -53,6 +59,12 @@ public class ShaderExample : MonoBehaviour
     private void ChangeBloom()
     {
         soundReact.AmplitudeChangeBloom(bloom, 10f);
+    }
+
+    private void ChangeAnimSpeed()
+    {
+        for (int i = 0; i < anims.Length; i++)
+            soundReact.BandAnimationSpeed(anims[i], i, 1f);
     }
 
     private void bandScale()
