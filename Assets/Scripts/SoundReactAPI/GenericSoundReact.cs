@@ -20,6 +20,15 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Change_Property_Functions
 
+    public static void ChangeTranslation(GameObject go, Vector3 axis, float translationFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        go.transform.Translate(new Vector3((value * translationFactor * axis.x),
+                                              (value * translationFactor * axis.y),
+                                              (value * translationFactor * axis.z)));
+    }
+
     public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();

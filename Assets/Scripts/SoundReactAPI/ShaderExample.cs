@@ -18,27 +18,34 @@ public class ShaderExample : MonoBehaviour
     private Bloom bloom;
     private Animator[] anims;
 
+    [SerializeField]
+    private GameObject go;
+
     // Start is called before the first frame update
     void Start()
     {
         soundReact = GetComponent<SoundReact>();
-
+        
         ca = (ChromaticAberration)vol.profile.components[0];
         bloom = (Bloom)vol.profile.components[1];
         anims = new Animator[reacts.Length];
 
         for (int i = 0; i < anims.Length; i++)
             anims[i] = reacts[i].GetComponent<Animator>();
+            
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         ChangeShaderProperty();
         bandScale();
         ChangeChromaticAberration();
         ChangeBloom();
         ChangeAnimSpeed();
+
+        //AudioTranslate();
     }
 
     private void ChangeShaderProperty()
@@ -75,5 +82,10 @@ public class ShaderExample : MonoBehaviour
             soundReact.BandScale(react, band, Vector3.one, 0.2f, 1);
             band++;
         }
+    }
+
+    private void AudioTranslate()
+    {
+        soundReact.AmplitudeTranslation(go, Vector3.right, 0.05f);
     }
 }

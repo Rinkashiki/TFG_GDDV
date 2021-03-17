@@ -14,6 +14,11 @@ public class SoundReact : MonoBehaviour
 
     #region Audio_Functions
 
+    public void AmplitudeTranslation(GameObject go, Vector3 axis, float translationFactor)
+    {
+        GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+    }
+
     public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetAmplitudeBuffer()));
@@ -119,6 +124,11 @@ public class SoundReact : MonoBehaviour
     {
         GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor);
         return terrain;
+    }
+
+    public void BandTranslation(GameObject go, int band, Vector3 axis, float translationFactor)
+    {
+        GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
