@@ -145,7 +145,7 @@ public class GenericSoundReact : MonoBehaviour
                 break;
 
             case MatPropertyType.Float:
-                mat.SetFloat(propertyName, 1 - value * factor);
+                mat.SetFloat(propertyName, value * factor);
                 break;
 
             case MatPropertyType.FloatArray:
