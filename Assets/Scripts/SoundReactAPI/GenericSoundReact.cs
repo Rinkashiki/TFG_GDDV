@@ -552,14 +552,14 @@ public class GenericSoundReact : MonoBehaviour
         return currentWidth;
     }
 
-    public static GameObject GenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor)
+    public static GameObject GenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir)
     {
         GameObject terrainObj = new GameObject();
         terrainObj.name = "terrain";
         terrainObj.AddComponent<MeshFilter>();
         terrainObj.AddComponent<MeshRenderer>();
         GenerateTerrain terrain = terrainObj.AddComponent<GenerateTerrain>();
-        terrain.SetParams(terrainObj.GetComponent<MeshFilter>().mesh, terrainObj.GetComponent<MeshRenderer>(), length, startWidth, step, heightfactor, noiseFactor);
+        terrain.SetParams(terrainObj.GetComponent<MeshFilter>().mesh, terrainObj.GetComponent<MeshRenderer>(), length, startWidth, step, heightfactor, noiseFactor, terrainDir);
 
         return terrainObj;
     }

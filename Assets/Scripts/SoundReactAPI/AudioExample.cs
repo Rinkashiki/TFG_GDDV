@@ -17,6 +17,8 @@ public class AudioExample : MonoBehaviour
     private Mesh terrainMesh;
     private float currentWidth = 0;
     private Vector3[] initPos;
+    private GenerateTerrain genTerrain;
+    [SerializeField] private Vector3 terrainDir;
 
     //Light variables
     private Light sceneLight;
@@ -59,7 +61,10 @@ public class AudioExample : MonoBehaviour
         //InitDic();
         //soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
 
-        //soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor);
+        GameObject terrain = soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor, terrainDir);
+        genTerrain = terrain.GetComponent<GenerateTerrain>();
+        //StartCoroutine(ChangeTerrainDirY());
+        //StartCoroutine(ChangeTerrainDirZ());
 
         /*
         MidiRecording.RecordingSetUp();
@@ -82,7 +87,7 @@ public class AudioExample : MonoBehaviour
         //MidiRecording.StartRecording();
         //InitDicColor();
 
-        GenericSoundReact.GenerateWaveTerrain(1f, heightFactor, noiseFactor);
+        //GenericSoundReact.GenerateWaveTerrain(1f, heightFactor, noiseFactor);
     }
 
     // Update is called once per frame
@@ -109,6 +114,7 @@ public class AudioExample : MonoBehaviour
         //soundReact.Record_VelocityVolumeHeightMap(terrainMesh, noiseFactor, heightFactor, initPos);
 
         //soundReact.Record_NoteNumberColor(this.gameObject, numberColorAssociation, 0.05f);
+
     }
 
     private void OnApplicationQuit()
@@ -157,6 +163,46 @@ public class AudioExample : MonoBehaviour
         for (int i = 1; i <= 127; i++)
         {
             numberColorAssociation.Add(i, Random.ColorHSV());
+        }
+    }
+
+    private IEnumerator ChangeTerrainDirY()
+    {
+        float posNeg;
+        float signFactor;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(1,4));
+            posNeg = Random.Range(0, 2);
+
+            if (posNeg == 0)
+                signFactor = -1;
+            else
+                signFactor = 1;
+
+            terrainDir.y += Random.Range(1, 4) * signFactor;
+            genTerrain.SetTerrainDir(terrainDir);
+        }     
+    }
+
+    private IEnumerator ChangeTerrainDirZ()
+    {
+        float posNeg;
+        float signFactor;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(1, 4));
+            posNeg = Random.Range(0, 2);
+
+            if (posNeg == 0)
+                signFactor = -1;
+            else
+                signFactor = 1;
+
+            terrainDir.z += Random.Range(1, 4) * signFactor;
+            genTerrain.SetTerrainDir(terrainDir);
         }
     }
 }

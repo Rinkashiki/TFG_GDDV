@@ -13,6 +13,7 @@ public class GenerateTerrain : MonoBehaviour
     private float currentWidth;
     private float step;
     private float heightFactor, noiseFactor;
+    private Vector3 terrainDir;
 
     //During Generation Variables
     private float bandSum;
@@ -129,7 +130,7 @@ public class GenerateTerrain : MonoBehaviour
                     //height = bands[bandIndex] * heightFactor;
                 }
                 //Debug.Log(height);
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z);
+                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z) + terrainDir;
                 i++;
             }
             currentWidth += step * advanceFactor;
@@ -169,7 +170,9 @@ public class GenerateTerrain : MonoBehaviour
         terrain.RecalculateNormals();
     }
 
-    public void SetParams(Mesh mesh, MeshRenderer rend, int length, float currentWidth, float step, float heightFactor, float noiseFactor)
+    #region Terrain_Setters
+
+    public void SetParams(Mesh mesh, MeshRenderer rend, int length, float currentWidth, float step, float heightFactor, float noiseFactor, Vector3 terrainDir)
     {
         terrain = mesh;
         this.rend = rend;
@@ -179,5 +182,28 @@ public class GenerateTerrain : MonoBehaviour
         this.step = step;
         this.heightFactor = heightFactor;
         this.noiseFactor = noiseFactor;
+        this.terrainDir = terrainDir;
     }
+
+    public void SetStep(float step)
+    {
+        this.step = step;
+    }
+
+    public void SetHeightFactor(float heightFactor)
+    {
+        this.heightFactor = heightFactor;
+    }
+
+    public void SetNoiseFactor(float noiseFactor)
+    {
+        this.noiseFactor = noiseFactor;
+    }
+
+    public void SetTerrainDir(Vector3 terrainDir)
+    {
+        this.terrainDir = terrainDir;
+    }
+
+    #endregion
 }

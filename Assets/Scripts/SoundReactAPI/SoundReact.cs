@@ -120,9 +120,9 @@ public class SoundReact : MonoBehaviour
         return polygon;
     }
 
-    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor)
+    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir)
     {
-        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor);
+        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor, terrainDir);
         return terrain;
     }
 

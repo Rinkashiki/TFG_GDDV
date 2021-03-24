@@ -592,6 +592,7 @@ MonoBehaviour:
   brightnessMultiplier: 0
   heightFactor: 0
   noiseFactor: 0
+  terrainDir: {x: 0, y: 0, z: 0}
   intensityFactor: 1
   rangeFactor: 1
 --- !u!108 &371023436
@@ -863,6 +864,7 @@ MonoBehaviour:
   brightnessMultiplier: 0
   heightFactor: 0.3
   noiseFactor: 1.1
+  terrainDir: {x: 0, y: 0, z: 0}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!135 &658105980
@@ -1218,6 +1220,7 @@ MonoBehaviour:
   brightnessMultiplier: 0
   heightFactor: 0
   noiseFactor: 0
+  terrainDir: {x: 0, y: 0, z: 0}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!114 &1013493521
@@ -1250,7 +1253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1052819879
 Transform:
   m_ObjectHideFlags: 0
@@ -1285,6 +1288,7 @@ MonoBehaviour:
   brightnessMultiplier: 0
   heightFactor: 1
   noiseFactor: 0.5
+  terrainDir: {x: 1, y: 1, z: 1}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!114 &1052819882
@@ -1830,7 +1834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1726093113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +1855,7 @@ MonoBehaviour:
   brightnessMultiplier: 0
   heightFactor: 5
   noiseFactor: 0.5
+  terrainDir: {x: 0, y: 0, z: 0}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!114 &1726093114
@@ -1948,6 +1953,7 @@ MonoBehaviour:
   brightnessMultiplier: 0.5
   heightFactor: 0
   noiseFactor: 0
+  terrainDir: {x: 0, y: 0, z: 0}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!114 &1747745733
