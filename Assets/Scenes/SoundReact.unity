@@ -1287,8 +1287,8 @@ MonoBehaviour:
   startBrightness: 0
   brightnessMultiplier: 0
   heightFactor: 1
-  noiseFactor: 0.5
-  terrainDir: {x: 1, y: 1, z: 1}
+  noiseFactor: 0.1
+  terrainDir: {x: 1, y: 0, z: 0}
   intensityFactor: 0
   rangeFactor: 0
 --- !u!114 &1052819882

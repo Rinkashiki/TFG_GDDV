@@ -61,7 +61,7 @@ public class AudioExample : MonoBehaviour
         //InitDic();
         //soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
 
-        GameObject terrain = soundReact.BandsGenerateTerrain(16, currentWidth, 0.1f, heightFactor, noiseFactor, terrainDir);
+        GameObject terrain = soundReact.BandsGenerateTerrain(16, currentWidth, 0.05f, heightFactor, noiseFactor, terrainDir);
         genTerrain = terrain.GetComponent<GenerateTerrain>();
         //StartCoroutine(ChangeTerrainDirY());
         //StartCoroutine(ChangeTerrainDirZ());

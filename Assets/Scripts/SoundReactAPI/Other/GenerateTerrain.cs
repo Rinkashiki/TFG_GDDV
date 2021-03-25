@@ -11,9 +11,10 @@ public class GenerateTerrain : MonoBehaviour
     private MeshRenderer rend;
     private int length;
     private float currentWidth;
+    private Vector3 advanceDir;
     private float step;
     private float heightFactor, noiseFactor;
-    private Vector3 terrainDir;
+    [SerializeField] private Vector3 terrainDir;
 
     //During Generation Variables
     private float bandSum;
@@ -107,6 +108,7 @@ public class GenerateTerrain : MonoBehaviour
         int bandIndex = 0;
         int bandCount = 0;
         float height = 0;
+        Vector3 vertPos;
 
         for (int i = 0, x = 0; x < xFin; x++)
         {
@@ -130,10 +132,15 @@ public class GenerateTerrain : MonoBehaviour
                     //height = bands[bandIndex] * heightFactor;
                 }
                 //Debug.Log(height);
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z) + terrainDir;
+                vertPos = new Vector3(x + advanceDir.x, advanceDir.y, z + advanceDir.z);
+                Vector3 heightVector = Vector3.Cross(Vector3.forward, terrainDir) * height;
+                vertices[i + oldVertLength - vertIni] = vertPos + heightVector;
                 i++;
             }
-            currentWidth += step * advanceFactor;
+            //currentWidth += step * advanceFactor * terrainDir.x;
+            advanceDir.x += step * advanceFactor * terrainDir.x;
+            advanceDir.y += step * advanceFactor * terrainDir.y;
+            advanceDir.z += step * advanceFactor * terrainDir.z;
             bandCount = 0;
             bandIndex = 0;
         }
