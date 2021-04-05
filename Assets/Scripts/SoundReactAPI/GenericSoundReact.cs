@@ -9,17 +9,37 @@ public class GenericSoundReact : MonoBehaviour
 {
     #region Generic_SoundReact_Const
 
+    /// <summary>
+    /// Defines musical input data types.
+    /// </summary>
     public enum MusicDataType { Amplitude, FreqBand, NoteEvent, ChordEvent};
 
+    /// <summary>
+    /// Defines Rigigbody properties that are floats
+    /// </summary>
     public enum FloatPhysicProperties { angularDrag, angularVelocity, drag, mass, inertia };
+
+    /// <summary>
+    /// Defines Rigidbody properties that are vectors.
+    /// </summary>
     public enum VectorPhysicProperties { centerOfMass, inertiaTensor, velocity };
 
+    /// <summary>
+    /// Defines property types tha can be changed in a shader/material.
+    /// </summary>
     public enum MatPropertyType { ComputeBuffer, Color, ColorArray, Float, FloatArray, Int, Matrix4x4, Matrix4x4Array, Texture, Vector4, Vector4Array};
 
     #endregion
 
     #region Generic_Change_Property_Functions
 
+    /// <summary>
+    /// Moves <paramref name="go"/> along <paramref name="axis"/>. The amount of movement is specified by <paramref name="translationFactor"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="axis"></param>
+    /// <param name="translationFactor"></param>
+    /// <param name="property"></param>
     public static void ChangeTranslation(GameObject go, Vector3 axis, float translationFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -29,6 +49,15 @@ public class GenericSoundReact : MonoBehaviour
                                               (value * translationFactor * axis.z)));
     }
 
+    /// <summary>
+    /// Modifies the scale of <paramref name="go"/> along <paramref name="axis"/>. The initial an minimum scale is specified 
+    /// by <paramref name="startScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="axis"></param>
+    /// <param name="scaleFactor"></param>
+    /// <param name="startScale"></param>
+    /// <param name="property"></param>
     public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -38,6 +67,14 @@ public class GenericSoundReact : MonoBehaviour
                                               (value * scaleFactor * axis.z) + startScale);
     }
 
+    /// <summary>
+    /// Modifies the bright of the color in the material associated to <paramref name="go"/>. The initial an minimum bright is specified 
+    /// by <paramref name="startBright"/> and the the bright amount by <paramref name="brightFactor"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="brightFactor"></param>
+    /// <param name="startBrightness"></param>
+    /// <param name="property"></param>
     public static void ChangeBright(GameObject go, float brightFactor, float startBrightness, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -47,6 +84,13 @@ public class GenericSoundReact : MonoBehaviour
         go.GetComponent<MeshRenderer>().material.color = color;
     }
 
+    /// <summary>
+    /// Rotates <paramref name="go"/> over <paramref name="axis"/>. The amount of rotation is specified by <paramref name="rotFactor"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="axis"></param>
+    /// <param name="rotFactor"></param>
+    /// <param name="property"></param>
     public static void ChangeRotation(GameObject go, Vector3 axis, float rotFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -54,12 +98,27 @@ public class GenericSoundReact : MonoBehaviour
         go.transform.Rotate(axis, value * rotFactor);
     }
 
+    /// <summary>
+    /// Modifies the color in the material associated to <paramref name="go"/>. The material changes to <paramref name="color"/> in 
+    /// the specified <paramref name="transitionTime"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="color"></param>
+    /// <param name="transitionTime"></param>
     public static void ChangeColor(GameObject go, Color color, float transitionTime)
     {
         Color prevColor = go.GetComponent<MeshRenderer>().material.color;
         go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, transitionTime);
     }
 
+    /// <summary>
+    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
+    /// and the amount of noise by <paramref name="noiseFactor"/>.
+    /// </summary>
+    /// <param name="mesh"></param>
+    /// <param name="noiseFactor"></param>
+    /// <param name="heightFactor"></param>
+    /// <param name="property"></param>
     public static void ChangeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -82,6 +141,15 @@ public class GenericSoundReact : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+    /// <summary>
+    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
+    /// and the amount of noise by <paramref name="noiseFactor"/>. Vertices initial positions are defined by <paramref name="initPos"/>.
+    /// </summary>
+    /// <param name="mesh"></param>
+    /// <param name="noiseFactor"></param>
+    /// <param name="heightFactor"></param>
+    /// <param name="initPos"></param>
+    /// <param name="property"></param>
     public static void ChangeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -115,6 +183,12 @@ public class GenericSoundReact : MonoBehaviour
         //mesh.RecalculateNormals();
     }
 
+    /// <summary>
+    /// Modifies <paramref name="light"/> intensity. The amount of this intensity is specified by <paramref name="intensityFactor"/>.
+    /// </summary>
+    /// <param name="light"></param>
+    /// <param name="intensityFactor"></param>
+    /// <param name="property"></param>
     public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -122,6 +196,12 @@ public class GenericSoundReact : MonoBehaviour
         light.intensity = Mathf.Clamp(intensityFactor * value, 0, 8);
     }
 
+    /// <summary>
+    /// Modifies <paramref name="light"/> range. The amount of this range is specified by <paramref name="rangeFactor"/>.
+    /// </summary>
+    /// <param name="light"></param>
+    /// <param name="rangeFactor"></param>
+    /// <param name="property"></param>
     public static void ChangeLightRange(Light light, float rangeFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -129,6 +209,15 @@ public class GenericSoundReact : MonoBehaviour
         light.range = rangeFactor * value;
     }
 
+    /// <summary>
+    /// Modifies <paramref name="mat"/> shader/material property named <paramref name="propertyName"/> of type <paramref name="propertyType"/>.
+    /// The amount of change is specified by <paramref name="factor"/>.
+    /// </summary>
+    /// <param name="mat"></param>
+    /// <param name="propertyName"></param>
+    /// <param name="propertyType"></param>
+    /// <param name="factor"></param>
+    /// <param name="property"></param>
     public static void ChangeShaderGraphMatProperty(Material mat, string propertyName, MatPropertyType propertyType, float factor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -175,6 +264,12 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Modifies <paramref name="anim"/> animation speed. The amount of change in speed is specified by factor.
+    /// </summary>
+    /// <param name="anim"></param>
+    /// <param name="factor"></param>
+    /// <param name="property"></param>
     public static void ChangeAnimationSpeed(Animator anim, float factor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -186,6 +281,12 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Change_Post_Processing_Functions
 
+    /// <summary>
+    /// Modifies the <paramref name="bloom"/> of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// </summary>
+    /// <param name="bloom"></param>
+    /// <param name="factor"></param>
+    /// <param name="property"></param>
     public static void ChangeBloom(Bloom bloom, float factor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -195,6 +296,12 @@ public class GenericSoundReact : MonoBehaviour
         bloom.intensity.value = value;
     }
 
+    /// <summary>
+    /// Modifies the chromatic aberration of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// </summary>
+    /// <param name="ca"></param>
+    /// <param name="factor"></param>
+    /// <param name="property"></param>
     public static void ChangeChromaticAberration(ChromaticAberration ca, float factor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -208,6 +315,13 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Physic_Functions
 
+    /// <summary>
+    /// Modifies the specified 3D float physic property of <paramref name="body"/>. The amount of change is specified by fppFactor.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="fpp"></param>
+    /// <param name="fppFactor"></param>
+    /// <param name="property"></param>
     public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -237,7 +351,15 @@ public class GenericSoundReact : MonoBehaviour
 
     }
 
-    public static void ChangePhysicProperty(Rigidbody body, VectorPhysicProperties vpp, Numeric property, Vector3 axis)
+    /// <summary>
+    /// Modifies the specified 3D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>. 
+    /// The amount of change is specified by vppFactor.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="vpp"></param>
+    /// <param name="property"></param>
+    /// <param name="axis"></param>
+    public static void ChangePhysicProperty(Rigidbody body, VectorPhysicProperties vpp, Vector3 axis, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         Vector3 newVpp = axis * value;
@@ -261,6 +383,13 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Modifies the specified 2D float physic property of <paramref name="body"/>. The amount of change is specified by fppFactor.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="fpp"></param>
+    /// <param name="fppFactor"></param>
+    /// <param name="property"></param>
     public static void ChangePhysicProperty2D(Rigidbody2D body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -293,7 +422,15 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
-    public static void ChangePhysicProperty2D(Rigidbody2D body, VectorPhysicProperties vpp, Numeric property, Vector2 axis)
+    /// <summary>
+    /// Modifies the specified 2D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>. 
+    /// The amount of change is specified by vppFactor.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="vpp"></param>
+    /// <param name="property"></param>
+    /// <param name="axis"></param>
+    public static void ChangePhysicProperty2D(Rigidbody2D body, VectorPhysicProperties vpp, Vector2 axis, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         Vector2 newVpp = axis * value;
@@ -314,12 +451,30 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Add a 3D force to <paramref name="body"/> in the direction of <paramref name="forceDir"/>. The type of the applied force 
+    /// is specified by <paramref name="mode"/> and the amount of force by <paramref name="forceFactor"/>.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="forceDir"></param>
+    /// <param name="mode"></param>
+    /// <param name="forceFactor"></param>
+    /// <param name="property"></param>
     public static void CustomAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         body.AddForce(value * forceFactor * forceDir, mode);
     }
 
+    /// <summary>
+    /// Add a 2D force to <paramref name="body"/> in the direction of <paramref name="forceDir"/>. The type of the applied force 
+    /// is specified by <paramref name="mode"/> and the amount of force by <paramref name="forceFactor"/>.
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="forceDir"></param>
+    /// <param name="mode"></param>
+    /// <param name="forceFactor"></param>
+    /// <param name="property"></param>
     public static void CustomAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -330,228 +485,19 @@ public class GenericSoundReact : MonoBehaviour
 
     #region Generic_Create_Functions
 
-
-    public static float CreateTerrainLineAmplitude(Mesh mesh, int length, float currentWidth, float step, float heightFactor, Numeric property)
-    {
-        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-
-        Vector3[] oldVertices = mesh.vertices;
-        int[] oldTriangles = mesh.triangles;
-        Vector3[] vertices;
-        int[] triangles;
-
-        int oldVertLength = oldVertices.Length;
-        int oldTriLength = oldTriangles.Length;
-
-        int xFin = 1;
-        int vertIni = 0;
-        int trisIni = 0;
-        int trisOffset = oldVertLength <= 0 ? trisOffset = 0 : trisOffset = length;
-
-        if (oldVertLength <= 0)
-        {
-            xFin = 2;
-            vertices = new Vector3[2 * length];
-            triangles = new int[6 * (length - 1)];
-        }
-        
-        else if (oldVertLength > 500 * length)
-        {
-            vertices = new Vector3[oldVertLength];
-            triangles = new int[oldTriLength];
-            vertIni = length;
-            trisIni = 6 * (length - 1);
-        }
-        else
-        {
-            vertices = new Vector3[length + oldVertLength];
-            triangles = new int[6 * (length - 1) + oldTriLength];
-        }
-
-        // Old vertices
-        for (int i = 0; i < oldVertLength - vertIni; i++)
-        {
-            vertices[i] = oldVertices[i + vertIni];
-        }
-
-        // New vertices 
-        for (int i = 0, x = 0; x < xFin; x++)
-        {
-            for (int z = 0; z < length; z++)
-            {
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, value * heightFactor, z);
-                i++;
-            }
-            currentWidth += step * Mathf.Clamp(value, 0, 1.5f); ;
-        }
-
-        // Old triangles
-        for (int i = 0; i < oldTriLength - trisIni; i++)
-        {
-            triangles[i] = oldTriangles[i];
-        }
-
-        // New triangles
-        int vert = 0;
-        int tris = 0;
-
-        //ClockWise
-        for (int z = 0; z < length - 1; z++)
-        {
-            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-
-            vert++;
-            tris += 6;
-        }
-
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-
-        mesh.RecalculateNormals();
-
-        return currentWidth;
-    }
-    
-    public static float CreateTerrainLineBands(Mesh mesh, int length, float currentWidth, float step, float heightFactor, float noiseFactor, float[] bands)
-    {
-        float bandSum = 0;
-        for(int i = 0; i < bands.Length; i++)
-        {
-            bandSum += bands[i];
-        }
-
-        float advanceFactor = Mathf.Clamp(bandSum / bands.Length, 0, 1.5f);
-
-        Vector3[] oldVertices = mesh.vertices;
-        int[] oldTriangles = mesh.triangles;
-        Vector3[] vertices;
-        int[] triangles;
-
-        int oldVertLength = oldVertices.Length;
-        int oldTriLength = oldTriangles.Length;
-
-        int xFin = 1;
-        int vertIni = 0;
-        int trisIni = 0;
-        int trisOffset = oldVertLength <= 0 ? trisOffset = 0 : trisOffset = length;
-
-        if (oldVertLength <= 0)
-        {
-            xFin = 2;
-            vertices = new Vector3[2 * length];
-            triangles = new int[6 * (length - 1)];
-        }
-
-        else if (oldVertLength > 500 * length)
-        {
-            vertices = new Vector3[oldVertLength];
-            triangles = new int[oldTriLength];
-            vertIni = length;
-            trisIni = 6 * (length - 1);
-        }
-        else
-        {
-            vertices = new Vector3[length + oldVertLength];
-            triangles = new int[6 * (length - 1) + oldTriLength];
-        }
-
-        // Old vertices
-        for (int i = 0; i < oldVertLength - vertIni; i++)
-        {
-            vertices[i] = oldVertices[i + vertIni];
-        }
-
-        // New vertices
-        int bandIndex = 0;
-        int bandCount = 0;
-        float height = 0;
-        
-        for (int i = 0, x = 0; x < xFin; x++)
-        {
-            for (int z = 0; z < length; z++)
-            {
-                if (bandCount == (length / bands.Length))
-                {
-                    bandCount = 0;
-                    bandIndex++;
-                }
-                bandCount++;
-                if (oldVertLength > 0)
-                {
-                    height = (bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) + vertices[i + oldVertLength - vertIni - length].y) / 2;
-                    //height = (bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
-                    //height = Mathf.Abs(height - vertices[i + oldVertLength - vertIni - length].y) > 5 ? height - height / 1.5f : height ;
-                }
-                else
-                {
-                    height = bands[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
-                    //height = bands[bandIndex] * heightFactor;
-                }
-                //Debug.Log(height);
-                vertices[i + oldVertLength - vertIni] = new Vector3(x * step + currentWidth, height, z);
-                i++;
-            }
-            currentWidth += step * advanceFactor;
-            bandCount = 0;
-            bandIndex = 0;
-        }
-        
-
-        // Old triangles
-        for (int i = 0; i < oldTriLength - trisIni; i++)
-        {
-            triangles[i] = oldTriangles[i];
-        }
-
-        // New triangles
-        int vert = 0;
-        int tris = 0;
-            
-        //ClockWise
-        for (int z = 0; z < length - 1; z++)
-        {
-            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni; 
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-
-            vert++;
-            tris += 6;
-        }
-       
-        
-        //Counter ClockWise
-        /*
-        for (int z = 0; z < length - 1; z++)
-        {
-            triangles[tris + oldTriLength - trisIni] = vert + oldVertLength - trisOffset - vertIni;
-            triangles[tris + 1 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 2 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 3 + oldTriLength - trisIni] = vert + oldVertLength - trisOffset + 1 - vertIni;
-            triangles[tris + 4 + oldTriLength - trisIni] = vert + oldVertLength - vertIni;
-            triangles[tris + 5 + oldTriLength - trisIni] = vert + oldVertLength + 1 - vertIni;
-
-            vert++;
-            tris += 6;
-        }
-        */     
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-
-        mesh.RecalculateNormals();
-
-        return currentWidth;
-    }
-
+    /// <summary>
+    /// Returns a GameObject that generates a new line of terrain every frame, increasing its width (in x). 
+    /// The <paramref name="length"/> of the terrain (in z) is fixed. The amount of increase in width is specified by step. Height and noise are 
+    /// determined by <paramref name="heightfactor"/> and <paramref name="noiseFactor"/>, respectively. The direction of the terrain is specified by
+    /// terrainDir.
+    /// </summary>
+    /// <param name="length"></param>
+    /// <param name="startWidth"></param>
+    /// <param name="step"></param>
+    /// <param name="heightfactor"></param>
+    /// <param name="noiseFactor"></param>
+    /// <param name="terrainDir"></param>
+    /// <returns></returns>
     public static GameObject GenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir)
     {
         GameObject terrainObj = new GameObject();
@@ -576,6 +522,15 @@ public class GenericSoundReact : MonoBehaviour
         return terrainObj;
     }
 
+    /// <summary>
+    /// Creates and returns a GameObject, which is an instance of <paramref name="obj"/>, in tge position determined by <paramref name="position"/> and
+    /// with the rotation specified by <paramref name="rotation"/>. The instantiation is produced when <paramref name="soundOption"/> is true.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="position"></param>
+    /// <param name="rotation"></param>
+    /// <param name="soundOption"></param>
+    /// <returns></returns>
     public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption)
     {
         if (soundOption)
@@ -589,6 +544,16 @@ public class GenericSoundReact : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a GameObject that generate a new piece of trail every frame between the specified vertices of a custom polygon defined 
+    /// by <paramref name="polygonVert"/>.
+    /// </summary>
+    /// <param name="polygonVert"></param>
+    /// <param name="lineColor"></param>
+    /// <param name="lineWidth"></param>
+    /// <param name="drawSpeedFactor"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public static GameObject DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor, MusicDataType type)
     {
         GameObject polygon = new GameObject();
@@ -600,6 +565,15 @@ public class GenericSoundReact : MonoBehaviour
         return polygon;
     }
 
+    /// <summary>
+    /// Returns a GameObject that generates a piece of trail when a note of MIDI keyboard is played. 
+    /// The direction of the trail is determined by the association with MIDI notes in <paramref name="numberDirAssociation"/>.
+    /// </summary>
+    /// <param name="numberDirAssociation"></param>
+    /// <param name="lineColor"></param>
+    /// <param name="lineWidth"></param>
+    /// <param name="drawSpeedFactor"></param>
+    /// <returns></returns>
     public static GameObject KeyboardDrawPolygon(Dictionary<int, Vector2> numberDirAssociation, Color lineColor, float lineWidth, float drawSpeedFactor)
     {
         GameObject keyboardPolygon = new GameObject();
