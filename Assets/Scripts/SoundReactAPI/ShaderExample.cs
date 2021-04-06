@@ -60,12 +60,12 @@ public class ShaderExample : MonoBehaviour
 
     private void ChangeChromaticAberration()
     {
-        soundReact.AmplitudeChangeChromaticAberration(ca, 1f);
+        soundReact.AmplitudeChromaticAberration(ca, 1f);
     }
 
     private void ChangeBloom()
     {
-        soundReact.AmplitudeChangeBloom(bloom, 10f);
+        soundReact.AmplitudeBloom(bloom, 10f);
     }
 
     private void ChangeAnimSpeed()

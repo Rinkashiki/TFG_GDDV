@@ -50,6 +50,20 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
+    /// Rotates <paramref name="go"/> over <paramref name="axis"/>. The amount of rotation is specified by <paramref name="rotFactor"/>.
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="axis"></param>
+    /// <param name="rotFactor"></param>
+    /// <param name="property"></param>
+    public static void ChangeRotation(GameObject go, Vector3 axis, float rotFactor, Numeric property)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        go.transform.Rotate(axis, value * rotFactor);
+    }
+
+    /// <summary>
     /// Modifies the scale of <paramref name="go"/> along <paramref name="axis"/>. The initial an minimum scale is specified 
     /// by <paramref name="startScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
     /// </summary>
@@ -82,20 +96,6 @@ public class GenericSoundReact : MonoBehaviour
         float colorValue = startBrightness + value * brightFactor;
         Color color = new Color(colorValue, colorValue, colorValue);
         go.GetComponent<MeshRenderer>().material.color = color;
-    }
-
-    /// <summary>
-    /// Rotates <paramref name="go"/> over <paramref name="axis"/>. The amount of rotation is specified by <paramref name="rotFactor"/>.
-    /// </summary>
-    /// <param name="go"></param>
-    /// <param name="axis"></param>
-    /// <param name="rotFactor"></param>
-    /// <param name="property"></param>
-    public static void ChangeRotation(GameObject go, Vector3 axis, float rotFactor, Numeric property)
-    {
-        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-
-        go.transform.Rotate(axis, value * rotFactor);
     }
 
     /// <summary>
@@ -316,7 +316,7 @@ public class GenericSoundReact : MonoBehaviour
     #region Generic_Physic_Functions
 
     /// <summary>
-    /// Modifies the specified 3D float physic property of <paramref name="body"/>. The amount of change is specified by fppFactor.
+    /// Modifies the specified 3D float physic property of <paramref name="body"/>. The amount of change is specified by <paramref name="fppFactor"/>.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="fpp"></param>
@@ -353,7 +353,6 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the specified 3D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>. 
-    /// The amount of change is specified by vppFactor.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="vpp"></param>
@@ -487,9 +486,9 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Returns a GameObject that generates a new line of terrain every frame, increasing its width (in x). 
-    /// The <paramref name="length"/> of the terrain (in z) is fixed. The amount of increase in width is specified by step. Height and noise are 
-    /// determined by <paramref name="heightfactor"/> and <paramref name="noiseFactor"/>, respectively. The direction of the terrain is specified by
-    /// terrainDir.
+    /// The <paramref name="length"/> of the terrain (in z) is fixed. The amount of increase in width is specified by <paramref name="step"/>.
+    /// Height and noise are determined by <paramref name="heightfactor"/> and <paramref name="noiseFactor"/>, respectively. 
+    /// The direction of the terrain is specified by <paramref name="terrainDir"/>.
     /// </summary>
     /// <param name="length"></param>
     /// <param name="startWidth"></param>
@@ -523,7 +522,7 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates and returns a GameObject, which is an instance of <paramref name="obj"/>, in tge position determined by <paramref name="position"/> and
+    /// Creates and returns a GameObject, which is an instance of <paramref name="obj"/>, in the position determined by <paramref name="position"/> and
     /// with the rotation specified by <paramref name="rotation"/>. The instantiation is produced when <paramref name="soundOption"/> is true.
     /// </summary>
     /// <param name="obj"></param>
