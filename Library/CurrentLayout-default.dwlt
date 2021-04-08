@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 125
+  controlID: 2530
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 103
+  controlID: 2508
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 104
+  controlID: 2509
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -185,8 +185,8 @@ MonoBehaviour:
     y: 0
     width: 254
     height: 460
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -211,8 +211,8 @@ MonoBehaviour:
     y: 0
     width: 925
     height: 460
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 14}
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_MaximizeOnPlay: 1
+  m_MaximizeOnPlay: 0
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6afbffff
+      m_ExpandedIDs: cae4ffffdae9ffff6afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -456,9 +456,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 190.74979, y: -34.681183, z: 118.88431}
+    m_Target: {x: 355.74298, y: -90.81406, z: 209.62422}
     speed: 2
-    m_Value: {x: 190.74979, y: -34.681183, z: 118.88431}
+    m_Value: {x: 355.74298, y: -90.81406, z: 209.62422}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -508,9 +508,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.18094021, y: -0.29857033, z: 0.05776176, w: 0.9352968}
   m_Size:
-    m_Target: 224.6144
+    m_Target: 269.47385
     speed: 2
-    m_Value: 224.6144
+    m_Value: 257.86972
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -574,19 +574,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/SoundReactAPI
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/SoundReactAPI
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UNIVERSIDAD\PROYECTOS\SoundReactAPI\TFG_GDDV
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 78}
-    m_SelectedIDs: 2e400000
-    m_LastClickedID: 16430
+    m_SelectedIDs: 46400000
+    m_LastClickedID: 16454
     m_ExpandedIDs: 00000000403e00002c4000002e4000003040000032400000344000003640000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000403e00002c4000002e40000030400000324000003440000036400000
+    m_ExpandedIDs: 00000000403e00002c4000002e4000003040000032400000344000003640000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
