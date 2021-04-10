@@ -21,14 +21,18 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    public GameObject Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
     {
+        GameObject go = null;
+
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
 
             GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
         }
+
+        return go;
     }
 
     #endregion
@@ -139,7 +143,7 @@ public class MIDIPlayReact : MonoBehaviour
 
     public GameObject Play_VelocityDrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor)
     {
-        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.NoteEvent);
+        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.Play_Velocity);
         return polygon;
     }
 

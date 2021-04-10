@@ -12,7 +12,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines musical input data types.
     /// </summary>
-    public enum MusicDataType { Amplitude, FreqBand, NoteEvent, ChordEvent};
+    public enum MusicDataType { Amplitude, FreqBand, Play_Velocity, Record_Velocity};
 
     /// <summary>
     /// Defines Rigigbody properties that are floats
@@ -553,13 +553,14 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="drawSpeedFactor"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static GameObject DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor, MusicDataType type)
+    public static GameObject DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor, MusicDataType type, int band = -1)
     {
         GameObject polygon = new GameObject();
         polygon.name = "polygon";
         polygon.AddComponent<LineRenderer>();
         DrawPolygon line = polygon.AddComponent<DrawPolygon>();
         line.SetParams(polygonVert, lineColor, lineWidth, drawSpeedFactor, type);
+        line.SetFreqBand(band);
 
         return polygon;
     }

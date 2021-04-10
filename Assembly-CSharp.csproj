@@ -67,11 +67,13 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioReact\AudioInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AudioExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\PolygonExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\UseEventsExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\FreqBandReact.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\GenericSoundReact.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MIDIPlayReact.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\MIDIRecordReact.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\CircularBuffer.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\ControlName.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\DryWetMidi\Common\DataTypes\DataTypesUtilities.cs" />

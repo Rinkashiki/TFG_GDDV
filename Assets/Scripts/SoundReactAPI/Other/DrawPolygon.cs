@@ -22,6 +22,9 @@ public class DrawPolygon : MonoBehaviour
     private float dist;
     private float value;
 
+    // Audio variables
+    private int band;
+
     #endregion
 
     //Music Data Types
@@ -30,7 +33,8 @@ public class DrawPolygon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioInput = GameObject.FindGameObjectWithTag("AudioInput").GetComponent<AudioInput>();
+        if(GameObject.FindGameObjectWithTag("AudioInput"))
+            audioInput = GameObject.FindGameObjectWithTag("AudioInput").GetComponent<AudioInput>();
 
         initPos = new Vector3[polygonVert.Length];
         for (int i = 0; i < initPos.Length; i++)
@@ -40,10 +44,8 @@ public class DrawPolygon : MonoBehaviour
         line = GetComponent<LineRenderer>();
         line.material = new Material(Shader.Find("Sprites/Default"));
         line.positionCount = polygonVert.Length;
-        Debug.Log(line.startColor);
         line.startColor = lineColor;
         line.endColor = lineColor;
-        Debug.Log(line.startColor);
         line.widthMultiplier = lineWidth;
         line.SetPositions(initPos);
         dist = Vector3.Distance(polygonVert[currentPos], polygonVert[currentPos + 1]);
@@ -53,7 +55,9 @@ public class DrawPolygon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentPos < line.positionCount)
+        value = 0;
+
+        if (currentPos < line.positionCount)
         {
             if (counter < dist)
             {
@@ -64,13 +68,17 @@ public class DrawPolygon : MonoBehaviour
                         break;
 
                     case GenericSoundReact.MusicDataType.FreqBand:
-                        value = audioInput.GetBandBuffer(1);
+                        value = audioInput.GetBandBuffer(band);
                         break;
 
-                    case GenericSoundReact.MusicDataType.NoteEvent:
+                    case GenericSoundReact.MusicDataType.Play_Velocity:
+                        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null) { }
+                            value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity();
                         break;
 
-                    case GenericSoundReact.MusicDataType.ChordEvent:
+                    case GenericSoundReact.MusicDataType.Record_Velocity:
+                        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+                            value = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity();
                         break;
 
                     default:
@@ -113,5 +121,10 @@ public class DrawPolygon : MonoBehaviour
         this.lineWidth = lineWidth;
         this.drawSpeedFactor = drawSpeedFactor;
         this.type = type;
+    }
+
+    public void SetFreqBand(int band)
+    {
+        this.band = band;
     }
 }

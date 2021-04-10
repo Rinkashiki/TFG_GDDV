@@ -21,8 +21,8 @@ public class KeyBoardDrawPolygon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MidiRecording.RecordingSetUp();
-        MidiRecording.StartRecording();
+        //MidiRecording.RecordingSetUp();
+        //MidiRecording.StartRecording();
 
         linePositions = new List<Vector3>();
         linePositions.Add(Vector3.zero);

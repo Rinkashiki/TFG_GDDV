@@ -315,7 +315,8 @@ public class FreqBandReact : MonoBehaviour
     /// <returns></returns>
     public GameObject BandDrawPolygon(Vector3[] polygonVert, int band, Color lineColor, float lineWidth, float drawSpeedFactor)
     {
-        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.FreqBand);
+        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.FreqBand, band);
+
         return polygon;
     }
 
