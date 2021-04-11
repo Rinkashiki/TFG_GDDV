@@ -84,10 +84,10 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void Record_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
     public void Record_VelocityLightIntensity(Light light, float intensityFactor)

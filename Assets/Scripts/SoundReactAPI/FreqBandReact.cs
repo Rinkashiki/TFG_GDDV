@@ -105,9 +105,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void BandVolumeHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void BandHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PolygonExample : MonoBehaviour
 {
     private MIDIRecordReact recordReact;
+    private AmplitudeReact ampReact;
 
     private Mesh mesh;
 
@@ -16,26 +17,36 @@ public class PolygonExample : MonoBehaviour
                                    new Vector2(0, 2), new Vector2(0.5f, 1), new Vector2(1.5f, 1), new Vector2(0.5f, 0), new Vector2(1.5f, -1),
                                    new Vector2(-1.5f, -1)};
 
+    // Height Map
+    Vector3[] initPos;
+    [SerializeField] private float noiseFactor;
+    [SerializeField] private float heightFactor;
+    [SerializeField] private float waveSpeed;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        MidiRecording.RecordingSetUp();
-        MidiRecording.StartRecording();
+        //MidiRecording.RecordingSetUp();
+        //MidiRecording.StartRecording();
 
         recordReact = GetComponent<MIDIRecordReact>();
+        ampReact = GetComponent<AmplitudeReact>();
 
         mesh = GetComponent<MeshFilter>().mesh;
+        initPos = mesh.vertices;
         //recordReact.Record_VelocityDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
     }
 
     private void Update()
     {
-        recordReact.Record_VelocityTerrainHeightMap(mesh, 0.4f, 0.03f);
+        //recordReact.Record_VelocityTerrainHeightMap(mesh, 0.4f, 0.03f);
+        ampReact.AmplitudeHeightMap(mesh, noiseFactor, heightFactor, waveSpeed, initPos);
+        //this.gameObject.transform.Rotate(new Vector3(1, 1, 0), Time.deltaTime * 100);
     }
 
     private void OnApplicationQuit()
     {
-        MidiRecording.StopRecording();
+        //MidiRecording.StopRecording();
     }
 }

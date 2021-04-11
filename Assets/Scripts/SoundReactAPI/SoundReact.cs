@@ -102,9 +102,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void AmplitudeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void AmplitudeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -380,9 +380,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void BandVolumeHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void BandHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -657,9 +657,9 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void Play_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityLightIntensity(Light light, float intensityFactor)
@@ -744,13 +744,13 @@ public class SoundReact : MonoBehaviour
         }
     }
 
-    public void Record_VelocityVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos)
+    public void Record_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float vel = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * 0.01f;
 
-            GenericSoundReact.ChangeVolumeHeightMap(mesh, noiseFactor, heightFactor, initPos, new Numeric(vel));
+            GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(vel));
         }
     }
 

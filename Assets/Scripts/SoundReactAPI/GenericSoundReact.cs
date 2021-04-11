@@ -12,7 +12,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines musical input data types.
     /// </summary>
-    public enum MusicDataType { Amplitude, FreqBand, Play_Velocity, Record_Velocity};
+    public enum MusicDataType { Amplitude, FreqBand, Play_Velocity, Record_Velocity };
 
     /// <summary>
     /// Defines Rigigbody properties that are floats
@@ -27,7 +27,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines property types tha can be changed in a shader/material.
     /// </summary>
-    public enum MatPropertyType { ComputeBuffer, Color, ColorArray, Float, FloatArray, Int, Matrix4x4, Matrix4x4Array, Texture, Vector4, Vector4Array};
+    public enum MatPropertyType { ComputeBuffer, Color, ColorArray, Float, FloatArray, Int, Matrix4x4, Matrix4x4Array, Texture, Vector4, Vector4Array };
 
     #endregion
 
@@ -125,7 +125,7 @@ public class GenericSoundReact : MonoBehaviour
 
         Vector3[] vertices = mesh.vertices;
 
-        int length = (int) (Mathf.Abs(mesh.bounds.max.z) + Mathf.Abs(mesh.bounds.min.z));
+        int length = (int)(Mathf.Abs(mesh.bounds.max.z) + Mathf.Abs(mesh.bounds.min.z));
         int width = (int)(Mathf.Abs(mesh.bounds.max.x) + Mathf.Abs(mesh.bounds.min.x));
 
         for (int i = 0, z = 0; z <= length; z++)
@@ -150,7 +150,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
     /// <param name="property"></param>
-    public static void ChangeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos, Numeric property)
+    public static void ChangeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos, float waveSpeed, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
@@ -161,26 +161,67 @@ public class GenericSoundReact : MonoBehaviour
         Vector3 normal = Vector3.zero;
         Vector3 factor = Vector3.zero;
         float x, y, z;
-        float waveSpeed = 0.3f;
+
+        // For dispair normals and uvs in repeated vertices
+        List<int> checkedVerts = new List<int>();
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            List<int> repeatedVerts = new List<int>();
+            List<Vector3> initialNormals = new List<Vector3>();
+            List<Vector2> initialUvs = new List<Vector2>();
+            repeatedVerts.Add(i);
+            initialNormals.Add(normals[i]);
+            initialUvs.Add(uvs[i]);
+            if (!checkedVerts.Contains(i))
+                checkedVerts.Add(i);
+
+            for (int j = 0; j < vertices.Length; j++)
+            {
+                if (vertices[i] == vertices[j])
+                {
+                    if (!repeatedVerts.Contains(j) && !checkedVerts.Contains(j))
+                    {
+                        repeatedVerts.Add(j);
+                        checkedVerts.Add(j);
+                        initialNormals.Add(normals[j]);
+                        initialUvs.Add(uvs[j]);
+                    }
+                }
+            }
+
+            if (repeatedVerts.Count < 2)
+                repeatedVerts.Clear();
+
+            for (int k = 0; k < repeatedVerts.Count; k++)
+            {
+                for (int l = 0; l < repeatedVerts.Count; l++)
+                {
+                    if (l != k)
+                    {
+                        normals[repeatedVerts[k]] += initialNormals[l];
+                        uvs[repeatedVerts[k]] += initialUvs[l];
+                    }
+                }
+
+                normals[repeatedVerts[k]] = normals[repeatedVerts[k]].normalized;
+                uvs[repeatedVerts[k]] = Vector2.ClampMagnitude(uvs[repeatedVerts[k]], 1);
+            }
+        }
 
         for (int i = 0; i < vertices.Length; i++)
         {
             normal = normals[i].normalized;
             factor = value * normal * heightFactor;
             x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
-            //x = x * 0.5f + 0.5f;
             y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
-            //y = y * 0.5f + 0.5f;
             z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
-            //z = z * 0.5f + 0.5f; //PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor)
-            vertices[i] = factor * Mathf.Clamp(PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor), 0.4f, 0.8f) + initPos[i];//Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor)
-            //vertices[i].x = value * normal.x * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].x;
-            //vertices[i].y = value * normal.y * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].y; 
-            //vertices[i].z = value * normal.z * heightFactor * PerlinNoise3D(uvs[i].x, uvs[i].y, 1) * noiseFactor + initPos[i].z; 
+            //vertices[i] = factor * Mathf.Clamp(PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor), 0.4f, 0.8f) + initPos[i];
+            //vertices[i] = factor * Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor) + initPos[i];
+            vertices[i] = factor * PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor) + initPos[i];
         }
 
         mesh.vertices = vertices;
-        //mesh.RecalculateNormals();
     }
 
     /// <summary>
@@ -260,7 +301,7 @@ public class GenericSoundReact : MonoBehaviour
                 break;
 
             default:
-            break;
+                break;
         }
     }
 
@@ -331,22 +372,22 @@ public class GenericSoundReact : MonoBehaviour
         {
             case FloatPhysicProperties.angularDrag:
                 body.angularDrag *= newFpp;
-            break;
+                break;
 
             case FloatPhysicProperties.angularVelocity:
                 body.angularVelocity *= newFpp;
-            break;
+                break;
 
             case FloatPhysicProperties.drag:
                 body.drag *= newFpp;
-            break;
+                break;
 
             case FloatPhysicProperties.mass:
                 body.mass *= newFpp;
-            break;
+                break;
 
             default:
-            break;
+                break;
         }
 
     }
