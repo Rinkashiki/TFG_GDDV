@@ -63,10 +63,10 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityBright(GameObject go, float brightFactor, float startBrightness)
+    public void Record_VelocityBright(GameObject go, float brightFactor, Color startColor)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
     public void Record_VelocityColor(GameObject go, Color color, float transitionTime, float velocityThreshold)
@@ -84,10 +84,10 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
+    public void Record_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
     public void Record_VelocityLightIntensity(Light light, float intensityFactor)

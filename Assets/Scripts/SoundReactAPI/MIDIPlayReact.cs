@@ -54,9 +54,9 @@ public class MIDIPlayReact : MonoBehaviour
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityBright(GameObject go, float brightFactor, float startBrightness)
+    public void Play_VelocityBright(GameObject go, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityColor(GameObject go, Color color, float transitionTime, float velocityThreshold)
@@ -70,9 +70,9 @@ public class MIDIPlayReact : MonoBehaviour
         GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
+    public void Play_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityLightIntensity(Light light, float intensityFactor)

@@ -59,9 +59,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
-    public void AmplitudeBright(GameObject go, float brightFactor, float startBrightness)
+    public void AmplitudeBright(GameObject go, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -101,9 +101,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void AmplitudeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
+    public void AmplitudeReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>

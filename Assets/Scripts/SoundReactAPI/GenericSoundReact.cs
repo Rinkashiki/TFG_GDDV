@@ -89,12 +89,12 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
     /// <param name="property"></param>
-    public static void ChangeBright(GameObject go, float brightFactor, float startBrightness, Numeric property)
+    public static void ChangeBright(GameObject go, float brightFactor, Color startColor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        float colorValue = startBrightness + value * brightFactor;
-        Color color = new Color(colorValue, colorValue, colorValue);
+        float brightValue = value * brightFactor;
+        Color color = new Color(startColor.r + brightValue, startColor.g + brightValue, startColor.b + brightValue);
         go.GetComponent<MeshRenderer>().material.color = color;
     }
 
@@ -150,7 +150,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
     /// <param name="property"></param>
-    public static void ChangeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Vector3[] initPos, float waveSpeed, Numeric property)
+    public static void ChangeReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, Vector3[] initPos, float waveSpeed, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
@@ -212,7 +212,7 @@ public class GenericSoundReact : MonoBehaviour
         for (int i = 0; i < vertices.Length; i++)
         {
             normal = normals[i].normalized;
-            factor = value * normal * heightFactor;
+            factor = value * normal * reliefFactor;
             x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
             y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
             z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);

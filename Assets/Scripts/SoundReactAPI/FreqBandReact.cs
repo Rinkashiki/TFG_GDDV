@@ -63,9 +63,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
-    public void BandBright(GameObject go, int band, float brightFactor, float startBrightness)
+    public void BandBright(GameObject go, int band, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -105,9 +105,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void BandHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
+    public void BandReliefMap(Mesh mesh, int band, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>

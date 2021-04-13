@@ -20,8 +20,11 @@ public class PolygonExample : MonoBehaviour
     // Height Map
     Vector3[] initPos;
     [SerializeField] private float noiseFactor;
-    [SerializeField] private float heightFactor;
+    [SerializeField] private float reliefFactor;
     [SerializeField] private float waveSpeed;
+
+    //Bright
+    private Color startColor;
 
 
     // Start is called before the first frame update
@@ -35,13 +38,15 @@ public class PolygonExample : MonoBehaviour
 
         mesh = GetComponent<MeshFilter>().mesh;
         initPos = mesh.vertices;
+        startColor = this.gameObject.GetComponent<MeshRenderer>().material.color;
         //recordReact.Record_VelocityDrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor);
     }
 
     private void Update()
     {
         //recordReact.Record_VelocityTerrainHeightMap(mesh, 0.4f, 0.03f);
-        ampReact.AmplitudeHeightMap(mesh, noiseFactor, heightFactor, waveSpeed, initPos);
+        ampReact.AmplitudeReliefMap(mesh, noiseFactor, reliefFactor, waveSpeed, initPos);
+        ampReact.AmplitudeBright(this.gameObject, 0.7f, startColor);
         //this.gameObject.transform.Rotate(new Vector3(1, 1, 0), Time.deltaTime * 100);
     }
 

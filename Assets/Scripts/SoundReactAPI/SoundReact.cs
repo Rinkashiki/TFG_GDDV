@@ -60,9 +60,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
-    public void AmplitudeBright(GameObject go, float brightFactor, float startBrightness)
+    public void AmplitudeBright(GameObject go, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class SoundReact : MonoBehaviour
     /// <param name="initPos"></param>
     public void AmplitudeVolumeHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -338,9 +338,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
-    public void BandBright(GameObject go, int band, float brightFactor, float startBrightness)
+    public void BandBright(GameObject go, int band, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public class SoundReact : MonoBehaviour
     /// <param name="initPos"></param>
     public void BandHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -641,9 +641,9 @@ public class SoundReact : MonoBehaviour
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityBright(GameObject go, float brightFactor, float startBrightness)
+    public void Play_VelocityBright(GameObject go, float brightFactor, Color startColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startBrightness, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityColor(GameObject go, Color color, float transitionTime, float velocityThreshold)
@@ -659,7 +659,7 @@ public class SoundReact : MonoBehaviour
 
     public void Play_VelocityHeightMap(Mesh mesh, float noiseFactor, float heightFactor, float waveSpeed, Vector3[] initPos)
     {
-        GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityLightIntensity(Light light, float intensityFactor)
@@ -750,7 +750,7 @@ public class SoundReact : MonoBehaviour
         {
             float vel = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * 0.01f;
 
-            GenericSoundReact.ChangeHeightMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(vel));
+            GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed, new Numeric(vel));
         }
     }
 

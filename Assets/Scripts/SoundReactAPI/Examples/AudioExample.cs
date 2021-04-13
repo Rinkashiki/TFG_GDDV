@@ -129,7 +129,7 @@ public class AudioExample : MonoBehaviour
         for (int i = 0; i < cubes.Length; i++)
         {
             bandReact.BandScale(cubes[i], i, Vector3.up, scaleMultiplier, startScale);
-            bandReact.BandBright(cubes[i], i, brightnessMultiplier, startBrightness);
+            //bandReact.BandBright(cubes[i], i, brightnessMultiplier, startBrightness);
         }
     }
 
