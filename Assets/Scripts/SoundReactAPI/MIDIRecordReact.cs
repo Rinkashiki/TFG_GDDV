@@ -102,10 +102,19 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
+    public void Record_VelocityShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            Debug.Log(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity());
             GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        }
+        else
+        {
+            float propertyIntensity = mat.GetFloat(propertyName);
+            float propertyDelta = fadeFactor == 0 ? propertyIntensity : Time.deltaTime * propertyIntensity / fadeFactor;
+            GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, 1, new Numeric(propertyIntensity - propertyDelta));
+        }
     }
 
     public void Record_VelocityAnimationSpeed(Animator anim, float factor)
@@ -114,16 +123,30 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityBloom(Bloom bloom, float factor)
+    public void Record_VelocityBloom(Bloom bloom, float factor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
             GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        }
+        else
+        {
+            float bloomIntensity = bloom.intensity.value;
+            float bloomDelta = fadeFactor == 0 ? bloomIntensity : Time.deltaTime * bloomIntensity / fadeFactor;
+            GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(bloom.intensity.value = bloomIntensity - bloomDelta));
+        }    
     }
 
     public void Record_VelocityChromaticAberration(ChromaticAberration ca, float factor)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
             GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        }
+        else
+        {
+            GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(0));
+        }
     }
 
     public void Record_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)

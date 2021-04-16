@@ -97,7 +97,16 @@ public class MIDIPlayReact : MonoBehaviour
 
     public void Play_VelocityBloom(Bloom bloom, float factor)
     {
-        GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+        {
+            float velocity = Mathf.Pow(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity(), 4) * 0.000002f;
+            //float dB = Mathf.Pow(40 * Mathf.Log10(velocity / 127), 4);
+            GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(velocity));
+        }
+        else
+        {
+            GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(0));
+        }
     }
 
     public void Play_VelocityChromaticAberration(ChromaticAberration ca, float factor)
