@@ -387,11 +387,10 @@ GameObject:
   - component: {fileID: 720595514}
   - component: {fileID: 720595513}
   - component: {fileID: 720595512}
-  - component: {fileID: 720595511}
   - component: {fileID: 720595515}
   - component: {fileID: 720595510}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: ReactObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,19 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d375239bbd05a43bdfda65c57b51e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &720595511
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720595509}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &720595512
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -440,7 +426,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e6632ef9dd418d4e9c61b03a0e96464, type: 2}
+  - {fileID: 2100000, guid: 9ecba36e0d147904483dc7a79f205e03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,7 +454,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720595509}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &720595514
 Transform:
   m_ObjectHideFlags: 0
@@ -495,6 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49ef1cc34db9874698a9ec30d642529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  midiFile: {fileID: 102900000, guid: 47dee19b5f0b0244f8f8d92d273407cb, type: 3}
   vol: {fileID: 480533231}
 --- !u!1 &1929097019
 GameObject:

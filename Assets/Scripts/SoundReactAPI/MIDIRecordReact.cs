@@ -5,6 +5,8 @@ using UnityEngine.Rendering.Universal;
 
 public class MIDIRecordReact : MonoBehaviour
 {
+    private float lastVelocity;
+
     #region MIDI_Record_NoteNumber_Input_Functions
 
     public void Record_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
@@ -84,10 +86,20 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public void Record_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
+    public void Record_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / 128.0f;
+            GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(velocity));
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(lastVelocity));
+        }   
     }
 
     public void Record_VelocityLightIntensity(Light light, float intensityFactor)

@@ -8,11 +8,14 @@ public class Example : MonoBehaviour
 {
 
     [SerializeField]
+    private Object midiFile;
+
+    [SerializeField]
     private Volume vol;
 
-    private MIDIRecordReact ampReact;
-    private Bloom bloom;
-    private ChromaticAberration ca;
+    private MIDIRecordReact recReact;
+    private Mesh mesh;
+    private Vector3[] initPos;
 
 
     // Start is called before the first frame update
@@ -20,19 +23,28 @@ public class Example : MonoBehaviour
     {
         MidiRecording.RecordingSetUp();
         MidiRecording.StartRecording();
-        ampReact = GetComponent<MIDIRecordReact>();
-        bloom = (Bloom)vol.profile.components[0];
-        ca = (ChromaticAberration)vol.profile.components[1];
+        recReact = GetComponent<MIDIRecordReact>();
+        mesh = this.gameObject.GetComponent<MeshFilter>().mesh;
+        initPos = mesh.vertices;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ampReact.Record_VelocityShaderGraphMatProperty(this.gameObject.GetComponent<MeshRenderer>().material, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, 0.01f, 1f);
+        if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            recReact.Record_VelocityReliefMap(mesh, 0.5f, 0.1f, MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * 0.01f, initPos, 5f);
+        }
+        else
+        {
+            recReact.Record_VelocityReliefMap(mesh, 0.5f, 0.1f, 0, initPos, 5f);
+        }
+        
     }
 
     private void OnApplicationQuit()
     {
         MidiRecording.StopRecording();
+        //MidiPlayEventHandler.ReleasePlaybackResources();
     }
 }
