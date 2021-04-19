@@ -164,9 +164,9 @@ public class MIDIPlayReact : MonoBehaviour
         GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void Play_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
     public void Play_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 axis)

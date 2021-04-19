@@ -191,9 +191,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>

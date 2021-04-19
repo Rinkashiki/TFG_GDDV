@@ -17,12 +17,12 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines Rigigbody properties that are floats
     /// </summary>
-    public enum FloatPhysicProperties { angularDrag, angularVelocity, drag, mass, inertia };
+    public enum FloatPhysicProperties { angularDrag, drag, mass, inertia };
 
     /// <summary>
     /// Defines Rigidbody properties that are vectors.
     /// </summary>
-    public enum VectorPhysicProperties { centerOfMass, inertiaTensor, velocity };
+    public enum VectorPhysicProperties { angularVelocity, centerOfMass, inertiaTensor, velocity };
 
     /// <summary>
     /// Defines property types tha can be changed in a shader/material.
@@ -363,7 +363,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
     /// <param name="property"></param>
-    public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
+    public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, float initialValue, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         float newFpp = fppFactor * value;
@@ -371,19 +371,15 @@ public class GenericSoundReact : MonoBehaviour
         switch (fpp)
         {
             case FloatPhysicProperties.angularDrag:
-                body.angularDrag *= newFpp;
-                break;
-
-            case FloatPhysicProperties.angularVelocity:
-                body.angularVelocity *= newFpp;
+                body.angularDrag = initialValue + newFpp;
                 break;
 
             case FloatPhysicProperties.drag:
-                body.drag *= newFpp;
+                body.drag = initialValue + newFpp;
                 break;
 
             case FloatPhysicProperties.mass:
-                body.mass *= newFpp;
+                body.mass = initialValue + newFpp;
                 break;
 
             default:
@@ -439,10 +435,6 @@ public class GenericSoundReact : MonoBehaviour
         {
             case FloatPhysicProperties.angularDrag:
                 body.angularDrag *= newFpp;
-                break;
-
-            case FloatPhysicProperties.angularVelocity:
-                body.angularVelocity *= newFpp;
                 break;
 
             case FloatPhysicProperties.drag:

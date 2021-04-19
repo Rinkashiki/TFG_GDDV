@@ -5,7 +5,14 @@ using UnityEngine.Rendering.Universal;
 
 public class MIDIRecordReact : MonoBehaviour
 {
+
+    #region MIDI_Record_React_Variables
+
     private float lastVelocity;
+    const float NOTES = 128.0f;
+
+    #endregion
+
 
     #region MIDI_Record_NoteNumber_Input_Functions
 
@@ -47,28 +54,69 @@ public class MIDIRecordReact : MonoBehaviour
 
     #region MIDI_Record_Velocity_Input_Functions
 
-    public void Record_VelocityTranslation(GameObject go, Vector3 axis, float translationFactor)
+    public void Record_VelocityTranslation(GameObject go, Vector3 axis, float translationFactor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            lastVelocity = velocity;
+        } 
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(lastVelocity));
+        }
     }
 
-    public void Record_VelocityRotation(GameObject go, Vector3 axis, float rotFactor)
+    public void Record_VelocityRotation(GameObject go, Vector3 axis, float rotFactor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(lastVelocity));
+        }
+
     }
 
-    public void Record_VelocityScale(GameObject go, Vector3 axis, float scaleFactor, float startScale)
+    public void Record_VelocityScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(lastVelocity));
+        }
     }
 
-    public void Record_VelocityBright(GameObject go, float brightFactor, Color startColor)
+    public void Record_VelocityBright(GameObject go, float brightFactor, Color startColor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(lastVelocity));
+        }
     }
 
     public void Record_VelocityColor(GameObject go, Color color, float transitionTime, float velocityThreshold)
@@ -80,17 +128,11 @@ public class MIDIRecordReact : MonoBehaviour
         }
     }
 
-    public void Record_VelocityTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor)
-    {
-        if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
-    }
-
     public void Record_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
-            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / 128.0f;
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(velocity));
             lastVelocity = velocity;
         }
@@ -118,8 +160,8 @@ public class MIDIRecordReact : MonoBehaviour
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
-            Debug.Log(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity());
-            GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(velocity));
         }
         else
         {
@@ -139,6 +181,7 @@ public class MIDIRecordReact : MonoBehaviour
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
             GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
         }
         else
@@ -161,10 +204,20 @@ public class MIDIRecordReact : MonoBehaviour
         }
     }
 
-    public void Record_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void Record_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(velocity));
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(lastVelocity));
+        }
     }
 
     public void Record_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 axis)

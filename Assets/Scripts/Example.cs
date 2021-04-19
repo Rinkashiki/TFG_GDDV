@@ -14,8 +14,8 @@ public class Example : MonoBehaviour
     private Volume vol;
 
     private MIDIRecordReact recReact;
-    private Mesh mesh;
-    private Vector3[] initPos;
+    private Rigidbody body;
+    private float initialMass;
 
 
     // Start is called before the first frame update
@@ -24,22 +24,16 @@ public class Example : MonoBehaviour
         MidiRecording.RecordingSetUp();
         MidiRecording.StartRecording();
         recReact = GetComponent<MIDIRecordReact>();
-        mesh = this.gameObject.GetComponent<MeshFilter>().mesh;
-        initPos = mesh.vertices;
+        body = this.GetComponent<Rigidbody>();
+        initialMass = body.mass;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MidiRecording.GetCurrentNoteOnEvent() != null)
-        {
-            recReact.Record_VelocityReliefMap(mesh, 0.5f, 0.1f, MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * 0.01f, initPos, 5f);
-        }
-        else
-        {
-            recReact.Record_VelocityReliefMap(mesh, 0.5f, 0.1f, 0, initPos, 5f);
-        }
-        
+
+        recReact.Record_VelocityPhysicProperty(body, GenericSoundReact.FloatPhysicProperties.mass, 0.1f, initialMass, 5f);
+        body.AddForce(new Vector3(0, -Physics.gravity.y, 0));
     }
 
     private void OnApplicationQuit()

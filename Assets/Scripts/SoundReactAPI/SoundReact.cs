@@ -183,9 +183,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -466,9 +466,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -686,13 +686,13 @@ public class SoundReact : MonoBehaviour
 
     #region Record
 
-    public void Record_NoteNumberPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void Record_NoteNumberPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
 
-            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(number));
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(number));
 
         }
     }

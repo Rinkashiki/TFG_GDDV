@@ -182,9 +182,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>

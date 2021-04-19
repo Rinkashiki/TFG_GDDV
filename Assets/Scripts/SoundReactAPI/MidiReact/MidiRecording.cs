@@ -5,6 +5,7 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.MusicTheory;
+using System.Collections.Generic;
 using UnityEngine;
 
 #endregion
@@ -19,8 +20,10 @@ public class MidiRecording
     private static Recording recording;
     private static DevicesConnector connector;
 
-    private static MIDINoteEvent currentNoteOnEvent;
+    private static List<MIDINoteEvent> currentNoteOnEvent = new List<MIDINoteEvent>();
     private static MIDINoteEvent currentNoteOffEvent;
+
+    private static int current = -1;
 
     private static bool showNoteOnEvents;
     private static bool showNoteOffEvents;
@@ -70,18 +73,21 @@ public class MidiRecording
         if (e.Event.EventType.Equals(MidiEventType.NoteOn))
         {
             string inputEvent = e.Event.ToString();
-            currentNoteOnEvent = buildEvent(e.Event.ToString());
+            currentNoteOnEvent.Add(buildEvent(e.Event.ToString()));
+            current++;
             currentNoteOffEvent = null;
             if (showNoteOnEvents)
-            Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOnEvent.GetNoteNumber()}  Note Velocity: {currentNoteOnEvent.GetNoteVelocity()}");
+            Debug.Log($"Note On event received from '{midiDevice.Name}' at {currentNoteOnEvent[current].GetNoteTime()}: Note Name: {currentNoteOnEvent[current].GetNoteName()}  Note Number: {currentNoteOnEvent[current].GetNoteNumber()}  Note Velocity: {currentNoteOnEvent[current].GetNoteVelocity()}");
         }
         else if (e.Event.EventType.Equals(MidiEventType.NoteOff))
         {
             string inputEvent = e.Event.ToString();
             currentNoteOffEvent = buildEvent(e.Event.ToString());
-            currentNoteOnEvent = null;
+            MIDINoteEvent eventToDelete = currentNoteOnEvent.Find(x => x.GetNoteNumber() == currentNoteOffEvent.GetNoteNumber());
+            currentNoteOnEvent.Remove(eventToDelete);
+            current--;
             if(showNoteOffEvents)
-            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Name: {currentNoteOnEvent.GetNoteName()}  Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
+            Debug.Log($"Note Off event received from '{midiDevice.Name}' at {currentNoteOffEvent.GetNoteTime()}: Note Name: {currentNoteOffEvent.GetNoteName()}  Note Number: {currentNoteOffEvent.GetNoteNumber()}  Note Velocity: {currentNoteOffEvent.GetNoteVelocity()}");
         }
         else if (e.Event.EventType.Equals(MidiEventType.PitchBend))
         {
@@ -95,7 +101,14 @@ public class MidiRecording
 
     public static MIDINoteEvent GetCurrentNoteOnEvent()
     {
-        return currentNoteOnEvent;
+        if (current >= 0)
+        {
+            return currentNoteOnEvent[current];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public static MIDINoteEvent GetCurrentNoteOffEvent()
