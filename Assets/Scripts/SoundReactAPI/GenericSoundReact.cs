@@ -7,7 +7,11 @@ using UnityEngine.Rendering.Universal;
 
 public class GenericSoundReact : MonoBehaviour
 {
-    #region Generic_SoundReact_Const
+    #region Generic_Sound_React_Variables
+    private static float timeStamp;
+    #endregion
+
+    #region Generic_Sound_React_Const
 
     /// <summary>
     /// Defines musical input data types.
@@ -563,10 +567,12 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="soundOption"></param>
     /// <returns></returns>
-    public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption)
+    public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption, float spawnTime)
     {
-        if (soundOption)
+        bool timeOption = Time.time - timeStamp >= spawnTime;
+        if (soundOption && timeOption)
         {
+            timeStamp = Time.time;
             GameObject go = (GameObject)Instantiate(obj, position, rotation);
             return go;
         }

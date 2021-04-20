@@ -261,9 +261,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="amplitudeThreshold"></param>
     /// <returns></returns>
-    public GameObject AmplitudeInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, float amplitudeThreshold)
+    public GameObject AmplitudeInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, float amplitudeThreshold, float spawnTime)
     {
-        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetAmplitudeBuffer() > amplitudeThreshold);
+        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetAmplitudeBuffer() > amplitudeThreshold, spawnTime);
         return go;
     }
 

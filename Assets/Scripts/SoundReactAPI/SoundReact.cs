@@ -262,9 +262,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="amplitudeThreshold"></param>
     /// <returns></returns>
-    public GameObject AmplitudeInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, float amplitudeThreshold)
+    public GameObject AmplitudeInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, float amplitudeThreshold, float spawnTime)
     {
-        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetAmplitudeBuffer() > amplitudeThreshold);
+        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetAmplitudeBuffer() > amplitudeThreshold, spawnTime);
         return go;
     }
 
@@ -572,9 +572,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="amplitudeThreshold"></param>
     /// <returns></returns>
-    public GameObject BandInstantiate(UnityEngine.Object obj, int band, Vector3 position, Quaternion rotation, float bandThreshold)
+    public GameObject BandInstantiate(UnityEngine.Object obj, int band, Vector3 position, Quaternion rotation, float bandThreshold, float spawnTime)
     {
-        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetBandBuffer(band) > bandThreshold);
+        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetBandBuffer(band) > bandThreshold, spawnTime);
         return go;
     }
 
@@ -612,13 +612,13 @@ public class SoundReact : MonoBehaviour
         }
     }
 
-    public void Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    public void Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber, float spawnTime)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
 
-            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
+            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber, spawnTime);
         }
     }
 

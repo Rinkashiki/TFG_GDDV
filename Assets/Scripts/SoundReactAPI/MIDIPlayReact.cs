@@ -24,7 +24,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public GameObject Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    public GameObject Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber, float spawnTime)
     {
         GameObject go = null;
 
@@ -32,7 +32,7 @@ public class MIDIPlayReact : MonoBehaviour
         {
             int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
 
-            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
+            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber, spawnTime);
         }
 
         return go;
@@ -194,9 +194,9 @@ public class MIDIPlayReact : MonoBehaviour
         GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public GameObject Play_VelocityInstantiate(Object obj, Vector3 position, Quaternion rotation, float velocityThreshold)
+    public GameObject Play_VelocityInstantiate(Object obj, Vector3 position, Quaternion rotation, float velocityThreshold, float spawnTime)
     {
-        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() > velocityThreshold);
+        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() > velocityThreshold, spawnTime);
         return go;
     }
 

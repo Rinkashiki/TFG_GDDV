@@ -30,15 +30,16 @@ public class MIDIRecordReact : MonoBehaviour
         }
     }
 
-    public GameObject Record_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber)
+    public GameObject Record_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber, float spawnTime)
     {
         GameObject go = null;
 
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             int number = MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber();
+            Debug.Log(number);
 
-            go = GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber);
+            go = GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber, spawnTime);
         }
         return go;
     }
@@ -250,11 +251,11 @@ public class MIDIRecordReact : MonoBehaviour
             GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
     }
 
-    public GameObject Record_VelocityInstantiate(Object obj, Vector3 position, Quaternion rotation, float velocityThreshold)
+    public GameObject Record_VelocityInstantiate(Object obj, Vector3 position, Quaternion rotation, float velocityThreshold, float spawnTime)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
-            GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() > velocityThreshold);
+            GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() > velocityThreshold, spawnTime);
             return go;
         }
         else

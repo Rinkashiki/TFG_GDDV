@@ -297,9 +297,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="amplitudeThreshold"></param>
     /// <returns></returns>
-    public GameObject BandInstantiate(UnityEngine.Object obj, int band, Vector3 position, Quaternion rotation, float bandThreshold)
+    public GameObject BandInstantiate(UnityEngine.Object obj, int band, Vector3 position, Quaternion rotation, float bandThreshold, float spawnTime)
     {
-        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetBandBuffer(band) > bandThreshold);
+        GameObject go = GenericSoundReact.SoundInstantiate(obj, position, rotation, audioInput.GetBandBuffer(band) > bandThreshold, spawnTime);
         return go;
     }
 

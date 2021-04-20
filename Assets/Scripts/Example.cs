@@ -14,8 +14,9 @@ public class Example : MonoBehaviour
     private Volume vol;
 
     private MIDIRecordReact recReact;
-    private Rigidbody body;
-    private float initialMass;
+    private float timer;
+    private float spawnTime = 1.0f;
+    private Object objToSpawn;
 
 
     // Start is called before the first frame update
@@ -24,16 +25,13 @@ public class Example : MonoBehaviour
         MidiRecording.RecordingSetUp();
         MidiRecording.StartRecording();
         recReact = GetComponent<MIDIRecordReact>();
-        body = this.GetComponent<Rigidbody>();
-        initialMass = body.mass;
+        objToSpawn = Resources.Load("Prefabs/Sphere");
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        recReact.Record_VelocityPhysicProperty(body, GenericSoundReact.FloatPhysicProperties.mass, 0.1f, initialMass, 5f);
-        body.AddForce(new Vector3(0, -Physics.gravity.y, 0));
+        recReact.Record_NoteNumberInstantiate(objToSpawn, new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0), Quaternion.identity, 69, 1f);
     }
 
     private void OnApplicationQuit()
