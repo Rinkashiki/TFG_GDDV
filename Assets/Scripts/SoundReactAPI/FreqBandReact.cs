@@ -166,7 +166,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="bloom"></param>
     /// <param name="band"></param>
     /// <param name="factor"></param>
-    public void BandChangeBloom(Bloom bloom, int band, float factor)
+    public void BandBloom(Bloom bloom, int band, float factor)
     {
         GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetBandBuffer(band)));
     }
@@ -178,7 +178,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="ca"></param>
     /// <param name="band"></param>
     /// <param name="factor"></param>
-    public void BandChangeChromaticAberration(ChromaticAberration ca, int band, float factor)
+    public void BandChromaticAberration(ChromaticAberration ca, int band, float factor)
     {
         GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetBandBuffer(band)));
     }
@@ -191,7 +191,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
+    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
         GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetBandBuffer(band)));
     }

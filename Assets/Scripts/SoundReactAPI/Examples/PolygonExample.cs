@@ -45,7 +45,7 @@ public class PolygonExample : MonoBehaviour
     private void Update()
     {
         //recordReact.Record_VelocityTerrainHeightMap(mesh, 0.4f, 0.03f);
-        ampReact.AmplitudeReliefMap(mesh, noiseFactor, reliefFactor, waveSpeed, initPos);
+        ampReact.AmplitudeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed);
         ampReact.AmplitudeBright(this.gameObject, 0.7f, startColor);
         //this.gameObject.transform.Rotate(new Vector3(1, 1, 0), Time.deltaTime * 100);
     }

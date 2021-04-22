@@ -53,12 +53,12 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the bright of the color in the material associated to <paramref name="go"/>. The initial an minimum bright is specified 
-    /// by <paramref name="startBright"/> and the the bright amount by <paramref name="brightFactor"/>.
+    /// by <paramref name="startColor"/> and the the bright amount by <paramref name="brightFactor"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
-    /// <param name="startBrightness"></param>
+    /// <param name="startColor"></param>
     public void AmplitudeBright(GameObject go, float brightFactor, Color startColor)
     {
         GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetAmplitudeBuffer()));
@@ -101,7 +101,7 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="heightFactor"></param>
     /// <param name="initPos"></param>
-    public void AmplitudeReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos)
+    public void AmplitudeReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, Vector3[] initPos, float waveSpeed)
     {
         GenericSoundReact.ChangeReliefMap(mesh, noiseFactor, reliefFactor, initPos, waveSpeed, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
@@ -182,7 +182,7 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue)
+    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
         GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
