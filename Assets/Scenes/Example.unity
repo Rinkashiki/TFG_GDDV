@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 720595512}
   - component: {fileID: 720595515}
   - component: {fileID: 720595510}
+  - component: {fileID: 720595511}
   m_Layer: 0
   m_Name: ReactObject
   m_TagString: Untagged
@@ -406,6 +407,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c91a6016f5521f4aa243b285ea63582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioInput: {fileID: 1929097020}
+--- !u!114 &720595511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720595509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee16db9b47a6b2943a6ebaf0dca3c981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioInput: {fileID: 1929097020}
@@ -455,7 +469,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720595509}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!4 &720595514
 Transform:
   m_ObjectHideFlags: 0
@@ -484,8 +498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vol: {fileID: 480533231}
   noiseFactor: 1
-  reliefFactor: 1
-  waveSpeed: 0.7
+  heightFactor: 2
+  mat: {fileID: 2100000, guid: 0e6632ef9dd418d4e9c61b03a0e96464, type: 2}
 --- !u!1 &1929097019
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +513,7 @@ GameObject:
   - component: {fileID: 1929097020}
   m_Layer: 0
   m_Name: AudioInput
-  m_TagString: Untagged
+  m_TagString: AudioInput
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

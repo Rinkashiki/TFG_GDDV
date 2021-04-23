@@ -20,6 +20,7 @@ public class AudioExample : MonoBehaviour
     private Vector3[] initPos;
     private GenerateTerrain genTerrain;
     [SerializeField] private Vector3 terrainDir;
+    Material mat;
 
     //Light variables
     private Light sceneLight;
@@ -63,7 +64,7 @@ public class AudioExample : MonoBehaviour
         //InitDic();
         //soundReact.NoteNumberDrawPolygon(numberDirAssociation, klineColor, klineWidth, kdrawSpeedFactor);
 
-        GameObject terrain = bandReact.BandsGenerateTerrain(16, currentWidth, 0.05f, heightFactor, noiseFactor, terrainDir);
+        GameObject terrain = bandReact.BandsGenerateTerrain(16, currentWidth, 0.05f, heightFactor, noiseFactor, terrainDir, mat);
         genTerrain = terrain.GetComponent<GenerateTerrain>();
         //StartCoroutine(ChangeTerrainDirY());
         //StartCoroutine(ChangeTerrainDirZ());

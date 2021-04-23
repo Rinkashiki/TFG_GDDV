@@ -556,9 +556,9 @@ public class SoundReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="terrainDir"></param>
     /// <returns></returns>
-    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir)
+    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir, Material mat)
     {
-        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor, terrainDir);
+        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor, terrainDir, mat);
         return terrain;
     }
 

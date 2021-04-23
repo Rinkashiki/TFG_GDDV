@@ -13,7 +13,8 @@ public class GenerateTerrain : MonoBehaviour
     private float currentWidth;
     private Vector3 advanceDir;
     private float step;
-    private float heightFactor, noiseFactor;
+    [SerializeField] private float heightFactor;
+    [SerializeField] private float noiseFactor;
     [SerializeField] private Vector3 terrainDir;
 
     //During Generation Variables
@@ -171,19 +172,21 @@ public class GenerateTerrain : MonoBehaviour
         }
 
         terrain.Clear();
-        terrain.vertices = vertices;
-        terrain.triangles = triangles;
+        //terrain.vertices = vertices;
+        //terrain.triangles = triangles;
+        terrain.SetVertices(vertices);
+        terrain.SetTriangles(triangles, 0);
 
         terrain.RecalculateNormals();
     }
 
     #region Terrain_Setters
 
-    public void SetParams(Mesh mesh, MeshRenderer rend, int length, float currentWidth, float step, float heightFactor, float noiseFactor, Vector3 terrainDir)
+    public void SetParams(Mesh mesh, MeshRenderer rend, Material mat, int length, float currentWidth, float step, float heightFactor, float noiseFactor, Vector3 terrainDir)
     {
         terrain = mesh;
         this.rend = rend;
-        rend.material = Resources.Load<Material>("Materials/TerrainMat");
+        rend.material = mat;
         this.length = length;
         this.currentWidth = currentWidth;
         this.step = step;
