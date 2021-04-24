@@ -46,9 +46,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="startScale"></param>
-    public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale)
+    public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1)
     {
-        GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialScale);
     }
 
     /// <summary>
@@ -59,9 +59,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startColor"></param>
-    public void AmplitudeBright(GameObject go, float brightFactor, Color startColor)
+    public void AmplitudeBright(GameObject go, float brightFactor, Color initialColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -77,19 +77,6 @@ public class AmplitudeReact : MonoBehaviour
     {
         if (audioInput.GetAmplitudeBuffer() > amplitudeThreshold)
             GenericSoundReact.ChangeColor(go, color, transitionTime);
-    }
-
-    /// <summary>
-    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
-    /// and the amount of noise by <paramref name="noiseFactor"/>.
-    /// Changes are made using amplitude.
-    /// </summary>
-    /// <param name="mesh"></param>
-    /// <param name="noiseFactor"></param>
-    /// <param name="heightFactor"></param>
-    public void AmplitudeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor)
-    {
-        GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -112,9 +99,9 @@ public class AmplitudeReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
-    public void AmplitudeLightIntensity(Light light, float intensityFactor)
+    public void AmplitudeLightIntensity(Light light, float intensityFactor, float initialIntensity = 1)
     {
-        GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialIntensity);
     }
 
     /// <summary>
@@ -123,9 +110,9 @@ public class AmplitudeReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
-    public void AmplitudeLightRange(Light light, float rangeFactor)
+    public void AmplitudeLightRange(Light light, float rangeFactor, float initialRange = 1)
     {
-        GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialRange);
     }
 
     /// <summary>
@@ -137,9 +124,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="propertyName"></param>
     /// <param name="propertyType"></param>
     /// <param name="factor"></param>
-    public void AmplitudeShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor)
+    public void AmplitudeShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float propertyFactor)
     {
-        GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, propertyFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -148,9 +135,9 @@ public class AmplitudeReact : MonoBehaviour
     /// </summary>
     /// <param name="anim"></param>
     /// <param name="factor"></param>
-    public void AmplitudeAnimationSpeed(Animator anim, float factor)
+    public void AmplitudeAnimationSpeed(Animator anim, float speedFactor, float initialSpeed = 1)
     {
-        GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeAnimationSpeed(anim, speedFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialSpeed);
     }
 
     /// <summary>
@@ -159,9 +146,9 @@ public class AmplitudeReact : MonoBehaviour
     /// </summary>
     /// <param name="bloom"></param>
     /// <param name="factor"></param>
-    public void AmplitudeBloom(Bloom bloom, float factor)
+    public void AmplitudeBloom(Bloom bloom, float bloomFactor, float initialBloom = 0)
     {
-        GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeBloom(bloom, bloomFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialBloom);
     }
 
     /// <summary>
@@ -170,9 +157,14 @@ public class AmplitudeReact : MonoBehaviour
     /// </summary>
     /// <param name="ca"></param>
     /// <param name="factor"></param>
-    public void AmplitudeChromaticAberration(ChromaticAberration ca, float factor)
+    public void AmplitudeChromaticAberration(ChromaticAberration ca, float caFactor, float initialCA = 0)
     {
-        GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialCA);
+    }
+
+    public void AmplitudeVignette(Vignette vignette, float vignetteFactor, float initialVignette = 0)
+    {
+        GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialVignette);
     }
 
     /// <summary>

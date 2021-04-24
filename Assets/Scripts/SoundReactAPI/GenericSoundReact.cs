@@ -69,36 +69,36 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the scale of <paramref name="go"/> along <paramref name="axis"/>. The initial an minimum scale is specified 
-    /// by <paramref name="startScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
+    /// by <paramref name="initialScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
     /// </summary>
     /// <param name="go"></param>
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
-    /// <param name="startScale"></param>
+    /// <param name="initialScale"></param>
     /// <param name="property"></param>
-    public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, Numeric property)
+    public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, Numeric property, float initialScale = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.localScale = new Vector3((value * scaleFactor * axis.x) + startScale,
-                                              (value * scaleFactor * axis.y) + startScale,
-                                              (value * scaleFactor * axis.z) + startScale);
+        go.transform.localScale = new Vector3((value * scaleFactor * axis.x) + initialScale,
+                                              (value * scaleFactor * axis.y) + initialScale,
+                                              (value * scaleFactor * axis.z) + initialScale);
     }
 
     /// <summary>
     /// Modifies the bright of the color in the material associated to <paramref name="go"/>. The initial an minimum bright is specified 
-    /// by <paramref name="startBright"/> and the the bright amount by <paramref name="brightFactor"/>.
+    /// by <paramref name="initialColor"/> and the the bright amount by <paramref name="brightFactor"/>.
     /// </summary>
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
-    /// <param name="startBrightness"></param>
+    /// <param name="initialColor"></param>
     /// <param name="property"></param>
-    public static void ChangeBright(GameObject go, float brightFactor, Color startColor, Numeric property)
+    public static void ChangeBright(GameObject go, float brightFactor, Color initialColor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
         float brightValue = value * brightFactor;
-        Color color = new Color(startColor.r + brightValue, startColor.g + brightValue, startColor.b + brightValue);
+        Color color = new Color(initialColor.r + brightValue, initialColor.g + brightValue, initialColor.b + brightValue);
         go.GetComponent<MeshRenderer>().material.color = color;
     }
 
@@ -113,36 +113,6 @@ public class GenericSoundReact : MonoBehaviour
     {
         Color prevColor = go.GetComponent<MeshRenderer>().material.color;
         go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, transitionTime);
-    }
-
-    /// <summary>
-    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
-    /// and the amount of noise by <paramref name="noiseFactor"/>.
-    /// </summary>
-    /// <param name="mesh"></param>
-    /// <param name="noiseFactor"></param>
-    /// <param name="heightFactor"></param>
-    /// <param name="property"></param>
-    public static void ChangeTerrainHeightMap(Mesh mesh, float noiseFactor, float heightFactor, Numeric property)
-    {
-        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-
-        Vector3[] vertices = mesh.vertices;
-
-        int length = (int)(Mathf.Abs(mesh.bounds.max.z) + Mathf.Abs(mesh.bounds.min.z));
-        int width = (int)(Mathf.Abs(mesh.bounds.max.x) + Mathf.Abs(mesh.bounds.min.x));
-
-        for (int i = 0, z = 0; z <= length; z++)
-        {
-            for (int x = 0; x <= width; x++)
-            {
-                vertices[i].y = value * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) * heightFactor;
-                i++;
-            }
-        }
-
-        mesh.vertices = vertices;
-        mesh.RecalculateNormals();
     }
 
     /// <summary>
@@ -234,11 +204,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
     /// <param name="property"></param>
-    public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property)
+    public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property, float initialIntensity = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        light.intensity = Mathf.Clamp(intensityFactor * value, 0, 8);
+        light.intensity = initialIntensity + Mathf.Clamp(intensityFactor * value, 0, 8);
     }
 
     /// <summary>
@@ -247,11 +217,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
     /// <param name="property"></param>
-    public static void ChangeLightRange(Light light, float rangeFactor, Numeric property)
+    public static void ChangeLightRange(Light light, float rangeFactor, Numeric property, float initialRange = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        light.range = rangeFactor * value;
+        light.range = initialRange + rangeFactor * value;
     }
 
     /// <summary>
@@ -263,7 +233,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="propertyType"></param>
     /// <param name="factor"></param>
     /// <param name="property"></param>
-    public static void ChangeShaderGraphMatProperty(Material mat, string propertyName, MatPropertyType propertyType, float factor, Numeric property)
+    public static void ChangeShaderGraphMatProperty(Material mat, string propertyName, MatPropertyType propertyType, float propertyFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
@@ -279,14 +249,14 @@ public class GenericSoundReact : MonoBehaviour
                 break;
 
             case MatPropertyType.Float:
-                mat.SetFloat(propertyName, value * factor);
+                mat.SetFloat(propertyName, value * propertyFactor);
                 break;
 
             case MatPropertyType.FloatArray:
                 break;
 
             case MatPropertyType.Int:
-                mat.SetInt(propertyName, (int)(value * factor));
+                mat.SetInt(propertyName, (int)(value * propertyFactor));
                 break;
 
             case MatPropertyType.Matrix4x4:
@@ -315,11 +285,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="anim"></param>
     /// <param name="factor"></param>
     /// <param name="property"></param>
-    public static void ChangeAnimationSpeed(Animator anim, float factor, Numeric property)
+    public static void ChangeAnimationSpeed(Animator anim, float speedFactor, Numeric property, float initialSpeed = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        anim.speed = value * factor;
+        anim.speed = initialSpeed + value * speedFactor;
     }
 
     #endregion
@@ -332,11 +302,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="bloom"></param>
     /// <param name="factor"></param>
     /// <param name="property"></param>
-    public static void ChangeBloom(Bloom bloom, float factor, Numeric property)
+    public static void ChangeBloom(Bloom bloom, float bloomFactor, Numeric property, float initialBloom = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        value = value * factor;
+        value = initialBloom + value * bloomFactor;
 
         bloom.intensity.value = value;
     }
@@ -347,13 +317,22 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="ca"></param>
     /// <param name="factor"></param>
     /// <param name="property"></param>
-    public static void ChangeChromaticAberration(ChromaticAberration ca, float factor, Numeric property)
+    public static void ChangeChromaticAberration(ChromaticAberration ca, float caFactor, Numeric property, float initialCA = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        value = Mathf.Clamp01(value * factor);
+        value = Mathf.Clamp01(initialCA + value * caFactor);
 
         ca.intensity.value = value;
+    }
+
+    public static void ChangeVignette(Vignette vignette, float vignetteFactor, Numeric property, float initialVignette = 0)
+    {
+        var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
+
+        value = initialVignette + value * vignetteFactor;
+
+        vignette.intensity.value = value;
     }
 
     #endregion

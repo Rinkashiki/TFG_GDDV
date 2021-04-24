@@ -499,7 +499,7 @@ MonoBehaviour:
   vol: {fileID: 480533231}
   noiseFactor: 1
   heightFactor: 2
-  mat: {fileID: 2100000, guid: 0e6632ef9dd418d4e9c61b03a0e96464, type: 2}
+  mat: {fileID: 2100000, guid: 9ecba36e0d147904483dc7a79f205e03, type: 2}
 --- !u!1 &1929097019
 GameObject:
   m_ObjectHideFlags: 0

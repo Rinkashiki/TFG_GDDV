@@ -49,9 +49,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="startScale"></param>
-    public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float startScale)
+    public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float initialScale = 1)
     {
-        GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetBandBuffer(band)), initialScale);
     }
 
     /// <summary>
@@ -63,9 +63,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startBrightness"></param>
-    public void BandBright(GameObject go, int band, float brightFactor, Color startColor)
+    public void BandBright(GameObject go, int band, float brightFactor, Color initialColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -81,19 +81,6 @@ public class FreqBandReact : MonoBehaviour
     {
         if (audioInput.GetBandBuffer(band) > bandThreshold)
             GenericSoundReact.ChangeColor(go, color, transitionTime);
-    }
-
-    /// <summary>
-    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
-    /// and the amount of noise by <paramref name="noiseFactor"/>.
-    /// Changes are made using the specified frequency band.
-    /// </summary>
-    /// <param name="mesh"></param>
-    /// <param name="noiseFactor"></param>
-    /// <param name="heightFactor"></param>
-    public void BandTerrainHeightMap(Mesh mesh, int band, float noiseFactor, float heightFactor)
-    {
-        GenericSoundReact.ChangeTerrainHeightMap(mesh, noiseFactor, heightFactor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -116,9 +103,9 @@ public class FreqBandReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
-    public void BandLightIntensity(Light light, int band, float intensityFactor)
+    public void BandLightIntensity(Light light, int band, float intensityFactor, float initialIntensity = 1)
     {
-        GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetBandBuffer(band)), initialIntensity);
     }
 
     /// <summary>
@@ -127,9 +114,9 @@ public class FreqBandReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
-    public void BandLightRange(Light light, int band, float rangeFactor)
+    public void BandLightRange(Light light, int band, float rangeFactor, float initialRange)
     {
-        GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetBandBuffer(band)), initialRange);
     }
 
     /// <summary>
@@ -154,9 +141,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="anim"></param>
     /// <param name="band"></param>
     /// <param name="factor"></param>
-    public void BandAnimationSpeed(Animator anim, int band, float factor)
+    public void BandAnimationSpeed(Animator anim, int band, float speedFactor, float initialSpeed = 0)
     {
-        GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeAnimationSpeed(anim, speedFactor, new Numeric(audioInput.GetBandBuffer(band)), initialSpeed);
     }
 
     /// <summary>
@@ -166,9 +153,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="bloom"></param>
     /// <param name="band"></param>
     /// <param name="factor"></param>
-    public void BandBloom(Bloom bloom, int band, float factor)
+    public void BandBloom(Bloom bloom, int band, float bloomFactor, float initialBloom = 0)
     {
-        GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeBloom(bloom, bloomFactor, new Numeric(audioInput.GetBandBuffer(band)), initialBloom);
     }
 
     /// <summary>
@@ -178,9 +165,14 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="ca"></param>
     /// <param name="band"></param>
     /// <param name="factor"></param>
-    public void BandChromaticAberration(ChromaticAberration ca, int band, float factor)
+    public void BandChromaticAberration(ChromaticAberration ca, int band, float caFactor, float initialCA = 0)
     {
-        GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(audioInput.GetBandBuffer(band)), initialCA);
+    }
+
+    public void BandVignette(Vignette vignette, int band, float vignetteFactor, float initialVignette = 0)
+    {
+        GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(audioInput.GetBandBuffer(band)), initialVignette);
     }
 
     /// <summary>

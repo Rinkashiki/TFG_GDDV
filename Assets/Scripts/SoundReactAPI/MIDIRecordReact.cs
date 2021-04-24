@@ -85,7 +85,7 @@ public class MIDIRecordReact : MonoBehaviour
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(velocity));
             lastVelocity = velocity;
         } 
         else
@@ -108,7 +108,7 @@ public class MIDIRecordReact : MonoBehaviour
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(velocity));
             lastVelocity = velocity;
         }
         else
@@ -129,19 +129,19 @@ public class MIDIRecordReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="startScale"></param>
-    public void Record_VelocityScale(GameObject go, Vector3 axis, float scaleFactor, float startScale, float fadeFactor = 0)
+    public void Record_VelocityScale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(velocity), initialScale);
             lastVelocity = velocity;
         }
         else
         {
             float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
             lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
-            GenericSoundReact.ChangeScale(go, axis, scaleFactor, startScale, new Numeric(lastVelocity));
+            GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(lastVelocity), initialScale);
         }
     }
 
@@ -153,19 +153,19 @@ public class MIDIRecordReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
     /// <param name="startColor"></param>
-    public void Record_VelocityBright(GameObject go, float brightFactor, Color startColor, float fadeFactor = 0)
+    public void Record_VelocityBright(GameObject go, float brightFactor, Color initialColor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(velocity));
             lastVelocity = velocity;
         }
         else
         {
             float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
             lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
-            GenericSoundReact.ChangeBright(go, brightFactor, startColor, new Numeric(lastVelocity));
+            GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(lastVelocity));
         }
     }
 
@@ -218,10 +218,20 @@ public class MIDIRecordReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
-    public void Record_VelocityLightIntensity(Light light, float intensityFactor)
+    public void Record_VelocityLightIntensity(Light light, float intensityFactor, float initialIntensity = 1, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(velocity), initialIntensity);
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(lastVelocity), initialIntensity);
+        }   
     }
 
     /// <summary>
@@ -230,10 +240,20 @@ public class MIDIRecordReact : MonoBehaviour
     /// </summary>
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
-    public void Record_VelocityLightRange(Light light, float rangeFactor)
+    public void Record_VelocityLightRange(Light light, float rangeFactor, float initialRange = 1, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(velocity), initialRange);
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(lastVelocity), initialRange);
+        }   
     }
 
     /// <summary>
@@ -245,12 +265,12 @@ public class MIDIRecordReact : MonoBehaviour
     /// <param name="propertyName"></param>
     /// <param name="propertyType"></param>
     /// <param name="factor"></param>
-    public void Record_VelocityShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float factor, float fadeFactor = 0)
+    public void Record_VelocityShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float propertyFactor, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, factor, new Numeric(velocity));
+            GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, propertyFactor, new Numeric(velocity));
         }
         else
         {
@@ -266,10 +286,20 @@ public class MIDIRecordReact : MonoBehaviour
     /// </summary>
     /// <param name="anim"></param>
     /// <param name="factor"></param>
-    public void Record_VelocityAnimationSpeed(Animator anim, float factor)
+    public void Record_VelocityAnimationSpeed(Animator anim, float speedFactor, float initialSpeed = 1, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
-            GenericSoundReact.ChangeAnimationSpeed(anim, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+        {
+            float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangeAnimationSpeed(anim, speedFactor, new Numeric(velocity), initialSpeed);
+            lastVelocity = velocity;
+        }
+        else
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangeAnimationSpeed(anim, speedFactor, new Numeric(lastVelocity), initialSpeed);
+        }   
     }
 
     /// <summary>
@@ -278,18 +308,18 @@ public class MIDIRecordReact : MonoBehaviour
     /// </summary>
     /// <param name="bloom"></param>
     /// <param name="factor"></param>
-    public void Record_VelocityBloom(Bloom bloom, float factor, float fadeFactor = 0)
+    public void Record_VelocityBloom(Bloom bloom, float bloomFactor, float initialBloom = 0, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity()));
+            GenericSoundReact.ChangeBloom(bloom, bloomFactor, new Numeric(velocity), initialBloom);
         }
         else
         {
             float bloomIntensity = bloom.intensity.value;
             float bloomDelta = fadeFactor == 0 ? bloomIntensity : Time.deltaTime * bloomIntensity / fadeFactor;
-            GenericSoundReact.ChangeBloom(bloom, factor, new Numeric(bloom.intensity.value = bloomIntensity - bloomDelta));
+            GenericSoundReact.ChangeBloom(bloom, bloomFactor, new Numeric(bloom.intensity.value = bloomIntensity - bloomDelta), initialBloom);
         }    
     }
 
@@ -299,18 +329,35 @@ public class MIDIRecordReact : MonoBehaviour
     /// </summary>
     /// <param name="ca"></param>
     /// <param name="factor"></param>
-    public void Record_VelocityChromaticAberration(ChromaticAberration ca, float factor, float fadeFactor = 0)
+    public void Record_VelocityChromaticAberration(ChromaticAberration ca, float caFactor, float initialCA = 0, float fadeFactor = 0)
     {
         if (MidiRecording.GetCurrentNoteOnEvent() != null)
         {
             float velocity = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber() / NOTES;
-            GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(velocity));
+            GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(velocity), initialCA);
         }
         else
         {
             float caIntensity = ca.intensity.value;
             float caDelta = fadeFactor == 0 ? caIntensity : Time.deltaTime * caIntensity / fadeFactor;
-            GenericSoundReact.ChangeChromaticAberration(ca, factor, new Numeric(0));
+            GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(ca.intensity.value = caIntensity - caDelta), initialCA);
+        }
+    }
+
+    public void Record_VelocityVignette(Vignette vignette, float vignetteFactor, float initialVignette = 0, float fadeFactor = 0)
+    {
+        if (MidiRecording.GetCurrentNoteOffEvent() != null)
+        {
+            float velocity = MidiRecording.GetCurrentNoteOffEvent().GetNoteVelocity() * MidiRecording.GetCurrentNoteOffEvent().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(velocity), initialVignette);
+            lastVelocity = velocity;
+        }
+        else
+
+        {
+            float vignetteIntensity = vignette.intensity.value;
+            float caDelta = fadeFactor == 0 ? vignetteIntensity : Time.deltaTime * vignetteIntensity / fadeFactor;
+            GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(vignette.intensity.value = vignetteIntensity - caDelta), initialVignette);
         }
     }
 

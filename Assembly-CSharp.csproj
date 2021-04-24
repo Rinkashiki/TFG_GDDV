@@ -63,12 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Example.cs" />
-    <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\AmplitudeReact.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioReact\AudioInput.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AudioExample.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiExample.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\PolygonExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AmplitudeReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\UseEventsExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\FreqBandReact.cs" />
@@ -557,7 +554,6 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyboardDrawLine.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\TerrainGenerator.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\SoundReact.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <None Include="Assets\MIDI\Gurenge.txt" />
     <None Include="Assets\MIDI\My Dearest.txt" />
