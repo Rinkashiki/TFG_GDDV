@@ -273,9 +273,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="noiseFactor"></param>
     /// <param name="terrainDir"></param>
     /// <returns></returns>
-    public GameObject BandsGenerateTerrain(int length, float startWidth, float step, float heightfactor, float noiseFactor, Vector3 terrainDir, Material mat)
+    public GameObject BandsGenerateTerrain(int length, float step, float heightfactor, float noiseFactor, Vector3 terrainDir, Material mat)
     {
-        GameObject terrain = GenericSoundReact.GenerateTerrain(length, startWidth, step, heightfactor, noiseFactor, terrainDir, mat);
+        GameObject terrain = GenericSoundReact.GenerateTerrain(length, step, heightfactor, noiseFactor, terrainDir, mat);
         return terrain;
     }
 

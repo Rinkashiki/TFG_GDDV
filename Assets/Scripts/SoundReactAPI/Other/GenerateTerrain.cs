@@ -10,7 +10,6 @@ public class GenerateTerrain : MonoBehaviour
     private Mesh terrain;
     private MeshRenderer rend;
     private int length;
-    private float currentWidth;
     private Vector3 advanceDir;
     private float step;
     [SerializeField] private float heightFactor;
@@ -130,15 +129,12 @@ public class GenerateTerrain : MonoBehaviour
                 else
                 {
                     height = audioInput.GetBandBuffer()[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
-                    //height = bands[bandIndex] * heightFactor;
                 }
-                //Debug.Log(height);
                 vertPos = new Vector3(x + advanceDir.x, advanceDir.y, z + advanceDir.z);
                 Vector3 heightVector = Vector3.Cross(Vector3.forward, terrainDir) * height;
                 vertices[i + oldVertLength - vertIni] = vertPos + heightVector;
                 i++;
             }
-            //currentWidth += step * advanceFactor * terrainDir.x;
             advanceDir.x += step * advanceFactor * terrainDir.x;
             advanceDir.y += step * advanceFactor * terrainDir.y;
             advanceDir.z += step * advanceFactor * terrainDir.z;
@@ -182,13 +178,12 @@ public class GenerateTerrain : MonoBehaviour
 
     #region Terrain_Setters
 
-    public void SetParams(Mesh mesh, MeshRenderer rend, Material mat, int length, float currentWidth, float step, float heightFactor, float noiseFactor, Vector3 terrainDir)
+    public void SetParams(Mesh mesh, MeshRenderer rend, Material mat, int length, float step, float heightFactor, float noiseFactor, Vector3 terrainDir)
     {
         terrain = mesh;
         this.rend = rend;
         rend.material = mat;
         this.length = length;
-        this.currentWidth = currentWidth;
         this.step = step;
         this.heightFactor = heightFactor;
         this.noiseFactor = noiseFactor;
@@ -213,6 +208,11 @@ public class GenerateTerrain : MonoBehaviour
     public void SetTerrainDir(Vector3 terrainDir)
     {
         this.terrainDir = terrainDir;
+    }
+
+    public Vector3 GetAdvanceDir()
+    {
+        return advanceDir;
     }
 
     #endregion

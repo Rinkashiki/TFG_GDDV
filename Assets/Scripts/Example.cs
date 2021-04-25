@@ -54,7 +54,7 @@ public class Example : MonoBehaviour
 
         // For Bands Generate Terrain
         bandReact = GetComponent<FreqBandReact>();
-        terrain = bandReact.BandsGenerateTerrain(16, 0, 0.05f, heightFactor, noiseFactor, Vector3.right, mat);
+        terrain = bandReact.BandsGenerateTerrain(16, 0.05f, heightFactor, noiseFactor, Vector3.right, mat);
 
         // For Shader Material Property
         ampReact = GetComponent<AmplitudeReact>();

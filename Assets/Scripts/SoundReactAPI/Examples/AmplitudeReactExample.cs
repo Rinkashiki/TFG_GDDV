@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class AmplitudeReactExample : MonoBehaviour
 {
@@ -31,6 +33,15 @@ public class AmplitudeReactExample : MonoBehaviour
     [SerializeField] float propertyFactor;
     private Material mat;
 
+    // Amplitude Post-Processing
+    [Header("Amplitude Post-Processing")]
+    [SerializeField] Volume vol;
+    [SerializeField] float bloomFactor;
+    [SerializeField] float vignetteFactor;
+    private Bloom bloom;
+    private Vignette vignette;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +58,10 @@ public class AmplitudeReactExample : MonoBehaviour
 
         // Amplitude Shader Graph Property
         mat = this.gameObject.GetComponent<MeshRenderer>().material;
+
+        // Amplitude Post-Processing
+        bloom = (Bloom)vol.profile.components[0];
+        vignette = (Vignette)vol.profile.components[1];
     }
 
     // Update is called once per frame
@@ -65,5 +80,9 @@ public class AmplitudeReactExample : MonoBehaviour
 
         // Amplitude Shader Graph Property
         ampReact.AmplitudeShaderGraphMatProperty(mat, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, propertyFactor);
+
+        // Amplitude Post-Processing
+        ampReact.AmplitudeBloom(bloom, bloomFactor);
+        ampReact.AmplitudeVignette(vignette, vignetteFactor);
     }
 }
