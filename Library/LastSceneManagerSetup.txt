@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/FreqBandReact.unity
+- path: Assets/Scenes/MidiPlayReact.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

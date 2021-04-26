@@ -41,7 +41,7 @@ public class KeyBoardDrawPolygon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        noteNumber = MidiRecording.GetCurrentNoteOnEvent() != null ? MidiRecording.GetCurrentNoteOnEvent().GetNoteNumber(): 0;
+        noteNumber = MidiRecording.Event_CurrentNoteOn() != null ? MidiRecording.Event_CurrentNoteOn().GetNoteNumber(): 0;
 
         if (noteNumber > 0 && numberDirAssociation.ContainsKey(noteNumber))
         {

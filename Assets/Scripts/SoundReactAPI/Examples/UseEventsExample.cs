@@ -62,7 +62,7 @@ public class UseEventsExample : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            MidiRecording.GetCurrentNoteOnEvent().PrintEvent();
+            MidiRecording.Event_CurrentNoteOn().PrintEvent();
         }
     }
 }

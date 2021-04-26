@@ -65,8 +65,6 @@ public class MidiRecording
 
     #endregion
 
-    /*Función a modificar. Declarar dos variables, currentNoteOnEvent y currentNoteOffEvent. Cuando se procese un evento de alguno de esos tipos,
-    almaceno en la variable correspondiente dicho evento. Al proporcionarse getters, podré accederlas desde una clase superior*/
     private static void OnEventReceived(object sender, MidiEventReceivedEventArgs e)
     {
         var midiDevice = (MidiDevice)sender;
@@ -99,7 +97,7 @@ public class MidiRecording
 
     #region MIDI_Recording_Getters
 
-    public static MIDINoteEvent GetCurrentNoteOnEvent()
+    public static MIDINoteEvent Event_CurrentNoteOn()
     {
         if (current >= 0)
         {
@@ -111,7 +109,7 @@ public class MidiRecording
         }
     }
 
-    public static MIDINoteEvent GetCurrentNoteOffEvent()
+    public static MIDINoteEvent Event_CurrentNoteOff()
     {
         return currentNoteOffEvent;
     }

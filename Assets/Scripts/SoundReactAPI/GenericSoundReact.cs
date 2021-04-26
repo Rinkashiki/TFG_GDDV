@@ -74,8 +74,8 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
-    /// <param name="initialScale"></param>
     /// <param name="property"></param>
+    /// <param name="initialScale"></param>
     public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, Numeric property, float initialScale = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -116,13 +116,15 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="heightFactor"/>
+    /// Modifies <paramref name="mesh"/> vertices height. The amount of height variation is specified by <paramref name="reliefFactor"/>
     /// and the amount of noise by <paramref name="noiseFactor"/>. Vertices initial positions are defined by <paramref name="initPos"/>.
+    /// Vertices animation speed is specified by <paramref name="waveSpeed"/>
     /// </summary>
     /// <param name="mesh"></param>
     /// <param name="noiseFactor"></param>
-    /// <param name="heightFactor"></param>
+    /// <param name="reliefFactor"></param>
     /// <param name="initPos"></param>
+    /// <param name="waveSpeed"></param>
     /// <param name="property"></param>
     public static void ChangeReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, Vector3[] initPos, float waveSpeed, Numeric property)
     {
@@ -200,10 +202,12 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="light"/> intensity. The amount of this intensity is specified by <paramref name="intensityFactor"/>.
+    /// The initial an minimum intensity is specified by <paramref name="initialIntensity"/>.
     /// </summary>
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
     /// <param name="property"></param>
+    /// <param name="initialIntensity"></param>
     public static void ChangeLightIntensity(Light light, float intensityFactor, Numeric property, float initialIntensity = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -213,10 +217,12 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="light"/> range. The amount of this range is specified by <paramref name="rangeFactor"/>.
+    /// The initial an minimum range is specified by <paramref name="initialRange"/>.
     /// </summary>
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
     /// <param name="property"></param>
+    /// <param name="initialRange"></param>
     public static void ChangeLightRange(Light light, float rangeFactor, Numeric property, float initialRange = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -226,12 +232,12 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="mat"/> shader/material property named <paramref name="propertyName"/> of type <paramref name="propertyType"/>.
-    /// The amount of change is specified by <paramref name="factor"/>.
+    /// The amount of change is specified by <paramref name="propertyFactor"/>.
     /// </summary>
     /// <param name="mat"></param>
     /// <param name="propertyName"></param>
     /// <param name="propertyType"></param>
-    /// <param name="factor"></param>
+    /// <param name="propertyFactor"></param>
     /// <param name="property"></param>
     public static void ChangeShaderGraphMatProperty(Material mat, string propertyName, MatPropertyType propertyType, float propertyFactor, Numeric property)
     {
@@ -280,11 +286,13 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies <paramref name="anim"/> animation speed. The amount of change in speed is specified by factor.
+    /// Modifies <paramref name="anim"/> animation speed. The amount of change in speed is specified by <paramref name="speedFactor"/>.
+    /// The initial an minimum speed is specified by <paramref name="initialSpeed"/>.
     /// </summary>
     /// <param name="anim"></param>
-    /// <param name="factor"></param>
+    /// <param name="speedFactor"></param>
     /// <param name="property"></param>
+    /// <param name="initialSpeed"></param>
     public static void ChangeAnimationSpeed(Animator anim, float speedFactor, Numeric property, float initialSpeed = 1)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -297,11 +305,13 @@ public class GenericSoundReact : MonoBehaviour
     #region Generic_Change_Post_Processing_Functions
 
     /// <summary>
-    /// Modifies the <paramref name="bloom"/> of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Modifies the <paramref name="bloom"/> of the Global Volume. The amount of change is specified by <paramref name="bloomFactor"/>.
+    /// The initial an minimum bloom is specified by <paramref name="initialBloom"/>.
     /// </summary>
     /// <param name="bloom"></param>
-    /// <param name="factor"></param>
+    /// <param name="bloomFactor"></param>
     /// <param name="property"></param>
+    /// <param name="initialBloom"></param>
     public static void ChangeBloom(Bloom bloom, float bloomFactor, Numeric property, float initialBloom = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -312,11 +322,13 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies the chromatic aberration of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Modifies the chromatic aberration of the Global Volume. The amount of change is specified by <paramref name="caFactor"/>.
+    /// The initial an minimum chromatic aberration is specified by <paramref name="initialCA"/>.
     /// </summary>
     /// <param name="ca"></param>
-    /// <param name="factor"></param>
+    /// <param name="caFactor"></param>
     /// <param name="property"></param>
+    /// <param name="initialCA"></param>
     public static void ChangeChromaticAberration(ChromaticAberration ca, float caFactor, Numeric property, float initialCA = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -326,6 +338,14 @@ public class GenericSoundReact : MonoBehaviour
         ca.intensity.value = value;
     }
 
+    /// <summary>
+    /// Modifies the <paramref name="vignette"/> of the Global Volume. The amount of change is specified by <paramref name="vignetteFactor"/>.
+    /// The initial an minimum chromatic aberration is specified by <paramref name="initialVignette"/>.
+    /// </summary>
+    /// <param name="vignette"></param>
+    /// <param name="vignetteFactor"></param>
+    /// <param name="property"></param>
+    /// <param name="initialVignette"></param>
     public static void ChangeVignette(Vignette vignette, float vignetteFactor, Numeric property, float initialVignette = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
@@ -340,13 +360,15 @@ public class GenericSoundReact : MonoBehaviour
     #region Generic_Physic_Functions
 
     /// <summary>
-    /// Modifies the specified 3D float physic property of <paramref name="body"/>. The amount of change is specified by <paramref name="fppFactor"/>.
+    /// Modifies 3D float physic property specified by  <paramref name="fpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="fppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
     /// <param name="property"></param>
-    public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, float initialValue, Numeric property)
+    /// <param name="initialValue"></param>
+    public static void ChangePhysicProperty(Rigidbody body, FloatPhysicProperties fpp, float fppFactor, Numeric property, float initialValue = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         float newFpp = fppFactor * value;
@@ -372,29 +394,31 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies the specified 3D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>. 
+    /// Modifies 3D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="vppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="vpp"></param>
+    /// <param name="vppFactor"></param>
     /// <param name="property"></param>
-    /// <param name="axis"></param>
-    public static void ChangePhysicProperty(Rigidbody body, VectorPhysicProperties vpp, Vector3 axis, Numeric property)
+    /// <param name="initialValue"></param>
+    public static void ChangePhysicProperty(Rigidbody body, VectorPhysicProperties vpp, Vector3 vppFactor, Numeric property, Vector3 initialValue = new Vector3())
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-        Vector3 newVpp = axis * value;
+        Vector3 newVpp = value * vppFactor;
 
         switch (vpp)
         {
             case VectorPhysicProperties.centerOfMass:
-                body.centerOfMass += newVpp;
+                body.centerOfMass = initialValue + newVpp;
                 break;
 
             case VectorPhysicProperties.inertiaTensor:
-                body.inertiaTensor += newVpp;
+                body.inertiaTensor = initialValue + newVpp;
                 break;
 
             case VectorPhysicProperties.velocity:
-                body.velocity += newVpp;
+                body.velocity = initialValue + newVpp;
                 break;
 
             default:
@@ -403,13 +427,15 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies the specified 2D float physic property of <paramref name="body"/>. The amount of change is specified by fppFactor.
+    /// Modifies 2D float physic property specified by <paramref name="fpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="fppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
     /// <param name="property"></param>
-    public static void ChangePhysicProperty2D(Rigidbody2D body, FloatPhysicProperties fpp, float fppFactor, Numeric property)
+    /// <param name="initialValue"></param>
+    public static void ChangePhysicProperty2D(Rigidbody2D body, FloatPhysicProperties fpp, float fppFactor, Numeric property, float initialValue = 0)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
         float newFpp = fppFactor * value;
@@ -417,19 +443,19 @@ public class GenericSoundReact : MonoBehaviour
         switch (fpp)
         {
             case FloatPhysicProperties.angularDrag:
-                body.angularDrag *= newFpp;
+                body.angularDrag = initialValue + newFpp;
                 break;
 
             case FloatPhysicProperties.drag:
-                body.drag *= newFpp;
+                body.drag = initialValue + newFpp;
                 break;
 
             case FloatPhysicProperties.inertia:
-                body.inertia += newFpp;
+                body.inertia = initialValue + newFpp;
                 break;
 
             case FloatPhysicProperties.mass:
-                body.mass *= newFpp;
+                body.mass = initialValue + newFpp;
                 break;
 
             default:
@@ -438,27 +464,28 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies the specified 2D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>. 
-    /// The amount of change is specified by vppFactor.
+    /// Modifies 3D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="vppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="vpp"></param>
+    /// <param name="vppFactor"></param>
     /// <param name="property"></param>
-    /// <param name="axis"></param>
-    public static void ChangePhysicProperty2D(Rigidbody2D body, VectorPhysicProperties vpp, Vector2 axis, Numeric property)
+    /// <param name="initialValue"></param>
+    public static void ChangePhysicProperty2D(Rigidbody2D body, VectorPhysicProperties vpp, Vector2 vppFactor, Numeric property, Vector2 initialValue = new Vector2())
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
-        Vector2 newVpp = axis * value;
+        Vector2 newVpp = vppFactor * value;
 
         switch (vpp)
         {
             case VectorPhysicProperties.centerOfMass:
-                body.centerOfMass += newVpp;
+                body.centerOfMass = initialValue + newVpp;
                 break;
 
 
             case VectorPhysicProperties.velocity:
-                body.velocity += newVpp;
+                body.velocity = initialValue + newVpp;
                 break;
 
             default:
@@ -504,14 +531,14 @@ public class GenericSoundReact : MonoBehaviour
     /// Returns a GameObject that generates a new line of terrain every frame, increasing its width (in x). 
     /// The <paramref name="length"/> of the terrain (in z) is fixed. The amount of increase in width is specified by <paramref name="step"/>.
     /// Height and noise are determined by <paramref name="heightfactor"/> and <paramref name="noiseFactor"/>, respectively. 
-    /// The direction of the terrain is specified by <paramref name="terrainDir"/>.
+    /// The direction of the terrain is specified by <paramref name="terrainDir"/>. The terrain´s material is specified by <paramref name="mat"/>
     /// </summary>
     /// <param name="length"></param>
-    /// <param name="startWidth"></param>
     /// <param name="step"></param>
     /// <param name="heightfactor"></param>
     /// <param name="noiseFactor"></param>
     /// <param name="terrainDir"></param>
+    /// <param name="mat"></param>
     /// <returns></returns>
     public static GameObject GenerateTerrain(int length, float step, float heightfactor, float noiseFactor, Vector3 terrainDir, Material mat)
     {
@@ -525,26 +552,16 @@ public class GenericSoundReact : MonoBehaviour
         return terrainObj;
     }
 
-    public static GameObject GenerateWaveTerrain(float step, float heightfactor, float noiseFactor)
-    {
-        GameObject terrainObj = new GameObject();
-        terrainObj.name = "waveTerrain";
-        terrainObj.AddComponent<MeshFilter>();
-        terrainObj.AddComponent<MeshRenderer>();
-        GenerateWaveTerrain terrain = terrainObj.AddComponent<GenerateWaveTerrain>();
-        terrain.SetParams(terrainObj.GetComponent<MeshFilter>().mesh, terrainObj.GetComponent<MeshRenderer>(), step, heightfactor, noiseFactor);
-
-        return terrainObj;
-    }
-
     /// <summary>
     /// Creates and returns a GameObject, which is an instance of <paramref name="obj"/>, in the position determined by <paramref name="position"/> and
-    /// with the rotation specified by <paramref name="rotation"/>. The instantiation is produced when <paramref name="soundOption"/> is true.
+    /// with the rotation specified by <paramref name="rotation"/>. The instantiation is produced when <paramref name="soundOption"/> is true and 
+    /// <paramref name="spawnTime"/> has passed between instances.
     /// </summary>
     /// <param name="obj"></param>
     /// <param name="position"></param>
     /// <param name="rotation"></param>
     /// <param name="soundOption"></param>
+    /// <param name="spawnTime"></param>
     /// <returns></returns>
     public static GameObject SoundInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, bool soundOption, float spawnTime)
     {

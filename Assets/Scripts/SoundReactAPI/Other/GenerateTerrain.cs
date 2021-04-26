@@ -210,9 +210,9 @@ public class GenerateTerrain : MonoBehaviour
         this.terrainDir = terrainDir;
     }
 
-    public Vector3 GetAdvanceDir()
+    public Vector3 GetTerrainPos()
     {
-        return advanceDir;
+        return vertices[vertices.Length - 1 - length];
     }
 
     #endregion

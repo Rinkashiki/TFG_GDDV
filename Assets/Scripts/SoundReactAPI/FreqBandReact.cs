@@ -170,6 +170,12 @@ public class FreqBandReact : MonoBehaviour
         GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(audioInput.GetBandBuffer(band)), initialCA);
     }
 
+    /// <summary>
+    /// Modifies the vignette of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Changes are made using the specified frequency band.
+    /// </summary>
+    /// <param name="ca"></param>
+    /// <param name="factor"></param>
     public void BandVignette(Vignette vignette, int band, float vignetteFactor, float initialVignette = 0)
     {
         GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(audioInput.GetBandBuffer(band)), initialVignette);
@@ -185,7 +191,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="fppFactor"></param>
     public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)), initialValue);
     }
 
     /// <summary>
@@ -196,9 +202,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.VectorPhysicProperties vpp, Vector3 axis)
+    public void BandPhysicProperty(Rigidbody body, int band, GenericSoundReact.VectorPhysicProperties vpp, Vector3 vppFactor, Vector3 initialValue = new Vector3())
     {
-        GenericSoundReact.ChangePhysicProperty(body, vpp, axis, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty(body, vpp, vppFactor, new Numeric(audioInput.GetBandBuffer(band)), initialValue);
     }
 
     /// <summary>
@@ -209,9 +215,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty2D(Rigidbody2D body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void BandPhysicProperty2D(Rigidbody2D body, int band, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
-        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetBandBuffer(band)), initialValue);
     }
 
     /// <summary>
@@ -222,9 +228,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void BandPhysicProperty2D(Rigidbody2D body, int band, GenericSoundReact.VectorPhysicProperties vpp, Vector2 axis)
+    public void BandPhysicProperty2D(Rigidbody2D body, int band, GenericSoundReact.VectorPhysicProperties vpp, Vector2 vppFactor, Vector2 initialValue = new Vector2())
     {
-        GenericSoundReact.ChangePhysicProperty2D(body, vpp, axis, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangePhysicProperty2D(body, vpp, vppFactor, new Numeric(audioInput.GetBandBuffer(band)), initialValue);
     }
 
     /// <summary>

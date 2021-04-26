@@ -1,6 +1,7 @@
 ﻿#region Dependencies
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,6 +20,18 @@ public class MidiFileEventHandler
     {
         List<MIDINoteEvent> midiEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
         return midiEvent;
+    }
+
+    /// <summary>
+    /// Returns distinct Note On events list from the specified one track <paramref name="midiFile"/>
+    /// </summary>
+    /// <param name="midiFile"></param>
+    /// <returns></returns>
+    public static List<MIDINoteEvent> Event_NoteOnListDistinct(Object midiFile)
+    {
+        List<MIDINoteEvent> midiEvent = MidiFileInput.MidiInputNoteOnEvents(AssetDatabase.GetAssetPath(midiFile));
+        List<MIDINoteEvent> distinctMIDIEvent = midiEvent.GroupBy(x => x.GetNoteNumber()).Select(y => y.First()).ToList();
+        return distinctMIDIEvent;
     }
 
     /// <summary>

@@ -162,6 +162,12 @@ public class AmplitudeReact : MonoBehaviour
         GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialCA);
     }
 
+    /// <summary>
+    /// Modifies the vignette of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Changes are made using amplitude.
+    /// </summary>
+    /// <param name="ca"></param>
+    /// <param name="factor"></param>
     public void AmplitudeVignette(Vignette vignette, float vignetteFactor, float initialVignette = 0)
     {
         GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialVignette);
@@ -176,7 +182,7 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="fppFactor"></param>
     public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
-        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
@@ -186,9 +192,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="vpp"></param>
     /// <param name="axis"></param>
-    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 axis)
+    public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 vppFactor, Vector3 initialValue = new Vector3())
     {
-        GenericSoundReact.ChangePhysicProperty(body, vpp, axis, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty(body, vpp, vppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
@@ -198,9 +204,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
-    public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
-        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
@@ -210,9 +216,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="body"></param>
     /// <param name="vpp"></param>
     /// <param name="axis"></param>
-    public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.VectorPhysicProperties vpp, Vector2 axis)
+    public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.VectorPhysicProperties vpp, Vector2 vppFactor, Vector2 initialValue = new Vector2())
     {
-        GenericSoundReact.ChangePhysicProperty2D(body, vpp, axis, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangePhysicProperty2D(body, vpp, vppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>

@@ -77,8 +77,8 @@ public class DrawPolygon : MonoBehaviour
                         break;
 
                     case GenericSoundReact.MusicDataType.Record_Velocity:
-                        if (MidiRecording.GetCurrentNoteOnEvent() != null)
-                            value = MidiRecording.GetCurrentNoteOnEvent().GetNoteVelocity();
+                        if (MidiRecording.Event_CurrentNoteOn() != null)
+                            value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity();
                         break;
 
                     default:

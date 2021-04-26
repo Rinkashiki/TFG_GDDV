@@ -12,41 +12,9 @@ public class MIDIPlayReact : MonoBehaviour
 
     #endregion
 
-    #region MIDI_Play_NoteNumber_Input_Functions
-
-    public void Play_NoteNumberColor(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
-    {
-        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-        {
-            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
-
-            if (numberColorAssociation.ContainsKey(number))
-            {
-                GenericSoundReact.ChangeColor(go, numberColorAssociation[number], transitionTime);
-            }
-
-        }
-    }
-
-    public GameObject Play_NoteNumberInstantiate(Object obj, Vector3 position, Quaternion rotation, int noteNumber, float spawnTime)
-    {
-        GameObject go = null;
-
-        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-        {
-            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
-
-            GenericSoundReact.SoundInstantiate(obj, position, rotation, number == noteNumber, spawnTime);
-        }
-
-        return go;
-    }
-
-    #endregion
-
     #region MIDI_Play_Velocity_Input_Functions
 
-    public void Play_VelocityTranslation(GameObject go, Vector3 axis, float translationFactor, float fadeFactor = 0)
+    public void Play_Translation(GameObject go, Vector3 axis, float translationFactor, float fadeFactor = 0)
 
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
@@ -63,7 +31,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityRotation(GameObject go, Vector3 axis, float rotFactor, float fadeFactor = 0)
+    public void Play_Rotation(GameObject go, Vector3 axis, float rotFactor, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -79,7 +47,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityScale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1, float fadeFactor = 0)
+    public void Play_Scale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -95,7 +63,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityBright(GameObject go, float brightFactor, Color initialColor, float fadeFactor = 0)
+    public void Play_Bright(GameObject go, float brightFactor, Color initialColor, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -111,16 +79,21 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityColor(GameObject go, Color color, float transitionTime, int velocityThreshold)
+    public void Play_Color(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
-            if (MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() > velocityThreshold)
-                GenericSoundReact.ChangeColor(go, color, transitionTime);
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
+
+            if (numberColorAssociation.ContainsKey(number))
+            {
+                GenericSoundReact.ChangeColor(go, numberColorAssociation[number], transitionTime);
+            }
+
         }
     }
 
-    public void Play_VelocityReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos, float fadeFactor = 0)
+    public void Play_ReliefMap(Mesh mesh, float noiseFactor, float reliefFactor, float waveSpeed, Vector3[] initPos, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -136,7 +109,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityLightIntensity(Light light, float intensityFactor, float initialIntensity = 1, float fadeFactor = 0)
+    public void Play_LightIntensity(Light light, float intensityFactor, float initialIntensity = 1, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -152,7 +125,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityLightRange(Light light, float rangeFactor, float initialRange = 1, float fadeFactor = 0)
+    public void Play_LightRange(Light light, float rangeFactor, float initialRange = 1, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -168,7 +141,7 @@ public class MIDIPlayReact : MonoBehaviour
         } 
     }
 
-    public void Play_VelocityShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float propertyFactor, float fadeFactor = 0)
+    public void Play_ShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float propertyFactor, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -183,7 +156,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityAnimationSpeed(Animator anim, float speedFactor, float initialSpeed = 1, float fadeFactor = 0)
+    public void Play_AnimationSpeed(Animator anim, float speedFactor, float initialSpeed = 1, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -199,7 +172,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityBloom(Bloom bloom, float bloomFactor, float initialBloom = 0, float fadeFactor = 0)
+    public void Play_Bloom(Bloom bloom, float bloomFactor, float initialBloom = 0, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -215,7 +188,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityChromaticAberration(ChromaticAberration ca, float caFactor, float initialCA = 0, float fadeFactor = 0)
+    public void Play_ChromaticAberration(ChromaticAberration ca, float caFactor, float initialCA = 0, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -232,7 +205,7 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityVignette(Vignette vignette, float vignetteFactor, float initialVignette = 0, float fadeFactor = 0)
+    public void Play_Vignette(Vignette vignette, float vignetteFactor, float initialVignette = 0, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -249,56 +222,101 @@ public class MIDIPlayReact : MonoBehaviour
         }
     }
 
-    public void Play_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
+    public void Play_PhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, initialValue, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        {
+            float velocity = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(velocity), initialValue);
+            lastVelocity = velocity;
+        }
+        else
+
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(lastVelocity), initialValue);
+        }   
     }
 
-    public void Play_VelocityPhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 axis)
+    public void Play_PhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 vppFactor, Vector3 initialValue = new Vector3(), float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-            GenericSoundReact.ChangePhysicProperty(body, vpp, axis, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        {
+            float velocity = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangePhysicProperty(body, vpp, vppFactor, new Numeric(velocity), initialValue);
+            lastVelocity = velocity;
+        }
+        else
+
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangePhysicProperty(body, vpp, vppFactor, new Numeric(lastVelocity), initialValue);
+        }   
     }
 
-    public void Play_VelocityPhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor)
+    public void Play_PhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0, float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-            GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        {
+            float velocity = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(velocity), initialValue);
+            lastVelocity = velocity;
+        }
+        else
+
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(lastVelocity), initialValue);
+        }   
     }
 
-    public void Play_VelocityPhysicProperty2D(Rigidbody2D body, GenericSoundReact.VectorPhysicProperties vpp, Vector2 axis)
+    public void Play_PhysicProperty2D(Rigidbody2D body, GenericSoundReact.VectorPhysicProperties vpp, Vector2 vppFactor, Vector2 initialValue = new Vector2(), float fadeFactor = 0)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
-            GenericSoundReact.ChangePhysicProperty2D(body, vpp, axis, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
+        {
+            float velocity = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+            GenericSoundReact.ChangePhysicProperty2D(body, vpp, vppFactor, new Numeric(velocity), initialValue);
+            lastVelocity = velocity;
+        }
+        else
+
+        {
+            float velocityDelta = fadeFactor == 0 ? lastVelocity : Time.deltaTime * lastVelocity * fadeFactor;
+            lastVelocity = lastVelocity <= 0 ? 0 : lastVelocity - velocityDelta;
+            GenericSoundReact.ChangePhysicProperty2D(body, vpp, vppFactor, new Numeric(lastVelocity), initialValue);
+        }   
     }
 
-    public void Play_VelocityAddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor)
+    public void Play_AddForce(Rigidbody body, Vector3 forceDir, ForceMode mode, float forceFactor)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
             GenericSoundReact.CustomAddForce(body, forceDir, mode, forceFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public void Play_VelocityAddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor)
+    public void Play_AddForce2D(Rigidbody2D body, Vector2 forceDir, ForceMode2D mode, float forceFactor)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
             GenericSoundReact.CustomAddForce2D(body, forceDir, mode, forceFactor, new Numeric(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()));
     }
 
-    public GameObject Play_VelocityInstantiate(Object obj, Vector3 position, Quaternion rotation, float velocityThreshold, float spawnTime)
+    public GameObject Play_Instantiate(Object obj, Vector3 position, Quaternion rotation, List<int> noteNumbers, float spawnTime)
     {
         GameObject go = null;
 
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
-            int velocity = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity();
+            int number = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber();
 
-            go = GenericSoundReact.SoundInstantiate(obj, position, rotation, velocity > velocityThreshold, spawnTime);
+            GenericSoundReact.SoundInstantiate(obj, position, rotation, noteNumbers.Contains(number), spawnTime);
         }
+
         return go;
     }
 
-    public GameObject Play_VelocityDrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor)
+    public GameObject Play_DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor)
     {
         GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.Play_Velocity);
         return polygon;

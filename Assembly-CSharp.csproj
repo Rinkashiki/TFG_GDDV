@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioReact\AudioInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AmplitudeReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\FreqBandReactExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiPlayReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\UseEventsExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\FreqBandReact.cs" />
