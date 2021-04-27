@@ -21,12 +21,18 @@ public class AmplitudeReactExample : MonoBehaviour
     */
 
     // Amplitude Relief Map
+    /*
     [Header("Amplitude Relief Map")]
     [SerializeField] float noiseFactor;
     [SerializeField] float heightFactor;
     [SerializeField] float waveSpeed;
     private Mesh mesh;
     private Vector3[] initPos;
+    */
+
+    //Amplitude Rotation
+    [Header("Amplitude Rotation")]
+    [SerializeField] float rotationFactor;
 
     // Amplitude Shader Graph Property
     [Header("Amplitude Shader Graph Property")]
@@ -53,8 +59,10 @@ public class AmplitudeReactExample : MonoBehaviour
         */
 
         // Amplitude Relief Map
+        /*
         mesh = this.gameObject.GetComponent<MeshFilter>().mesh;
         initPos = mesh.vertices;
+        */
 
         // Amplitude Shader Graph Property
         mat = this.gameObject.GetComponent<MeshRenderer>().material;
@@ -76,7 +84,12 @@ public class AmplitudeReactExample : MonoBehaviour
         */
 
         // Amplitude Relief Map
+        /*
         ampReact.AmplitudeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed);
+        */
+
+        // Amplitude Rotation
+        ampReact.AmplitudeRotation(this.gameObject, new Vector3(1, 1, 0), rotationFactor);
 
         // Amplitude Shader Graph Property
         ampReact.AmplitudeShaderGraphMatProperty(mat, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, propertyFactor);

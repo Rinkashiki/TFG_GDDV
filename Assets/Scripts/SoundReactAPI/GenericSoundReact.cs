@@ -112,7 +112,7 @@ public class GenericSoundReact : MonoBehaviour
     public static void ChangeColor(GameObject go, Color color, float transitionTime)
     {
         Color prevColor = go.GetComponent<MeshRenderer>().material.color;
-        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, transitionTime);
+        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, Mathf.Clamp01(transitionTime));
     }
 
     /// <summary>
@@ -212,7 +212,7 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        light.intensity = initialIntensity + Mathf.Clamp(intensityFactor * value, 0, 8);
+        light.intensity = initialIntensity + intensityFactor * value;
     }
 
     /// <summary>

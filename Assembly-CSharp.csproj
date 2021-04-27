@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AmplitudeReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\FreqBandReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiPlayReactExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiRecordReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\UseEventsExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\FreqBandReact.cs" />
@@ -557,8 +558,6 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\TerrainGenerator.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <None Include="Assets\MIDI\Gurenge.txt" />
-    <None Include="Assets\MIDI\My Dearest.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
