@@ -556,6 +556,8 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyBoardDrawPolygon.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyboardDrawLine.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Other\PhylloTunnel.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Other\Phyllotaxis.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\TerrainGenerator.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Reference Include="UnityEngine">
