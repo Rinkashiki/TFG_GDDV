@@ -151,9 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 614727055}
-  audioPeer: {fileID: 1929097020}
   tunnelSpeed: 0.02
-  cameraDistance: -15
+  cameraDistance: -12
 --- !u!4 &36988027
 Transform:
   m_ObjectHideFlags: 0
@@ -387,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 614727052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -463,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720595509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -482,11 +481,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vol: {fileID: 480533231}
-  phyllotaxisDegree: 60
+  tunnelSpeed: 0.01
+  cameraTransform: {fileID: 614727055}
+  cameraDistance: -12
+  phyllotaxisDegree: 40
   startColor: {r: 0.9339623, g: 0.2863564, b: 0.7771999, a: 0}
   endColor: {r: 0.27169377, g: 0.25872195, b: 0.9622642, a: 0}
   speedFactor: 5
-  scaleFactor: 0.2
+  scaleFactor: 0
 --- !u!1 &1929097019
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +529,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2cf01229a1b18b3419e136b6ef1cc194, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c5dffd7f888808748958bece8e48c276, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -674,9 +676,10 @@ MonoBehaviour:
   startColor: {r: 1, g: 0.37024376, b: 0.36470592, a: 1}
   endColor: {r: 0.42600104, g: 0.9150943, b: 0.26330543, a: 0}
   phyllotaxisDegree: 60
-  speedFactor: 15
+  speedFactor: 12
   scaleFactor: 0
-  initialScale: 0.5
+  initialScale: 2
+  loops: 0
 --- !u!96 &1976733546
 TrailRenderer:
   serializedVersion: 2

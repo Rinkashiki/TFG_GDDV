@@ -37,13 +37,28 @@ public class Example : MonoBehaviour
     */
 
     // For Generate Phyllotaxis
+    /*
     [SerializeField] float phyllotaxisDegree;
     [SerializeField] Color startColor;
     [SerializeField] Color endColor;
     [SerializeField] float speedFactor;
     [SerializeField] float scaleFactor;
+    [SerializeField] int loops;
     private GameObject phylloObj;
-    private Phyllotaxis phyllotaxis;
+    private TrailRenderer phylloTrail;
+    */
+
+    // For Generate Phyllotunnel
+    [SerializeField] float tunnelSpeed;
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] float cameraDistance;
+    [SerializeField] float phyllotaxisDegree;
+    [SerializeField] Color startColor;
+    [SerializeField] Color endColor;
+    [SerializeField] float speedFactor;
+    [SerializeField] float scaleFactor;
+    private GameObject tunnelObj;
+    private TrailRenderer phylloTrail;
 
 
     // Start is called before the first frame update
@@ -75,8 +90,42 @@ public class Example : MonoBehaviour
         */
 
         // For Generate Phyllotaxis
+        /*
         ampReact = GetComponent<AmplitudeReact>();
-        ampReact.AmplitudePhyllotaxis(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, 0.5f);
+        phylloObj = ampReact.AmplitudePhyllotaxis(phyllotaxisDegree, speedFactor, scaleFactor, 1f, loops);
+        */
+
+        // Modify Phyllotaxis Trail Renderer
+        /*
+        phylloTrail = phylloObj.GetComponent<TrailRenderer>();
+        phylloTrail.startWidth = 0.1f;
+        phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
+        float alpha = 1.0f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+        );
+        phylloTrail.colorGradient = gradient;
+        */
+
+        // For Generate Phyllotunnel
+        ampReact = GetComponent<AmplitudeReact>();
+        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, cameraDistance, cameraTransform, 2f);
+
+        // Modify Phyllotunnel Trail Renderer
+        phylloTrail = tunnelObj.GetComponentInChildren<TrailRenderer>();
+        phylloTrail.startWidth = 0.1f;
+        phylloTrail.time = 20;
+        phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
+        float alpha = 1.0f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+        );
+        phylloTrail.colorGradient = gradient;
+ 
     }
 
     // Update is called once per frame
@@ -96,6 +145,9 @@ public class Example : MonoBehaviour
         /*
         ampReact.AmplitudeShaderGraphMatProperty(terrain.GetComponent<MeshRenderer>().material, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, 1f);
         */
+
+        // For Tunnel Scale
+        ampReact.AmplitudeScale(tunnelObj, new Vector3(1, 1, 0), 0.3f, 1);
 
     }
 

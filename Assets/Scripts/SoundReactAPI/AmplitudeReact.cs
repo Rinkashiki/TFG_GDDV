@@ -281,12 +281,18 @@ public class AmplitudeReact : MonoBehaviour
         return polygon;
     }
 
-    public GameObject AmplitudePhyllotaxis(float phyllotaxisDegree, Color startColor, Color endColor, float speedFactor, float scaleFactor, float initialScale = 0)
+    public GameObject AmplitudePhyllotaxis(float phyllotaxisDegree, float speedFactor, float scaleFactor, float initialScale = 0, int loops = 10)
     {
-        GameObject phylloObj = GenericSoundReact.GeneratePhyllotaxis(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, initialScale);
+        GameObject phylloObj = GenericSoundReact.GeneratePhyllotaxis(phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, initialScale, loops);
         return phylloObj;
     }
 
+    public GameObject AmplitudePhyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
+    {
+        GameObject tunnelObj = GenericSoundReact.GeneratePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, cameraDistance, cameraTransform, initialScale);
+        return tunnelObj;
+    }
+
     #endregion
-    
+
 }

@@ -10,11 +10,14 @@ public class Phyllotaxis : MonoBehaviour
 
     // Phyllotaxis Trail
     private TrailRenderer trailRenderer;
-    private int number;
+    private float number;
+    private float radiusNumber = 1;
+    private bool tunnel;
+    private int sign;
 
     // Phyllotaxis Trail Color
-    public Color startColor;
-    public Color endColor;
+    [SerializeField] Color startColor;
+    [SerializeField] Color endColor;
     
     // Phyllotaxis Position
     [SerializeField] float phyllotaxisDegree;
@@ -27,6 +30,9 @@ public class Phyllotaxis : MonoBehaviour
     [SerializeField] float scaleFactor;
     [SerializeField] float initialScale;
     private float currentScale;
+
+    // Phyllotaxis Loops
+    [SerializeField] int loops;
 
     // Music Data Type
     private AudioInput audioInput;
@@ -42,16 +48,6 @@ public class Phyllotaxis : MonoBehaviour
             audioInput = GameObject.FindGameObjectWithTag("AudioInput").GetComponent<AudioInput>();
 
         currentScale = initialScale;
-        trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.startWidth = 0.1f;
-        trailRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        float alpha = 1.0f;
-        Gradient gradient = new Gradient();
-        gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
-        trailRenderer.colorGradient = gradient;
         Vector2 initPos = PhyllotaxisCompute(phyllotaxisDegree, currentScale, number);
         transform.localPosition = new Vector3(initPos.x, initPos.y, transform.localPosition.z);
 
@@ -96,7 +92,27 @@ public class Phyllotaxis : MonoBehaviour
         if (phylloTimer >= 1)
         {
             phylloTimer -= 1;
-            number = (number + 1) % 50;
+
+            if (tunnel)
+            {
+                // For tunnel
+                number = number >= (360 / phyllotaxisDegree) ? 1 : number + 1;
+            }
+            else
+            {
+                // For phyllotaxis
+                
+                if (radiusNumber >= (360 / phyllotaxisDegree) * loops)
+                {
+                    sign = -1;
+                }
+                else if (radiusNumber <= 1)
+                {
+                    sign = 1;
+                }
+                number++;
+                radiusNumber += sign;
+            } 
             SetLerpPositions();
         }
     }
@@ -108,29 +124,43 @@ public class Phyllotaxis : MonoBehaviour
         endPosition = new Vector3(phyllotaxisPos.x, phyllotaxisPos.y, transform.localPosition.z);
     }
 
-    private Vector2 PhyllotaxisCompute(float phyllotaxisDegree, float scale, int number)
+    private Vector2 PhyllotaxisCompute(float phyllotaxisDegree, float scale, float number)
     {
         double angle = number * (phyllotaxisDegree * Mathf.Deg2Rad);
-        float radius = scale * Mathf.Sqrt(number);
+        float radius;
+        if (tunnel)
+        {
+            // For tunnel
+            radius = scale;
+        }
+        else
+        {
+            // For phyllotaxis
+            radius = scale * Mathf.Sqrt(radiusNumber);
+        }
         float x = radius * (float)System.Math.Cos(angle);
         float y = radius * (float)System.Math.Sin(angle);
         Vector2 vec2 = new Vector2(x, y);
         return vec2;
     }
 
-    public void SetParams(float phyllotaxisDegree, Color startColor, Color endColor, float speedFactor, float scaleFactor, GenericSoundReact.MusicDataType type, float initialScale = 0)
+    public void SetParams(float phyllotaxisDegree, float speedFactor, float scaleFactor, GenericSoundReact.MusicDataType type, float initialScale = 0, int loops = 10)
     {
         this.phyllotaxisDegree = phyllotaxisDegree;
-        this.startColor = startColor;
-        this.endColor = endColor;
         this.speedFactor = speedFactor;
         this.scaleFactor = scaleFactor;
         this.type = type;
         this.initialScale = initialScale;
+        this.loops = loops;
     }
 
     public void SetFreqBand(int band)
     {
         this.band = band;
+    }
+
+    public void SetTunnel(bool tunnel)
+    {
+        this.tunnel = tunnel;
     }
 }

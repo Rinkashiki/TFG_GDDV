@@ -620,16 +620,42 @@ public class GenericSoundReact : MonoBehaviour
         return keyboardPolygon;
     }
 
-    public static GameObject GeneratePhyllotaxis(float phyllotaxisDegree, Color startColor, Color endColor, float speedFactor, float scaleFactor, MusicDataType type, float initialScale = 0, int band = -1)
+    public static GameObject GeneratePhyllotaxis(float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float initialScale = 0, int loops = 10, int band = -1)
     {
         GameObject phylloObj = new GameObject();
         phylloObj.name = "phyllotaxis";
         phylloObj.AddComponent<TrailRenderer>();
         Phyllotaxis phyllotaxis = phylloObj.AddComponent<Phyllotaxis>();
-        phyllotaxis.SetParams(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, type, initialScale);
+        phyllotaxis.SetParams(phyllotaxisDegree, speedFactor, scaleFactor, type, initialScale, loops);
         phyllotaxis.SetFreqBand(band);
 
         return phylloObj;
+    }
+
+    public static GameObject GeneratePhyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0, int band = -1)
+    {
+        // Generate PhylloTunnel 
+        GameObject tunnelObj = new GameObject();
+        tunnelObj.name = "phyllotunnel";
+
+        PhylloTunnel phyllotunnel = tunnelObj.AddComponent<PhylloTunnel>();
+        phyllotunnel.SetParams(tunnelSpeed, cameraDistance, cameraTransform);
+        phyllotunnel.SetFreqBand(band);
+
+        // Generate the Phyllotaxis for the tunnel
+        GameObject phylloObj = new GameObject();
+        phylloObj.name = "phyllotaxis";
+        phylloObj.AddComponent<TrailRenderer>();
+
+        Phyllotaxis phyllotaxis = phylloObj.AddComponent<Phyllotaxis>();
+        phyllotaxis.SetParams(phyllotaxisDegree, speedFactor, scaleFactor, type, initialScale);
+        phyllotaxis.SetTunnel(true);
+        phyllotaxis.SetFreqBand(band);
+
+        // Assign phyllotaxis as tunnel's child
+        phylloObj.transform.SetParent(tunnelObj.transform);
+
+        return tunnelObj;
     }
 
     #endregion
