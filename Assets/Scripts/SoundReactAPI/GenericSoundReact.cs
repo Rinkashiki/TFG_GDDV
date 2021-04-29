@@ -16,7 +16,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines musical input data types.
     /// </summary>
-    public enum MusicDataType { Amplitude, FreqBand, Play_Velocity, Record_Velocity };
+    public enum MusicDataType { Amplitude, FreqBand, MidiPlay, MidiRecord };
 
     /// <summary>
     /// Defines Rigigbody properties that are floats
@@ -618,6 +618,18 @@ public class GenericSoundReact : MonoBehaviour
         line.SetParams(numberDirAssociation, lineColor, lineWidth, drawSpeedFactor);
 
         return keyboardPolygon;
+    }
+
+    public static GameObject GeneratePhyllotaxis(float phyllotaxisDegree, Color startColor, Color endColor, float speedFactor, float scaleFactor, MusicDataType type, float initialScale = 0, int band = -1)
+    {
+        GameObject phylloObj = new GameObject();
+        phylloObj.name = "phyllotaxis";
+        phylloObj.AddComponent<TrailRenderer>();
+        Phyllotaxis phyllotaxis = phylloObj.AddComponent<Phyllotaxis>();
+        phyllotaxis.SetParams(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, type, initialScale);
+        phyllotaxis.SetFreqBand(band);
+
+        return phylloObj;
     }
 
     #endregion

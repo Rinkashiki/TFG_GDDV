@@ -281,6 +281,12 @@ public class AmplitudeReact : MonoBehaviour
         return polygon;
     }
 
+    public GameObject AmplitudePhyllotaxis(float phyllotaxisDegree, Color startColor, Color endColor, float speedFactor, float scaleFactor, float initialScale = 0)
+    {
+        GameObject phylloObj = GenericSoundReact.GeneratePhyllotaxis(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, initialScale);
+        return phylloObj;
+    }
+
     #endregion
     
 }

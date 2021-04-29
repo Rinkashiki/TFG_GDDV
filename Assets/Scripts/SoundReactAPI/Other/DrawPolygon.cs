@@ -8,6 +8,8 @@ public class DrawPolygon : MonoBehaviour
 
     private LineRenderer line;
 
+    private const float NOTES = 128.0f;
+
     //Line attributes
     private Vector3[] polygonVert; 
     private Color lineColor;
@@ -71,14 +73,14 @@ public class DrawPolygon : MonoBehaviour
                         value = audioInput.GetBandBuffer(band);
                         break;
 
-                    case GenericSoundReact.MusicDataType.Play_Velocity:
+                    case GenericSoundReact.MusicDataType.MidiPlay:
                         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null) { }
-                            value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity();
+                            value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
                         break;
 
-                    case GenericSoundReact.MusicDataType.Record_Velocity:
+                    case GenericSoundReact.MusicDataType.MidiRecord:
                         if (MidiRecording.Event_CurrentNoteOn() != null)
-                            value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity();
+                            value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity() * MidiRecording.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
                         break;
 
                     default:

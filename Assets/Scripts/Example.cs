@@ -29,10 +29,21 @@ public class Example : MonoBehaviour
     */
 
     // For Bands Generate Terrain
+    /*
     [SerializeField] private float noiseFactor;
     [SerializeField] private float heightFactor;
     [SerializeField] private Material mat;
     private GameObject terrain;
+    */
+
+    // For Generate Phyllotaxis
+    [SerializeField] float phyllotaxisDegree;
+    [SerializeField] Color startColor;
+    [SerializeField] Color endColor;
+    [SerializeField] float speedFactor;
+    [SerializeField] float scaleFactor;
+    private GameObject phylloObj;
+    private Phyllotaxis phyllotaxis;
 
 
     // Start is called before the first frame update
@@ -53,11 +64,19 @@ public class Example : MonoBehaviour
         */
 
         // For Bands Generate Terrain
+        /*
         bandReact = GetComponent<FreqBandReact>();
         terrain = bandReact.BandsGenerateTerrain(16, 0.05f, heightFactor, noiseFactor, Vector3.right, mat);
+        */
 
         // For Shader Material Property
+        /*
         ampReact = GetComponent<AmplitudeReact>();
+        */
+
+        // For Generate Phyllotaxis
+        ampReact = GetComponent<AmplitudeReact>();
+        ampReact.AmplitudePhyllotaxis(phyllotaxisDegree, startColor, endColor, speedFactor, scaleFactor, 0.5f);
     }
 
     // Update is called once per frame
@@ -74,7 +93,9 @@ public class Example : MonoBehaviour
         */
 
         // For Shader Material Property
+        /*
         ampReact.AmplitudeShaderGraphMatProperty(terrain.GetComponent<MeshRenderer>().material, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, 1f);
+        */
 
     }
 

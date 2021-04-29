@@ -470,7 +470,7 @@ public class MIDIRecordReact : MonoBehaviour
     /// <returns></returns>
     public GameObject Record_DrawPolygon(Vector3[] polygonVert, Color lineColor, float lineWidth, float drawSpeedFactor)
     {
-        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.Record_Velocity);
+        GameObject polygon = GenericSoundReact.DrawPolygon(polygonVert, lineColor, lineWidth, drawSpeedFactor, GenericSoundReact.MusicDataType.MidiRecord);
         return polygon;
     }
 
