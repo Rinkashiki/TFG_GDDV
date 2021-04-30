@@ -13,22 +13,18 @@ public class AmplitudeReactExample : MonoBehaviour
     [Header("Amplitude Scale")]
     [SerializeField] float scaleFactor;
 
-    // Amplitude Bright
-    /*
-    [Header("Amplitude Bright")]
-    [SerializeField] float brightFactor;
-    private Color initialColor;
-    */
-
-    // Amplitude Relief Map
-    /*
-    [Header("Amplitude Relief Map")]
-    [SerializeField] float noiseFactor;
-    [SerializeField] float heightFactor;
-    [SerializeField] float waveSpeed;
-    private Mesh mesh;
-    private Vector3[] initPos;
-    */
+    // Amplitude Phyllotunnel
+    [Header("Amplitude Phyllotunnel")]
+    [SerializeField] float tunnelSpeed;
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] float cameraDistance;
+    [SerializeField] float phyllotaxisDegree;
+    [SerializeField] float speedFactor;
+    [SerializeField] float tunnelScaleFactor;
+    [SerializeField] Color startColor;
+    [SerializeField] Color endColor;
+    private GameObject tunnelObj;
+    private TrailRenderer phylloTrail;
 
     //Amplitude Rotation
     [Header("Amplitude Rotation")]
@@ -53,16 +49,24 @@ public class AmplitudeReactExample : MonoBehaviour
     {
         ampReact = GetComponent<AmplitudeReact>();
 
-        // Amplitude Bright
-        /*
-        initialColor = this.gameObject.GetComponent<MeshRenderer>().material.color;
-        */
+        // Amplitude Phyllotunnel
+        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, tunnelScaleFactor, cameraDistance, cameraTransform, 2);
+        tunnelObj.transform.position = this.transform.position;
 
-        // Amplitude Relief Map
-        /*
-        mesh = this.gameObject.GetComponent<MeshFilter>().mesh;
-        initPos = mesh.vertices;
-        */
+        // Modify Phyllotunnel Trail Renderer
+        phylloTrail = tunnelObj.GetComponentInChildren<TrailRenderer>();
+        phylloTrail.startWidth = 0.1f;
+        phylloTrail.time = 20;
+        phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
+        float alpha = 1.0f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+        );
+        phylloTrail.colorGradient = gradient;
+
+        this.transform.SetParent(tunnelObj.transform);
 
         // Amplitude Shader Graph Property
         mat = this.gameObject.GetComponent<MeshRenderer>().material;
@@ -77,16 +81,6 @@ public class AmplitudeReactExample : MonoBehaviour
     {
         // Amplitude Scale
         ampReact.AmplitudeScale(this.gameObject, Vector3.one, scaleFactor);
-
-        // Amplitude Bright
-        /*
-        ampReact.AmplitudeBright(this.gameObject, brightFactor, initialColor);
-        */
-
-        // Amplitude Relief Map
-        /*
-        ampReact.AmplitudeReliefMap(mesh, noiseFactor, heightFactor, initPos, waveSpeed);
-        */
 
         // Amplitude Rotation
         ampReact.AmplitudeRotation(this.gameObject, new Vector3(1, 1, 0), rotationFactor);
