@@ -14,16 +14,14 @@ public class KeyBoardDrawPolygon : MonoBehaviour
     private LineRenderer line;
     private List<Vector3> linePositions;
     private Vector3 lineDirection, lastDirection;
+    private float movementAmount;
     private int currentPos = 0;
     private int noteNumber;
-    //private float advanceFactor = 00000.1f;
+    private int noteVelocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        //MidiRecording.RecordingSetUp();
-        //MidiRecording.StartRecording();
-
         linePositions = new List<Vector3>();
         linePositions.Add(Vector3.zero);
 
@@ -41,18 +39,18 @@ public class KeyBoardDrawPolygon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        noteNumber = MidiRecording.Event_CurrentNoteOn() != null ? MidiRecording.Event_CurrentNoteOn().GetNoteNumber(): 0;
-
-        if (noteNumber > 0 && numberDirAssociation.ContainsKey(noteNumber))
+        if (MidiRecording.Event_CurrentNoteOn() != null)
         {
-            lineDirection = numberDirAssociation[noteNumber] * drawSpeedFactor;
-            UpdateLinePosition();
-        }
-    }
+            noteNumber = MidiRecording.Event_CurrentNoteOn().GetNoteNumber();  
 
-    private void OnApplicationQuit()
-    {
-        MidiRecording.StopRecording();
+            if (numberDirAssociation.ContainsKey(noteNumber))
+            {
+                noteVelocity = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity();
+                lineDirection = numberDirAssociation[noteNumber];
+                movementAmount = noteVelocity * drawSpeedFactor;
+                UpdateLinePosition();
+            }
+        }
     }
 
     private void UpdateLinePosition()
@@ -65,7 +63,7 @@ public class KeyBoardDrawPolygon : MonoBehaviour
             lastDirection = lineDirection;
         }
 
-        linePositions[currentPos] += lineDirection;
+        linePositions[currentPos] += lineDirection * movementAmount;
         line.SetPosition(currentPos, linePositions[currentPos]);
     }
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class MidiPlayReactExample : MonoBehaviour
 {
@@ -29,6 +31,12 @@ public class MidiPlayReactExample : MonoBehaviour
     [Header("Play Light Range")]
     [SerializeField] float rangeFactor;
 
+    // Play Chromatic Aberration
+    [Header("Play Chromatic Aberration")]
+    [SerializeField] Volume vol;
+    [SerializeField] float caFactor;
+    private ChromaticAberration ca;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +50,9 @@ public class MidiPlayReactExample : MonoBehaviour
 
         // Play Add Force
         bodies = sphereNotes.GetComponentsInChildren<Rigidbody>();
+
+        // Play Chromatic AberrationS
+        ca = (ChromaticAberration)vol.profile.components[0];
     }
 
     // Update is called once per frame
@@ -56,13 +67,17 @@ public class MidiPlayReactExample : MonoBehaviour
             }
         }
 
-        // Play Light Intensity
-        playReact.Play_LightIntensity(focusLights[0], intensityFactor);
-        playReact.Play_LightIntensity(focusLights[1], intensityFactor);
+        foreach(Light light in focusLights)
+        {
+            // Play Light Intensity
+            playReact.Play_LightIntensity(light, intensityFactor);
 
-        // Play Light Range
-        playReact.Play_LightRange(focusLights[0], rangeFactor);
-        playReact.Play_LightRange(focusLights[1], rangeFactor);
+            // Play Light Range
+            playReact.Play_LightRange(light, rangeFactor);
+        }
+
+        // Play Chromatic Aberration
+        playReact.Play_ChromaticAberration(ca, caFactor);
     }
 
     private void OnApplicationQuit()

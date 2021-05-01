@@ -552,13 +552,10 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\MidiReact\MidiRecording.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\DrawPolygon.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\GenerateTerrain.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Other\GenerateWaveTerrain.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyBoardDrawPolygon.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Other\KeyboardDrawLine.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Numeric.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\PhylloTunnel.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Other\Phyllotaxis.cs" />
-    <Compile Include="Assets\Scripts\SoundReactAPI\Other\TerrainGenerator.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/PROGRAMAS/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

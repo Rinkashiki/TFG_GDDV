@@ -175,7 +175,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2cf01229a1b18b3419e136b6ef1cc194, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d0062ae12357982429724dbdf8fbe7a4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -535,12 +535,12 @@ MonoBehaviour:
   cameraTransform: {fileID: 405587036}
   cameraDistance: -12
   phyllotaxisDegree: 60
-  speedFactor: 10
+  speedFactor: 8
   tunnelScaleFactor: 0
   startColor: {r: 0.1462264, g: 0.42989707, b: 1, a: 0}
   endColor: {r: 0.9811321, g: 0.55985487, b: 0.06941971, a: 0}
   rotationFactor: 1
-  propertyFactor: 1
+  propertyFactor: 0.7
   vol: {fileID: 1796354221}
   bloomFactor: 10
   vignetteFactor: 1

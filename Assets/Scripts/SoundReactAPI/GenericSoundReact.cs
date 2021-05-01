@@ -340,7 +340,7 @@ public class GenericSoundReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the <paramref name="vignette"/> of the Global Volume. The amount of change is specified by <paramref name="vignetteFactor"/>.
-    /// The initial an minimum chromatic aberration is specified by <paramref name="initialVignette"/>.
+    /// The initial an minimum vignette is specified by <paramref name="initialVignette"/>.
     /// </summary>
     /// <param name="vignette"></param>
     /// <param name="vignetteFactor"></param>
@@ -464,7 +464,7 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Modifies 3D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
+    /// Modifies 2D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
     /// specified by <paramref name="vppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// </summary>
     /// <param name="body"></param>
@@ -528,7 +528,7 @@ public class GenericSoundReact : MonoBehaviour
     #region Generic_Create_Functions
 
     /// <summary>
-    /// Returns a GameObject that generates a new line of terrain every frame, increasing its width (in x). 
+    /// Creates and returns a GameObject that generates a new line of terrain every frame, increasing its width (in x). 
     /// The <paramref name="length"/> of the terrain (in z) is fixed. The amount of increase in width is specified by <paramref name="step"/>.
     /// Height and noise are determined by <paramref name="heightfactor"/> and <paramref name="noiseFactor"/>, respectively. 
     /// The direction of the terrain is specified by <paramref name="terrainDir"/>. The terrain´s material is specified by <paramref name="mat"/>
@@ -579,7 +579,7 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns a GameObject that generate a new piece of trail every frame between the specified vertices of a custom polygon defined 
+    /// Creates and returns a GameObject that generate a new piece of trail every frame between the specified vertices of a custom polygon defined 
     /// by <paramref name="polygonVert"/>.
     /// </summary>
     /// <param name="polygonVert"></param>
@@ -601,7 +601,7 @@ public class GenericSoundReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns a GameObject that generates a piece of trail when a note of MIDI keyboard is played. 
+    /// Creates and returns a GameObject that generates a piece of trail when a note of MIDI keyboard is played. 
     /// The direction of the trail is determined by the association with MIDI notes in <paramref name="numberDirAssociation"/>.
     /// </summary>
     /// <param name="numberDirAssociation"></param>
@@ -620,6 +620,20 @@ public class GenericSoundReact : MonoBehaviour
         return keyboardPolygon;
     }
 
+    /// <summary>
+    /// Creates and returns a GameObject that generates a phyllotaxis trail. Degree between one line and the next is specified by
+    /// <paramref name="phyllotaxisDegree"/>. Speed of trail is specified by <paramref name="speedFactor"/> and the amount of scale is determined by
+    /// <paramref name="scaleFactor"/>. The initial and minimum scale is determined by <paramref name="initialScale"/>. The phyllotaxis changes between
+    /// opening and closing when reaching the specified <paramref name="loops"/>.
+    /// </summary>
+    /// <param name="phyllotaxisDegree"></param>
+    /// <param name="speedFactor"></param>
+    /// <param name="scaleFactor"></param>
+    /// <param name="type"></param>
+    /// <param name="initialScale"></param>
+    /// <param name="loops"></param>
+    /// <param name="band"></param>
+    /// <returns></returns>
     public static GameObject GeneratePhyllotaxis(float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float initialScale = 0, int loops = 10, int band = -1)
     {
         GameObject phylloObj = new GameObject();
@@ -632,6 +646,22 @@ public class GenericSoundReact : MonoBehaviour
         return phylloObj;
     }
 
+    /// <summary>
+    /// Creates and returns a GameObject that generates a tunnel using a phyllotaxis trail. The advance speed inside the tunnel is specified by 
+    /// <paramref name="tunnelSpeed"/>. The <paramref name="cameraTransform"/> refers to the camera that we want to follows inside the tunnel,
+    /// always keeping <paramref name="cameraDistance"/> with the end of it. If <paramref name="cameraTransform"/> is not specified,
+    /// the camera will not follow inside the tunnel.
+    /// </summary>
+    /// <param name="tunnelSpeed"></param>
+    /// <param name="phyllotaxisDegree"></param>
+    /// <param name="speedFactor"></param>
+    /// <param name="scaleFactor"></param>
+    /// <param name="type"></param>
+    /// <param name="cameraDistance"></param>
+    /// <param name="cameraTransform"></param>
+    /// <param name="initialScale"></param>
+    /// <param name="band"></param>
+    /// <returns></returns>
     public static GameObject GeneratePhyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0, int band = -1)
     {
         // Generate PhylloTunnel 

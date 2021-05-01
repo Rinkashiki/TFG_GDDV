@@ -39,13 +39,13 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the scale of <paramref name="go"/> along <paramref name="axis"/>. The initial an minimum scale is specified 
-    /// by <paramref name="startScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
+    /// by <paramref name="initialScale"/> and the the scale amount by <paramref name="scaleFactor"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="go"></param>
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
-    /// <param name="startScale"></param>
+    /// <param name="initialScale"></param>
     public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialScale);
@@ -53,12 +53,12 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies the bright of the color in the material associated to <paramref name="go"/>. The initial an minimum bright is specified 
-    /// by <paramref name="startColor"/> and the the bright amount by <paramref name="brightFactor"/>.
+    /// by <paramref name="initialColor"/> and the the bright amount by <paramref name="brightFactor"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
-    /// <param name="startColor"></param>
+    /// <param name="initialColor"></param>
     public void AmplitudeBright(GameObject go, float brightFactor, Color initialColor)
     {
         GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(audioInput.GetAmplitudeBuffer()));
@@ -95,10 +95,12 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="light"/> intensity. The amount of this intensity is specified by <paramref name="intensityFactor"/>.
+    /// The initial an minimum intensity is specified by <paramref name="initialIntensity"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="light"></param>
     /// <param name="intensityFactor"></param>
+    /// <param name="initialIntensity"></param>
     public void AmplitudeLightIntensity(Light light, float intensityFactor, float initialIntensity = 1)
     {
         GenericSoundReact.ChangeLightIntensity(light, intensityFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialIntensity);
@@ -106,10 +108,12 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="light"/> range. The amount of this range is specified by <paramref name="rangeFactor"/>.
+    /// The initial an minimum range is specified by <paramref name="initialRange"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="light"></param>
     /// <param name="rangeFactor"></param>
+    /// <param name="initialRange"></param>
     public void AmplitudeLightRange(Light light, float rangeFactor, float initialRange = 1)
     {
         GenericSoundReact.ChangeLightRange(light, rangeFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialRange);
@@ -117,105 +121,121 @@ public class AmplitudeReact : MonoBehaviour
 
     /// <summary>
     /// Modifies <paramref name="mat"/> shader/material property named <paramref name="propertyName"/> of type <paramref name="propertyType"/>.
-    /// The amount of change is specified by <paramref name="factor"/>.
+    /// The amount of change is specified by <paramref name="propertyFactor"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="mat"></param>
     /// <param name="propertyName"></param>
     /// <param name="propertyType"></param>
-    /// <param name="factor"></param>
+    /// <param name="propertyFactor"></param>
     public void AmplitudeShaderGraphMatProperty(Material mat, string propertyName, GenericSoundReact.MatPropertyType propertyType, float propertyFactor)
     {
         GenericSoundReact.ChangeShaderGraphMatProperty(mat, propertyName, propertyType, propertyFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
-    /// Modifies <paramref name="anim"/> animation speed. The amount of change in speed is specified by <paramref name="factor"/>.
+    /// Modifies <paramref name="anim"/> animation speed. The amount of change in speed is specified by <paramref name="speedFactor"/>.
+    /// The initial an minimum speed is specified by <paramref name="initialSpeed"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="anim"></param>
-    /// <param name="factor"></param>
+    /// <param name="speedFactor"></param>
+    /// <param name="initialSpeed"></param>
     public void AmplitudeAnimationSpeed(Animator anim, float speedFactor, float initialSpeed = 1)
     {
         GenericSoundReact.ChangeAnimationSpeed(anim, speedFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialSpeed);
     }
 
     /// <summary>
-    /// Modifies the <paramref name="bloom"/> of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Modifies the <paramref name="bloom"/> of the Global Volume. The amount of change is specified by <paramref name="bloomFactor"/>.
+    /// The initial an minimum bloom is specified by <paramref name="initialBloom"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="bloom"></param>
-    /// <param name="factor"></param>
+    /// <param name="bloomFactor"></param>
+    /// <param name="initialBloom"></param>
     public void AmplitudeBloom(Bloom bloom, float bloomFactor, float initialBloom = 0)
     {
         GenericSoundReact.ChangeBloom(bloom, bloomFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialBloom);
     }
 
     /// <summary>
-    /// Modifies the chromatic aberration of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Modifies the chromatic aberration of the Global Volume. The amount of change is specified by <paramref name="caFactor"/>.
+    /// The initial an minimum chromatic aberration is specified by <paramref name="initialCA"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="ca"></param>
-    /// <param name="factor"></param>
+    /// <param name="caFactor"></param>
+    /// <param name="initialCA"></param>
     public void AmplitudeChromaticAberration(ChromaticAberration ca, float caFactor, float initialCA = 0)
     {
         GenericSoundReact.ChangeChromaticAberration(ca, caFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialCA);
     }
 
     /// <summary>
-    /// Modifies the vignette of the Global Volume. The amount of change is specified by <paramref name="factor"/>.
+    /// Modifies the <paramref name="vignette"/> of the Global Volume. The amount of change is specified by <paramref name="vignetteFactor"/>.
+    /// The initial an minimum vignette is specified by <paramref name="initialVignette"/>.
     /// Changes are made using amplitude.
     /// </summary>
-    /// <param name="ca"></param>
-    /// <param name="factor"></param>
+    /// <param name="vignette"></param>
+    /// <param name="vignetteFactor"></param>
+    /// <param name="initialVignette"></param>
     public void AmplitudeVignette(Vignette vignette, float vignetteFactor, float initialVignette = 0)
     {
         GenericSoundReact.ChangeVignette(vignette, vignetteFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialVignette);
     }
 
     /// <summary>
-    /// Modifies the specified 3D float physic property of <paramref name="body"/>. The amount of change is specified by <paramref name="fppFactor"/>.
+    /// Modifies 3D float physic property specified by  <paramref name="fpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="fppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
+    /// <param name="initialValue"></param>
     public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
         GenericSoundReact.ChangePhysicProperty(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
-    /// Modifies the specified 3D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>.
+    /// Modifies 3D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="vppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="vpp"></param>
-    /// <param name="axis"></param>
+    /// <param name="vppFactor"></param>
+    /// <param name="initialValue"></param>
     public void AmplitudePhysicProperty(Rigidbody body, GenericSoundReact.VectorPhysicProperties vpp, Vector3 vppFactor, Vector3 initialValue = new Vector3())
     {
         GenericSoundReact.ChangePhysicProperty(body, vpp, vppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
-    /// Modifies the specified 2D float physic property of <paramref name="body"/>. The amount of change is specified by <paramref name="fppFactor"/>.
+    /// Modifies 2D float physic property specified by <paramref name="fpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="fppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="fpp"></param>
     /// <param name="fppFactor"></param>
+    /// <param name="initialValue"></param>
     public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.FloatPhysicProperties fpp, float fppFactor, float initialValue = 0)
     {
         GenericSoundReact.ChangePhysicProperty2D(body, fpp, fppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
     }
 
     /// <summary>
-    /// Modifies the specified 2D vectorial physic property of <paramref name="body"/> along <paramref name="axis"/>.
+    /// Modifies 2D vectorial physic property specified by <paramref name="vpp"/> of <paramref name="body"/>. The amount of change is 
+    /// specified by <paramref name="vppFactor"/>. The initial an minimum property value is specified by <paramref name="initialValue"/>.
     /// Changes are made using amplitude.
     /// </summary>
     /// <param name="body"></param>
     /// <param name="vpp"></param>
-    /// <param name="axis"></param>
+    /// <param name="vppFactor"></param>
+    /// <param name="initialValue"></param>
     public void AmplitudePhysicProperty2D(Rigidbody2D body, GenericSoundReact.VectorPhysicProperties vpp, Vector2 vppFactor, Vector2 initialValue = new Vector2())
     {
         GenericSoundReact.ChangePhysicProperty2D(body, vpp, vppFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialValue);
@@ -252,12 +272,14 @@ public class AmplitudeReact : MonoBehaviour
     /// <summary>
     /// Creates and returns a GameObject, which is an instance of <paramref name="obj"/>, in the position determined by <paramref name="position"/> and
     /// with the rotation specified by <paramref name="rotation"/>.
-    /// The instantiation is produced when the amplitude value is greater than <paramref name="amplitudeThreshold"/>.
+    /// The instantiation is produced when the amplitude value is greater than <paramref name="amplitudeThreshold"/> and 
+    /// <paramref name="spawnTime"/> has passed between instances.
     /// </summary>
     /// <param name="obj"></param>
     /// <param name="position"></param>
     /// <param name="rotation"></param>
     /// <param name="amplitudeThreshold"></param>
+    /// <param name="spawnTime"></param>
     /// <returns></returns>
     public GameObject AmplitudeInstantiate(UnityEngine.Object obj, Vector3 position, Quaternion rotation, float amplitudeThreshold, float spawnTime)
     {
@@ -266,7 +288,7 @@ public class AmplitudeReact : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns a GameObject that generate a new piece of trail every frame between the specified vertices of a custom polygon defined 
+    /// Creates and returns a GameObject that generate a new piece of trail every frame between the specified vertices of a custom polygon defined 
     /// by <paramref name="polygonVert"/>.
     /// The amount of the generated piece of trail in every frame is according to the amplitude.
     /// </summary>
@@ -281,12 +303,40 @@ public class AmplitudeReact : MonoBehaviour
         return polygon;
     }
 
+    /// <summary>
+    /// Creates and returns a GameObject that generates a phyllotaxis trail. Degree between one line and the next is specified by
+    /// <paramref name="phyllotaxisDegree"/>. Speed of trail is specified by <paramref name="speedFactor"/> and the amount of scale is determined by
+    /// <paramref name="scaleFactor"/>. The initial and minimum scale is determined by <paramref name="initialScale"/>. The phyllotaxis changes between
+    /// opening and closing when reaching the specified <paramref name="loops"/>.
+    /// The amount of the generated piece of trail in every frame is according to the amplitude.
+    /// </summary>
+    /// <param name="phyllotaxisDegree"></param>
+    /// <param name="speedFactor"></param>
+    /// <param name="scaleFactor"></param>
+    /// <param name="initialScale"></param>
+    /// <param name="loops"></param>
+    /// <returns></returns>
     public GameObject AmplitudePhyllotaxis(float phyllotaxisDegree, float speedFactor, float scaleFactor, float initialScale = 0, int loops = 10)
     {
         GameObject phylloObj = GenericSoundReact.GeneratePhyllotaxis(phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, initialScale, loops);
         return phylloObj;
     }
 
+    /// <summary>
+    /// Creates and returns a GameObject that generates a tunnel using a phyllotaxis trail. The advance speed inside the tunnel is specified by 
+    /// <paramref name="tunnelSpeed"/>. The <paramref name="cameraTransform"/> refers to the camera that we want to follows inside the tunnel,
+    /// always keeping <paramref name="cameraDistance"/> with the end of it. If <paramref name="cameraTransform"/> is not specified,
+    /// the camera will not follow inside the tunnel.
+    /// The amount of the generated piece of trail in every frame is according to the amplitude.
+    /// </summary>
+    /// <param name="tunnelSpeed"></param>
+    /// <param name="phyllotaxisDegree"></param>
+    /// <param name="speedFactor"></param>
+    /// <param name="scaleFactor"></param>
+    /// <param name="cameraDistance"></param>
+    /// <param name="cameraTransform"></param>
+    /// <param name="initialScale"></param>
+    /// <returns></returns>
     public GameObject AmplitudePhyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
     {
         GameObject tunnelObj = GenericSoundReact.GeneratePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.Amplitude, cameraDistance, cameraTransform, initialScale);
