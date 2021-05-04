@@ -481,13 +481,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vol: {fileID: 480533231}
-  tunnelSpeed: 0.01
+  tunnelSpeed: 0.02
   cameraTransform: {fileID: 614727055}
   cameraDistance: -12
-  phyllotaxisDegree: 40
-  startColor: {r: 0.9339623, g: 0.2863564, b: 0.7771999, a: 0}
-  endColor: {r: 0.27169377, g: 0.25872195, b: 0.9622642, a: 0}
-  speedFactor: 5
+  phyllotaxisDegree: 50
+  startColor: {r: 0.9245283, g: 0.16135636, b: 0.17920098, a: 0}
+  endColor: {r: 0.48785, g: 0.9056604, b: 0.23495908, a: 0}
+  speedFactor: 8
   scaleFactor: 0
 --- !u!1 &1929097019
 GameObject:

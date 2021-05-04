@@ -114,7 +114,7 @@ public class AudioInput : MonoBehaviour
         return samples;
     }
 
-    public float[] GetFreqBand()
+    public float[] GetFreqBands()
     {
         return freqBand;
     }
@@ -128,7 +128,7 @@ public class AudioInput : MonoBehaviour
         return freqBand[band];
     }
 
-    public float[] GetBandBuffer()
+    public float[] GetBandsBuffer()
     {
         return bandBuffer;
     }

@@ -43,7 +43,7 @@ public class GenerateTerrain : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            bandSum += audioInput.GetBandBuffer()[i];
+            bandSum += audioInput.GetBandBuffer(i);
         }
 
         advanceFactor = Mathf.Clamp(bandSum / 8, 0, 1.5f);
@@ -69,7 +69,7 @@ public class GenerateTerrain : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            bandSum += audioInput.GetBandBuffer()[i];
+            bandSum += audioInput.GetBandBuffer(i);
         }
 
         advanceFactor = Mathf.Clamp(bandSum / 8, 0, 1.5f);
@@ -122,13 +122,13 @@ public class GenerateTerrain : MonoBehaviour
                 bandCount++;
                 if (oldVertLength > 0)
                 {
-                    height = (audioInput.GetBandBuffer()[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) + vertices[i + oldVertLength - vertIni - length].y) / 2;
+                    height = (audioInput.GetBandBuffer(bandIndex) * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor) + vertices[i + oldVertLength - vertIni - length].y) / 2;
                     //height = (bands[bandIndex] * heightFactor + vertices[i + oldVertLength - vertIni - length].y) / 2;
                     //height = Mathf.Abs(height - vertices[i + oldVertLength - vertIni - length].y) > 5 ? height - height / 1.5f : height ;
                 }
                 else
                 {
-                    height = audioInput.GetBandBuffer()[bandIndex] * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
+                    height = audioInput.GetBandBuffer(bandIndex) * heightFactor * Mathf.PerlinNoise(x * noiseFactor, z * noiseFactor);
                 }
                 vertPos = new Vector3(x + advanceDir.x, advanceDir.y, z + advanceDir.z);
                 Vector3 heightVector = Vector3.Cross(Vector3.forward, terrainDir) * height;
