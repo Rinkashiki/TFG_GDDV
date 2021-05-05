@@ -17,7 +17,7 @@ public class KeyBoardDrawPolygon : MonoBehaviour
     private float movementAmount;
     private int currentPos = 0;
     private int noteNumber;
-    private int noteVelocity;
+    private float velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -45,9 +45,9 @@ public class KeyBoardDrawPolygon : MonoBehaviour
 
             if (numberDirAssociation.ContainsKey(noteNumber))
             {
-                noteVelocity = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity();
+                velocity = MIDIConst.ComputedB(MidiRecording.Event_CurrentNoteOn().GetNoteVelocity());
                 lineDirection = numberDirAssociation[noteNumber];
-                movementAmount = noteVelocity * drawSpeedFactor;
+                movementAmount = velocity * drawSpeedFactor;
                 UpdateLinePosition();
             }
         }

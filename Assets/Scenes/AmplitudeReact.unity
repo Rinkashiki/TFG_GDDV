@@ -536,11 +536,12 @@ MonoBehaviour:
   cameraDistance: -12
   phyllotaxisDegree: 60
   speedFactor: 8
-  tunnelScaleFactor: 0
+  tunnelScaleFactor: 1
+  tunnelAperture: 2
   startColor: {r: 0.1462264, g: 0.42989707, b: 1, a: 0}
   endColor: {r: 0.9811321, g: 0.55985487, b: 0.06941971, a: 0}
-  rotationFactor: 1
-  propertyFactor: 0.7
+  rotationFactor: 2
+  propertyFactor: 0.8
   vol: {fileID: 1796354221}
-  bloomFactor: 10
+  bloomFactor: 15
   vignetteFactor: 1

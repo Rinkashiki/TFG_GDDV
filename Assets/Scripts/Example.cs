@@ -8,10 +8,16 @@ public class Example : MonoBehaviour
 {
     [SerializeField]
     private Volume vol;
+    [SerializeField]
+    private Object midiFile;
 
     //Reacts
     private AmplitudeReact ampReact;
     private FreqBandReact bandReact;
+    private MIDIPlayReact playReact;
+    private Bloom bloom;
+    private ChromaticAberration ca;
+    Vector3[] initPos;
 
     // For ReliefMap
     /*
@@ -110,6 +116,7 @@ public class Example : MonoBehaviour
         */
 
         // For Generate Phyllotunnel
+        /*
         ampReact = GetComponent<AmplitudeReact>();
         tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, cameraDistance, cameraTransform, 2f);
 
@@ -125,7 +132,17 @@ public class Example : MonoBehaviour
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
         );
         phylloTrail.colorGradient = gradient;
- 
+        */
+        
+        MidiPlayEventHandler.PlaybackSetUp(midiFile);
+        MidiPlayEventHandler.StartPlayback();
+        playReact = GetComponent<MIDIPlayReact>();
+        bloom = (Bloom)vol.profile.components[0];
+        initPos = this.gameObject.GetComponent<MeshFilter>().mesh.vertices;
+
+        //ampReact = GetComponent<AmplitudeReact>();
+        //color = this.gameObject.GetComponent<MeshRenderer>().material.color;
+
     }
 
     // Update is called once per frame
@@ -147,7 +164,17 @@ public class Example : MonoBehaviour
         */
 
         // For Tunnel Scale
+        /*
         ampReact.AmplitudeScale(tunnelObj, new Vector3(1, 1, 0), 0.3f, 1);
+        */
+
+        playReact.Play_ReliefMap(this.gameObject.GetComponent<MeshFilter>().mesh, 0.5f, 0.5f, 0.5f, initPos);
+        //playReact.Play_Scale(this.gameObject, Vector3.one, 0.5f);
+        //playReact.Play_Bloom(bloom, 20);
+        //playReact.Play_Rotation(this.gameObject, new Vector3(1,1,0), 0.4f);
+
+        //ampReact.AmplitudeScale(this.gameObject, Vector3.one, 2);
+        //ampReact.AmplitudeBright(this.gameObject, 2f, color);
 
     }
 
@@ -157,5 +184,9 @@ public class Example : MonoBehaviour
         /*
         MidiRecording.StopRecording();
         */
+        
+        MidiPlayEventHandler.StopPlayback();
+        MidiPlayEventHandler.ReleasePlaybackResources();
+        
     }
 }

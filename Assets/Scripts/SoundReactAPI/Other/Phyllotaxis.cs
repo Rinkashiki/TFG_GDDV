@@ -6,8 +6,6 @@ public class Phyllotaxis : MonoBehaviour
 {
     #region Phyllotaxis_Variables
 
-    private const float NOTES = 128.0f;
-
     // Phyllotaxis Trail
     private TrailRenderer trailRenderer;
     private float number;
@@ -70,13 +68,13 @@ public class Phyllotaxis : MonoBehaviour
                 break;
 
             case GenericSoundReact.MusicDataType.MidiPlay:
-                if (MidiPlayEventHandler.Event_CurrentNoteOn() != null) { }
-                value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+                    value = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                 break;
 
             case GenericSoundReact.MusicDataType.MidiRecord:
                 if (MidiRecording.Event_CurrentNoteOn() != null)
-                    value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity() * MidiRecording.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                    value = MIDIConst.ComputedB(MidiRecording.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiRecording.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                 break;
 
             default:

@@ -21,6 +21,7 @@ public class AmplitudeReactExample : MonoBehaviour
     [SerializeField] float phyllotaxisDegree;
     [SerializeField] float speedFactor;
     [SerializeField] float tunnelScaleFactor;
+    [SerializeField] float tunnelAperture;
     [SerializeField] Color startColor;
     [SerializeField] Color endColor;
     private GameObject tunnelObj;
@@ -50,7 +51,7 @@ public class AmplitudeReactExample : MonoBehaviour
         ampReact = GetComponent<AmplitudeReact>();
 
         // Amplitude Phyllotunnel
-        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, tunnelScaleFactor, cameraDistance, cameraTransform, 2);
+        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, tunnelScaleFactor, cameraDistance, cameraTransform, tunnelAperture);
         tunnelObj.transform.position = this.transform.position;
 
         // Modify Phyllotunnel Trail Renderer

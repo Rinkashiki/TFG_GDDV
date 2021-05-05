@@ -66,14 +66,14 @@ public class MidiRecordReactExample : MonoBehaviour
     void Update()
     {
         // Record Relief Map
-        recReact.Record_ReliefMap(planeMesh, planeNoiseFactor, planeHeightFactor, planeWaveSpeed, planeInitPos, 2f);
+        recReact.Record_ReliefMap(planeMesh, planeNoiseFactor, planeHeightFactor, planeWaveSpeed, planeInitPos);
 
         // Record Color
         recReact.Record_Color(reacts[1], numberColorAssociation, transitionSpeed);
 
         // Record Animation Speed
-        recReact.Record_AnimationSpeed(anim1, speedFactor, 0, 1f);
-        recReact.Record_AnimationSpeed(anim2, speedFactor, 0, 1f);
+        recReact.Record_AnimationSpeed(anim1, speedFactor, 0);
+        recReact.Record_AnimationSpeed(anim2, speedFactor, 0);
 
         // Record Bright
         recReact.Record_Bright(reacts[2], brightFactor, sphere1Color);

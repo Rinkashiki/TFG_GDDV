@@ -6,8 +6,6 @@ public class PhylloTunnel : MonoBehaviour
 {
     #region PhylloTunnel_Variables
 
-    private const float NOTES = 128.0f;
-
     [SerializeField] Transform cameraTransform;
     [SerializeField] float tunnelSpeed;
     [SerializeField] float cameraDistance;
@@ -44,12 +42,12 @@ public class PhylloTunnel : MonoBehaviour
 
             case GenericSoundReact.MusicDataType.MidiPlay:
                 if (MidiPlayEventHandler.Event_CurrentNoteOn() != null) { }
-                value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                value = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                 break;
 
             case GenericSoundReact.MusicDataType.MidiRecord:
                 if (MidiRecording.Event_CurrentNoteOn() != null)
-                    value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity() * MidiRecording.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                    value = MIDIConst.ComputedB(MidiRecording.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiRecording.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                 break;
 
             default:

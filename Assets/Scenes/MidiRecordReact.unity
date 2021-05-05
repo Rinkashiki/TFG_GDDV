@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 1656433382}
   - component: {fileID: 1656433384}
   m_Layer: 0
-  m_Name: RecordingReacts
+  m_Name: ReactObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,11 +552,11 @@ MonoBehaviour:
   - {fileID: 2045714417}
   - {fileID: 2141004839}
   planeNoiseFactor: 1
-  planeHeightFactor: 0.05
-  planeWaveSpeed: 0.3
-  transitionSpeed: 0.05
-  speedFactor: 0.05
-  brightFactor: 0.01
+  planeHeightFactor: 0.5
+  planeWaveSpeed: 0.5
+  transitionSpeed: 0.2
+  speedFactor: 0.5
+  brightFactor: 0.5
 --- !u!1 &2045714417
 GameObject:
   m_ObjectHideFlags: 0

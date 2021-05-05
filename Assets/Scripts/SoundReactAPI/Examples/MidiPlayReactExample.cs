@@ -70,10 +70,10 @@ public class MidiPlayReactExample : MonoBehaviour
         foreach(Light light in focusLights)
         {
             // Play Light Intensity
-            playReact.Play_LightIntensity(light, intensityFactor);
+            playReact.Play_LightIntensity(light, intensityFactor, 20);
 
             // Play Light Range
-            playReact.Play_LightRange(light, rangeFactor);
+            playReact.Play_LightRange(light, rangeFactor, 15);
         }
 
         // Play Chromatic Aberration

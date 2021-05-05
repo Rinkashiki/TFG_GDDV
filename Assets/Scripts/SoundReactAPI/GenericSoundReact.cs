@@ -8,7 +8,10 @@ using UnityEngine.Rendering.Universal;
 public class GenericSoundReact : MonoBehaviour
 {
     #region Generic_Sound_React_Variables
+
     private static float timeStamp;
+    private static float lerpStep = 0.1f;
+
     #endregion
 
     #region Generic_Sound_React_Const
@@ -48,9 +51,9 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.Translate(new Vector3((value * translationFactor * axis.x),
-                                              (value * translationFactor * axis.y),
-                                              (value * translationFactor * axis.z)));
+        Vector3 translationOffset = new Vector3(value * translationFactor * axis.x, value * translationFactor * axis.y, value * translationFactor * axis.z);
+
+        go.transform.localPosition = Vector3.Lerp(go.transform.localPosition, go.transform.localPosition + translationOffset, lerpStep);
     }
 
     /// <summary>
@@ -80,9 +83,9 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.localScale = new Vector3((value * scaleFactor * axis.x) + initialScale,
+        go.transform.localScale = Vector3.Lerp(go.transform.localScale, new Vector3((value * scaleFactor * axis.x) + initialScale,
                                               (value * scaleFactor * axis.y) + initialScale,
-                                              (value * scaleFactor * axis.z) + initialScale);
+                                              (value * scaleFactor * axis.z) + initialScale), lerpStep);
     }
 
     /// <summary>
@@ -99,7 +102,7 @@ public class GenericSoundReact : MonoBehaviour
 
         float brightValue = value * brightFactor;
         Color color = new Color(initialColor.r + brightValue, initialColor.g + brightValue, initialColor.b + brightValue);
-        go.GetComponent<MeshRenderer>().material.color = color;
+        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(go.GetComponent<MeshRenderer>().material.color, color, lerpStep);
     }
 
     /// <summary>
@@ -192,9 +195,7 @@ public class GenericSoundReact : MonoBehaviour
             x = Mathf.Cos(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
             y = Mathf.Sin(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
             z = Mathf.Sin(uvs[i].x * 2 * Mathf.PI) * Mathf.Cos(uvs[i].y * Mathf.PI - Mathf.PI / 2) + (Time.timeSinceLevelLoad * waveSpeed);
-            //vertices[i] = factor * Mathf.Clamp(PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor), 0.4f, 0.8f) + initPos[i];
-            //vertices[i] = factor * Mathf.PerlinNoise(Mathf.PerlinNoise(x * noiseFactor, y * noiseFactor), z * noiseFactor) + initPos[i];
-            vertices[i] = factor * PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor) + initPos[i];
+            vertices[i] = Vector3.Lerp(vertices[i], factor * PerlinNoise3D(x * noiseFactor, y * noiseFactor, z * noiseFactor) + initPos[i], lerpStep);
         }
 
         mesh.vertices = vertices;
@@ -212,7 +213,7 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        light.intensity = initialIntensity + intensityFactor * value;
+        light.intensity = Mathf.Lerp(light.intensity, initialIntensity + intensityFactor * value, lerpStep);
     }
 
     /// <summary>
@@ -227,7 +228,7 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        light.range = initialRange + rangeFactor * value;
+        light.range = Mathf.Lerp(light.range, initialRange + rangeFactor * value, lerpStep);
     }
 
     /// <summary>
@@ -255,7 +256,7 @@ public class GenericSoundReact : MonoBehaviour
                 break;
 
             case MatPropertyType.Float:
-                mat.SetFloat(propertyName, value * propertyFactor);
+                mat.SetFloat(propertyName, Mathf.Lerp(mat.GetFloat(propertyName), value * propertyFactor, lerpStep));
                 break;
 
             case MatPropertyType.FloatArray:
@@ -297,7 +298,7 @@ public class GenericSoundReact : MonoBehaviour
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        anim.speed = initialSpeed + value * speedFactor;
+        anim.speed = Mathf.Lerp(anim.speed, initialSpeed + value * speedFactor, lerpStep);
     }
 
     #endregion
@@ -318,7 +319,7 @@ public class GenericSoundReact : MonoBehaviour
 
         value = initialBloom + value * bloomFactor;
 
-        bloom.intensity.value = value;
+        bloom.intensity.value = Mathf.Lerp(bloom.intensity.value, value, lerpStep);
     }
 
     /// <summary>
@@ -335,7 +336,7 @@ public class GenericSoundReact : MonoBehaviour
 
         value = Mathf.Clamp01(initialCA + value * caFactor);
 
-        ca.intensity.value = value;
+        ca.intensity.value = Mathf.Lerp(ca.intensity.value, value, lerpStep);
     }
 
     /// <summary>
@@ -352,7 +353,7 @@ public class GenericSoundReact : MonoBehaviour
 
         value = initialVignette + (1 - value * vignetteFactor);
 
-        vignette.intensity.value = value;
+        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, value, lerpStep);
     }
 
     #endregion
@@ -376,15 +377,15 @@ public class GenericSoundReact : MonoBehaviour
         switch (fpp)
         {
             case FloatPhysicProperties.angularDrag:
-                body.angularDrag = initialValue + newFpp;
+                body.angularDrag = Mathf.Lerp(body.angularDrag, initialValue + newFpp, lerpStep);
                 break;
 
             case FloatPhysicProperties.drag:
-                body.drag = initialValue + newFpp;
+                body.drag = Mathf.Lerp(body.drag, initialValue + newFpp, lerpStep);
                 break;
 
             case FloatPhysicProperties.mass:
-                body.mass = initialValue + newFpp;
+                body.mass = Mathf.Lerp(body.mass, initialValue + newFpp, lerpStep);
                 break;
 
             default:
@@ -410,15 +411,15 @@ public class GenericSoundReact : MonoBehaviour
         switch (vpp)
         {
             case VectorPhysicProperties.centerOfMass:
-                body.centerOfMass = initialValue + newVpp;
+                body.centerOfMass = Vector3.Lerp(body.centerOfMass, initialValue + newVpp, lerpStep);
                 break;
 
             case VectorPhysicProperties.inertiaTensor:
-                body.inertiaTensor = initialValue + newVpp;
+                body.inertiaTensor = Vector3.Lerp(body.inertiaTensor, initialValue + newVpp, lerpStep);
                 break;
 
             case VectorPhysicProperties.velocity:
-                body.velocity = initialValue + newVpp;
+                body.velocity = Vector3.Lerp(body.velocity, initialValue + newVpp, lerpStep);
                 break;
 
             default:
@@ -443,19 +444,19 @@ public class GenericSoundReact : MonoBehaviour
         switch (fpp)
         {
             case FloatPhysicProperties.angularDrag:
-                body.angularDrag = initialValue + newFpp;
+                body.angularDrag = Mathf.Lerp(body.angularDrag, initialValue + newFpp, lerpStep);
                 break;
 
             case FloatPhysicProperties.drag:
-                body.drag = initialValue + newFpp;
+                body.drag = Mathf.Lerp(body.drag, initialValue + newFpp, lerpStep);
                 break;
 
             case FloatPhysicProperties.inertia:
-                body.inertia = initialValue + newFpp;
+                body.inertia = Mathf.Lerp(body.inertia, initialValue + newFpp, lerpStep);
                 break;
 
             case FloatPhysicProperties.mass:
-                body.mass = initialValue + newFpp;
+                body.mass = Mathf.Lerp(body.mass, initialValue + newFpp, lerpStep);
                 break;
 
             default:
@@ -480,12 +481,12 @@ public class GenericSoundReact : MonoBehaviour
         switch (vpp)
         {
             case VectorPhysicProperties.centerOfMass:
-                body.centerOfMass = initialValue + newVpp;
+                body.centerOfMass = Vector3.Lerp(body.centerOfMass, initialValue + newVpp, lerpStep);
                 break;
 
 
             case VectorPhysicProperties.velocity:
-                body.velocity = initialValue + newVpp;
+                body.velocity = Vector3.Lerp(body.velocity, initialValue + newVpp, lerpStep);
                 break;
 
             default:

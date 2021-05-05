@@ -8,8 +8,6 @@ public class DrawPolygon : MonoBehaviour
 
     private LineRenderer line;
 
-    private const float NOTES = 128.0f;
-
     //Line attributes
     private Vector3[] polygonVert; 
     private Color lineColor;
@@ -74,21 +72,19 @@ public class DrawPolygon : MonoBehaviour
                         break;
 
                     case GenericSoundReact.MusicDataType.MidiPlay:
-                        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null) { }
-                            value = MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity() * MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                        if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
+                            value = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                         break;
 
                     case GenericSoundReact.MusicDataType.MidiRecord:
                         if (MidiRecording.Event_CurrentNoteOn() != null)
-                            value = MidiRecording.Event_CurrentNoteOn().GetNoteVelocity() * MidiRecording.Event_CurrentNoteOn().GetNoteNumber() / NOTES;
+                            value = MIDIConst.ComputedB(MidiRecording.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiRecording.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
                         break;
 
                     default:
                         break;
                 }
                 counter += value * drawSpeedFactor;
-
-                //line.widthMultiplier = audioInput.GetAmplitudeBuffer() * 0.05f + 0.05f;
 
                 float factor = Mathf.Lerp(0, dist, counter);
 
@@ -97,7 +93,6 @@ public class DrawPolygon : MonoBehaviour
 
                 Vector3 currentPoint = factor * Vector3.Normalize(pointB - pointA) + pointA;
 
-                //for(int i = currentPos; i < initPos.Length; i++)
                 line.SetPosition(currentPos, currentPoint);
             }
             else

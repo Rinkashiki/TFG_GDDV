@@ -815,12 +815,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midiFile: {fileID: 102900000, guid: b930406402112ef4b83a2d4449e983f7, type: 3}
   sphereNotes: {fileID: 1328784406}
-  forceFactor: 0.03
+  forceFactor: 1.5
   focusLights:
   - {fileID: 1597744321}
   - {fileID: 1477085900}
-  intensityFactor: 4
-  rangeFactor: 0.5
+  intensityFactor: 30
+  rangeFactor: 2
   vol: {fileID: 2029414446}
   caFactor: 0.02
 --- !u!114 &343379480
