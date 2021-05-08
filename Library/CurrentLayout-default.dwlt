@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 678, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 20284
+  controlID: 26596
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 20219
+  controlID: 26621
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 221}
   m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 20220
+  controlID: 26622
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -396,7 +396,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 1467feff7e75feff8899feffa0a6feffbea9feff30c3feff26d7feffcee0feffdcecffff3cf8ffff6afbffff
+      m_ExpandedIDs: e0cdfeff02d0fefffef9ffff6afbffff02450000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -456,9 +456,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 0.15607622, y: -0.8764912, z: -0.48543683}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 0.15607622, y: -0.8764912, z: -0.48543683}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -504,17 +504,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.12384459, y: -0.5534008, z: 0.08363324, w: 0.8194075}
+    m_Target: {x: -0.028486788, y: 0.025782919, z: -0.00073508604, w: -0.9992644}
     speed: 2
-    m_Value: {x: -0.123844594, y: 0.5534009, z: -0.08363324, w: -0.8194076}
+    m_Value: {x: -0.028486788, y: 0.025782919, z: -0.00073508604, w: -0.9992645}
   m_Size:
-    m_Target: 14.221005
+    m_Target: 14.780789
     speed: 2
-    m_Value: 14.221005
+    m_Value: 14.780789
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 0.9
     m_SpeedNormalized: 0.47
@@ -528,8 +528,8 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
-  m_LastSceneViewOrtho: 0
+  m_LastSceneViewRotation: {x: -0.121153235, y: -0.027992208, z: 0.003417838, w: -0.9922339}
+  m_LastSceneViewOrtho: 1
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
   m_SceneVisActive: 1
@@ -574,20 +574,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UNIVERSIDAD\PROYECTOS\SoundReactAPI\TFG_GDDV
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 483e0000
-    m_LastClickedID: 15944
-    m_ExpandedIDs: 00000000483e0000a43f0000a63f0000a83f0000aa3f0000ac3f0000ae3f000000ca9a3b
+    m_SelectedIDs: a63f0000
+    m_LastClickedID: 16294
+    m_ExpandedIDs: 000000004a3e0000a63f0000a83f0000aa3f0000ac3f0000ae3f0000b03f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -615,7 +615,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000483e0000a43f0000a63f0000a83f0000aa3f0000ac3f0000ae3f000000ca9a3b
+    m_ExpandedIDs: 000000004a3e0000a63f0000a83f0000aa3f0000ac3f0000ae3f0000b03f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 34018
+  m_LastSelectedObjectID: 17666
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52

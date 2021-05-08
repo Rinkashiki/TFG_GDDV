@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/AmplitudeReact.unity
+- path: Assets/Scenes/Ikaruga.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

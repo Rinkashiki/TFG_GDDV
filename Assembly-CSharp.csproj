@@ -67,6 +67,9 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\AudioReact\AudioInput.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\AmplitudeReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\FreqBandReactExample.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\Bullet.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\BulletPool.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\Enemy.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiPlayReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiRecordReactExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
