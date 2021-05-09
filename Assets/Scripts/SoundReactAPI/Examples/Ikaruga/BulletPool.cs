@@ -21,7 +21,7 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public GameObject SpawnBullet(Vector3 position, Quaternion rotation, Vector3 bulletDirection)
+    public GameObject SpawnBullet(Vector3 position, Quaternion rotation, Vector3 bulletDirection, float speedOffset = 0)
     {
         GameObject objToSpawn = bulletPool.Dequeue();
 
@@ -29,6 +29,7 @@ public class BulletPool : MonoBehaviour
         objToSpawn.transform.position = position;
         objToSpawn.transform.rotation = rotation;
         objToSpawn.GetComponent<Bullet>().SetDirection(bulletDirection);
+        objToSpawn.GetComponent<Bullet>().SetSpeedOffset(speedOffset);
 
         bulletPool.Enqueue(objToSpawn);
 
