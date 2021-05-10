@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     [Header(" Spawn Flower Variables")]
     [SerializeField] int waveSizeFlower;
     [SerializeField] float spawnRatioFlower;
-    [SerializeField] int cornerCount;
+    [SerializeField] int maxCorners;
 
     private BulletPool bulletPool;
     private Object bullet;
@@ -47,24 +47,8 @@ public class Enemy : MonoBehaviour
     [Header("Scene Grid")]
     [SerializeField] Color lineColor;
     [SerializeField] float drawSpeedFactor;
-    // Verticals
-    Vector3[] vertical0 = {new Vector3(-7, -5), new Vector3(-7, 7)};
-    Vector3[] vertical1 = { new Vector3(-5, -5), new Vector3(-5, 7)};
-    Vector3[] vertical2 = { new Vector3(-3, -5), new Vector3(-3, 7)};
-    Vector3[] vertical3 = { new Vector3(-1, -5), new Vector3(-1, 7)};
-    Vector3[] vertical4 = { new Vector3(1, -5), new Vector3(1, 7)};
-    Vector3[] vertical5 = { new Vector3(3, -5), new Vector3(3, 7)};
-    Vector3[] vertical6 = { new Vector3(5, -5), new Vector3(5, 7)};
-    Vector3[] vertical7 = { new Vector3(7, -5), new Vector3(7, 7)};
-    // Horizontal
-    Vector3[] horizontal0 = { new Vector3(-10, -4), new Vector3(10, -4)};
-    Vector3[] horizontal1 = { new Vector3(-10, -2), new Vector3(10, -2)};
-    Vector3[] horizontal2 = { new Vector3(-10, 0), new Vector3(10, 0)};
-    Vector3[] horizontal3 = { new Vector3(-10, 2), new Vector3(10, 2)};
-    Vector3[] horizontal4 = { new Vector3(-10, 4), new Vector3(10, 4)};
-    Vector3[] horizontal5 = { new Vector3(-10, 6), new Vector3(10, 6)};
-    Vector3[] horizontal6 = { new Vector3(-10, 8), new Vector3(10, 8)};
-    Vector3[] horizontal7 = { new Vector3(-10, 10), new Vector3(10, 10)};
+    private float verticalGridGap = 20.0f / 9;
+    private float horizontalGridGap = 12.0f / 9;
 
     #endregion
 
@@ -89,10 +73,28 @@ public class Enemy : MonoBehaviour
         bezier = GetComponent<BezierFollow>();
         bezier.enabled = false;
 
-    #region Scene_Grid
+        #region Scene_Grid
 
-    //Verticals
-    ampReact.AmplitudeDrawPolygon(vertical0, lineColor, 0.05f, drawSpeedFactor);
+        // Verticals
+        Vector3[] vertical0 = { new Vector3(-3.5f * verticalGridGap, -5), new Vector3(-3.5f * verticalGridGap, 7) };
+        Vector3[] vertical1 = { new Vector3(-2.5f * verticalGridGap, 7), new Vector3(-2.5f * verticalGridGap, -5) };
+        Vector3[] vertical2 = { new Vector3(-1.5f * verticalGridGap, -5), new Vector3(-1.5f * verticalGridGap, 7) };
+        Vector3[] vertical3 = { new Vector3(-0.5f  * verticalGridGap, 7), new Vector3(-0.5f * verticalGridGap, -5) };
+        Vector3[] vertical4 = { new Vector3(0.5f * verticalGridGap, -5), new Vector3(0.5f * verticalGridGap, 7) };
+        Vector3[] vertical5 = { new Vector3(1.5f * verticalGridGap, 7), new Vector3(1.5f * verticalGridGap, -5), };
+        Vector3[] vertical6 = { new Vector3(2.5f * verticalGridGap, -5), new Vector3(2.5f * verticalGridGap, 7) };
+        Vector3[] vertical7 = { new Vector3(3.5f * verticalGridGap, 7), new Vector3(3.5f * verticalGridGap, -5) };
+
+        // Horizontals
+        Vector3[] horizontal0 = { new Vector3(-11, -4), new Vector3(11, -4) };
+        Vector3[] horizontal1 = { new Vector3(11, -2), new Vector3(-11, -2) };
+        Vector3[] horizontal2 = { new Vector3(-11, 0), new Vector3(11, 0) };
+        Vector3[] horizontal3 = { new Vector3(11, 2), new Vector3(-11, 2) };
+        Vector3[] horizontal4 = { new Vector3(-11, 4), new Vector3(11, 4) };
+        Vector3[] horizontal5 = { new Vector3(11, 6), new Vector3(-11, 6) };
+
+        //Verticals
+        ampReact.AmplitudeDrawPolygon(vertical0, lineColor, 0.05f, drawSpeedFactor);
         ampReact.AmplitudeDrawPolygon(vertical1, lineColor, 0.05f, drawSpeedFactor);
         ampReact.AmplitudeDrawPolygon(vertical2, lineColor, 0.05f, drawSpeedFactor);
         ampReact.AmplitudeDrawPolygon(vertical3, lineColor, 0.05f, drawSpeedFactor);
@@ -108,8 +110,6 @@ public class Enemy : MonoBehaviour
         ampReact.AmplitudeDrawPolygon(horizontal3, lineColor, 0.05f, drawSpeedFactor);
         ampReact.AmplitudeDrawPolygon(horizontal4, lineColor, 0.05f, drawSpeedFactor);
         ampReact.AmplitudeDrawPolygon(horizontal5, lineColor, 0.05f, drawSpeedFactor);
-        ampReact.AmplitudeDrawPolygon(horizontal6, lineColor, 0.05f, drawSpeedFactor);
-        ampReact.AmplitudeDrawPolygon(horizontal7, lineColor, 0.05f, drawSpeedFactor);
 
         #endregion
     }
@@ -129,10 +129,18 @@ public class Enemy : MonoBehaviour
 
         // Change Pattern
         elapsedTime += Time.deltaTime;
-        if(elapsedTime >= patternTime)
+        if (elapsedTime >= patternTime)
         {
             elapsedTime = 0;
             ChangeBulletPattern();
+        }
+
+        // Finish Level
+        if (!GameObject.FindGameObjectWithTag("AudioInput").GetComponent<AudioSource>().isPlaying)
+        {
+            StopAllCoroutines();
+            bulletPool.ClearPool();
+            Debug.Log("Has ganado");
         }
     }
 
@@ -216,12 +224,14 @@ public class Enemy : MonoBehaviour
     {
         float angleStep = 360.0f / waveSizeFlower;
         float angle;
+        int cornerCount;
 
         while (true)
         {
             yield return new WaitForSeconds(spawnRatioFlower);
 
-            angle = 0;
+            angle = Random.Range(-15, 15);
+            cornerCount = Random.Range(4, maxCorners);
 
             for (int i = 0; i < waveSizeFlower; i++)
             {

@@ -9,8 +9,9 @@ public class Bullet : MonoBehaviour
 
     // Bullet Variables
     private Vector3 bulletDirection;
-    private float bulletSpeed = 0.3f;
-    private float amplitudeFactor = 0.05f;
+    private float bulletDamage = 1f;
+    private float bulletSpeed = 1.5f;
+    private float amplitudeFactor = 0.025f;
     private float speedOffset;
 
     // Start is called before the first frame update
@@ -27,8 +28,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // Bullet movement
-        //transform.position += bulletDirection * audioInput.GetAmplitudeBuffer() * bulletSpeed;
-        //transform.position += bulletDirection * Time.deltaTime * bulletSpeed;
         transform.position += bulletDirection * (bulletSpeed * Time.deltaTime + audioInput.GetAmplitudeBuffer() * amplitudeFactor + speedOffset);
 
         // Bullet Scaling 
@@ -52,5 +51,13 @@ public class Bullet : MonoBehaviour
         transform.rotation = Quaternion.identity;
 
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerShip>().TakeDamage(bulletDamage);
+        }
     }
 }

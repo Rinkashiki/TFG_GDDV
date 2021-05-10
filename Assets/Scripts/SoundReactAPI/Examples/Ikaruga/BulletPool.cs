@@ -35,4 +35,12 @@ public class BulletPool : MonoBehaviour
 
         return objToSpawn;
     }
+
+    public void ClearPool()
+    {
+        foreach(GameObject go in bulletPool)
+        {
+            go.SetActive(false);
+        }
+    }
 }
