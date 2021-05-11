@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -9,13 +10,13 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float maxHealth;
+    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private Material flickMat;
 
     private Rigidbody2D body;
     private Material mat;
 
     // For taking damage
-    private float health;
     private bool invencibility;
     private float invencibilityTime = 1;
     private float invencibilityStep;
@@ -27,21 +28,36 @@ public class PlayerShip : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         mat = GetComponent<MeshRenderer>().material;
-        health = maxHealth;
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
+        // For ship rotation
         LookAt();
 
+        // For ship movement
         float Y = Input.GetAxis("Vertical");
         float X = Input.GetAxis("Horizontal");
 
-        body.velocity += new Vector2(X, Y) * movementSpeed * Time.deltaTime;
+        Vector2 dir = new Vector2(X, Y);
+        body.velocity += dir * movementSpeed * Time.deltaTime;
 
+        // For particles
+        if (!particles.isPlaying && dir.magnitude > 0)
+        {
+            particles.Play();
+        }
+
+        if (dir.magnitude <= 0)
+        {
+            particles.Stop();
+        }
+       
+        // For Flickering
         if (invencibility)
         {
+            gameObject.GetComponent<MeshRenderer>().material = flickMat;
             Flickering();
         }
     }
@@ -59,14 +75,7 @@ public class PlayerShip : MonoBehaviour
     {
         if (!invencibility)
         {
-            health -= bulletDamage;
-
-            if(health <= 0)
-            {
-                Debug.Log("Perdiste Weon");
-            }
-
-            Debug.Log(health);
+            GameManager.Instance.SetHealth(bulletDamage);
         }
         invencibility = true; 
     }
@@ -90,11 +99,12 @@ public class PlayerShip : MonoBehaviour
 
         if (invencibilityStep >= invencibilityTime)
         {
+            gameObject.GetComponent<MeshRenderer>().material = mat;
             invencibilityStep = 0;
             invencibility = false;
             alpha = 1;
         }
 
-        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, alpha);
+        flickMat.color = new Color(mat.color.r, mat.color.g, mat.color.b, alpha);
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\Bullet.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\BulletPool.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\Enemy.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\GameManager.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\PlayerShip.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\Ikaruga\Route.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\MidiPlayReactExample.cs" />
