@@ -8,72 +8,63 @@ public class SequencerExample : MonoBehaviour
 {
     private AmplitudeReact ampReact;
 
-    // Amplitude Scale
-    [Header("Amplitude Scale")]
-    [SerializeField] float scaleFactor;
-    private float initialScale;
-    private bool increaseScale;
-
-    // Amplitude Bloom
-    [Header("Amplitude Bloom")]
-    [SerializeField] Volume vol;
-    [SerializeField] float bloomFactor;
-    private Bloom bloom;
-    private bool enableBloom;
-
-    // Amplitude Relief Map
-    [Header("Amplitude Relief Map")]
-    [SerializeField] float reliefFactor;
-    [SerializeField] float noisefactor;
-    private Vector3[] initPos;
-    private bool enableRelief;
+    // Sample Cubes
+    [Header("Samples Circle")]
+    [SerializeField] GameObject sampleCube;
+    private GameObject[] sampleCubes;
+    private bool enableSampleCubes;
 
 
     void Start()
     {
         ampReact = GetComponent<AmplitudeReact>();
 
-        // Amplitude Scale
-        initialScale = 0.3f;
-
-        // Amplitude Bloom
-        bloom = (Bloom)vol.profile.components[0];
-
-        // Amplitude Relief Map
-        initPos = gameObject.GetComponent<MeshFilter>().mesh.vertices;
+        // Samples Cubes
+        sampleCubes = new GameObject[8];
     }
 
     void Update()
     {
-        // Amplitude Scale
-        ampReact.AmplitudeScale(gameObject, Vector3.one, scaleFactor, initialScale);
-
-        // Amplitude Bloom
-        if (enableBloom)
+        // Sample Cubes
+        if (enableSampleCubes)
         {
-            ampReact.AmplitudeBloom(bloom, bloomFactor);
+            ScaleSampleCubes();
+        }
+    }
+
+    #region Sample_Cubes
+
+    public void InstantiateSampleCubes()
+    {
+        GameObject cubeInstance;
+
+        for (int i = 0; i < 8; i++)
+        {
+            cubeInstance = Instantiate(sampleCube, transform);
+            cubeInstance.name = "SampleCube" + i;
+            transform.eulerAngles = new Vector3(0, (360.0f / 8) * i, 0);
+            cubeInstance.transform.position = Vector3.forward * 20;
+            sampleCubes[i] = cubeInstance;
         }
 
-        // Amplitude Relief Map
-        if (enableRelief)
+        EnableSampleCubes();
+    }
+
+    private void  EnableSampleCubes()
+    {
+        enableSampleCubes = !enableSampleCubes;
+    }
+
+    private void ScaleSampleCubes()
+    {
+        float[] bands = ampReact.audioInput.GetBandsBuffer();
+
+        for(int i = 0; i < sampleCubes.Length; i++)
         {
-            ampReact.AmplitudeReliefMap(gameObject.GetComponent<MeshFilter>().mesh, noisefactor, reliefFactor, initPos, 0.5f);
+            Vector3 newScale = new Vector3(sampleCubes[i].transform.localScale.x, bands[i] * 10, sampleCubes[i].transform.localScale.z);
+            sampleCubes[i].transform.localScale = Vector3.Lerp(sampleCubes[i].transform.localScale, newScale, 0.1f);
         }
-
     }
 
-    public void IncreaseInitialScale()
-    {
-        initialScale = 1.0f;
-    }
-
-    public void EnableBloom()
-    {
-        enableBloom = !enableBloom;
-    }
-
-    public void EnableReliefMap()
-    {
-        enableRelief = !enableRelief;
-    }
+    #endregion
 }

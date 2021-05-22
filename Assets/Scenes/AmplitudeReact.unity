@@ -534,9 +534,9 @@ MonoBehaviour:
   tunnelSpeed: 0.02
   cameraTransform: {fileID: 405587036}
   cameraDistance: -12
-  phyllotaxisDegree: 60
-  speedFactor: 8
-  tunnelScaleFactor: 1
+  phyllotaxisDegree: 15
+  speedFactor: 32
+  tunnelScaleFactor: 0
   tunnelAperture: 2
   startColor: {r: 0.1462264, g: 0.42989707, b: 1, a: 0}
   endColor: {r: 0.9811321, g: 0.55985487, b: 0.06941971, a: 0}
