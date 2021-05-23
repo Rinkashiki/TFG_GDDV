@@ -7,64 +7,38 @@ using UnityEngine.Rendering.Universal;
 public class SequencerExample : MonoBehaviour
 {
     private AmplitudeReact ampReact;
+    private FreqBandReact bandReact;
 
-    // Sample Cubes
-    [Header("Samples Circle")]
-    [SerializeField] GameObject sampleCube;
-    private GameObject[] sampleCubes;
-    private bool enableSampleCubes;
-
+    // Rotate Electrons
+    [Header("Rotate Electrons")]
+    [SerializeField] Transform[] electrons;
+    private bool enableElectronsRotation;
 
     void Start()
     {
         ampReact = GetComponent<AmplitudeReact>();
-
-        // Samples Cubes
-        sampleCubes = new GameObject[8];
+        bandReact = GetComponent<FreqBandReact>();
     }
 
     void Update()
     {
         // Sample Cubes
-        if (enableSampleCubes)
+        if (enableElectronsRotation)
         {
-            ScaleSampleCubes();
+            ElectronsRotation();
         }
     }
 
-    #region Sample_Cubes
-
-    public void InstantiateSampleCubes()
+    private void ElectronsRotation()
     {
-        GameObject cubeInstance;
-
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < electrons.Length; i++)
         {
-            cubeInstance = Instantiate(sampleCube, transform);
-            cubeInstance.name = "SampleCube" + i;
-            transform.eulerAngles = new Vector3(0, (360.0f / 8) * i, 0);
-            cubeInstance.transform.position = Vector3.forward * 20;
-            sampleCubes[i] = cubeInstance;
-        }
-
-        EnableSampleCubes();
-    }
-
-    private void  EnableSampleCubes()
-    {
-        enableSampleCubes = !enableSampleCubes;
-    }
-
-    private void ScaleSampleCubes()
-    {
-        float[] bands = ampReact.audioInput.GetBandsBuffer();
-
-        for(int i = 0; i < sampleCubes.Length; i++)
-        {
-            Vector3 newScale = new Vector3(sampleCubes[i].transform.localScale.x, bands[i] * 10, sampleCubes[i].transform.localScale.z);
-            sampleCubes[i].transform.localScale = Vector3.Lerp(sampleCubes[i].transform.localScale, newScale, 0.1f);
+            electrons[i].Rotate(Vector3.right, 0.2f + ampReact.audioInput.GetBandBuffer(i) * 0.5f);
         }
     }
 
-    #endregion
+    public void EnableElectrons()
+    {
+        enableElectronsRotation = !enableElectronsRotation;
+    }
 }
