@@ -13,6 +13,7 @@ public class SequencerManager : MonoBehaviour
     [Header("Fade In")]
     [SerializeField] Image fadeIn;
 
+
     // Camera Rotation
     [Header("Camera Rotation")]
     [SerializeField] GameObject cameraObj;
