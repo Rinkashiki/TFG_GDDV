@@ -25,6 +25,16 @@ public class SequencerManager : MonoBehaviour
     [SerializeField] float atomRotationFactor;
     private bool enableAtomsRotation;
 
+    // Atoms Fade
+    [Header("Atoms Fade")]
+    [SerializeField] GameObject atomsParent;
+    private bool enableAtomsFade;
+
+    // Trails Fade
+    [Header("Trails Fade")]
+    [SerializeField] TrailRenderer[] trails;
+    private bool enableTrailsFade;
+
     // Post-Processing
     [Header("Post-Processing")]
     [SerializeField] Volume vol;
@@ -63,6 +73,25 @@ public class SequencerManager : MonoBehaviour
             foreach (GameObject atom in atoms)
             {
                 ampReact.AmplitudeRotation(atom, Vector3.right, atomRotationFactor);
+            }
+        }
+
+        // Atoms Fade
+        if (enableAtomsFade)
+        {
+            atomsParent.transform.localScale = Vector3.Lerp(atomsParent.transform.localScale, Vector3.zero, 0.1f);
+
+            if (atomsParent.transform.localScale == Vector3.zero)
+            {
+                atomsParent.SetActive(false);
+            }
+        }
+
+        if (enableTrailsFade)
+        {
+            foreach (TrailRenderer trail in trails)
+            {
+                trail.emitting = false;
             }
         }
 
@@ -107,6 +136,25 @@ public class SequencerManager : MonoBehaviour
     {
         enableAtomsRotation = !enableAtomsRotation;
     }
+
+    #endregion
+
+    #region Atoms_Fade
+
+    public void EnableAtomsFade()
+    {
+        enableAtomsFade = !enableAtomsFade;
+    }
+
+    #endregion
+
+    #region Trails_Fade
+
+    public void EnableTrailsFade()
+    {
+        enableTrailsFade = !enableTrailsFade;
+    }
+
     #endregion
 
     #region Post-Processing
@@ -128,7 +176,7 @@ public class SequencerManager : MonoBehaviour
 
     #endregion
 
-    
+
 
 
 }

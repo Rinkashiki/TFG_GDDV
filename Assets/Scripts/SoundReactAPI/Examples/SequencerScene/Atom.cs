@@ -22,6 +22,7 @@ public class Atom : MonoBehaviour
     [SerializeField] GameObject core;
     [SerializeField] float noiseFactor;
     [SerializeField] float reliefFactor;
+    private bool enableReliefMap;
     private Mesh coreMesh;
     private Vector3[] initPos;
 
@@ -29,6 +30,13 @@ public class Atom : MonoBehaviour
     [Header("Amplitude Scale")]
     [SerializeField] float scaleFactor;
     private bool enableScale;
+
+    // Amplitude Color
+    [Header("Amplitude Color")]
+    [SerializeField] float colorFactor;
+    private bool enableColor;
+    private Color coreColor;
+    private Color electronColor;
 
 
     void Start()
@@ -42,6 +50,10 @@ public class Atom : MonoBehaviour
         // Core Relief Map
         coreMesh = core.GetComponent<MeshFilter>().mesh;
         initPos = coreMesh.vertices;
+
+        // Amplitude Color
+        coreColor = atomRenderers[0].material.color;
+        electronColor = atomRenderers[1].material.color;
     }
 
     void Update()
@@ -49,13 +61,22 @@ public class Atom : MonoBehaviour
         // Rotate Electrons
         ElectronsRotation();
 
-        // Core Relief
-        //ampReact.AmplitudeReliefMap(coreMesh, noiseFactor, reliefFactor, initPos, ampReact.audioInput.GetAmplitudeBuffer() * waveFactor);
+        // Core Relief Map
+        if (enableReliefMap)
+        {
+            ampReact.AmplitudeReliefMap(coreMesh, noiseFactor, reliefFactor, initPos, ampReact.audioInput.GetAmplitudeBuffer() * waveFactor);
+        }
 
         // Amplitude Scale
         if (enableScale)
         {
             ampReact.AmplitudeScale(core, Vector3.one, scaleFactor);
+        }
+
+        // Amplitude Color
+        if (enableColor)
+        {
+            AtomColors();
         }
     }
 
@@ -63,7 +84,29 @@ public class Atom : MonoBehaviour
     {
         for (int i = 0; i < electrons.Length; i++)
         {
+            int band = Random.Range(0, 8);
             electrons[i].Rotate(Vector3.right, electronSpeed + ampReact.audioInput.GetBandBuffer(i) * bandFactor);
+        }
+    }
+
+    private void AtomColors()
+    {
+        Color newColor;
+
+        for (int i = 0; i < atomRenderers.Length; i++)
+        {
+            if (i == 0)
+            {
+                newColor = new Color(ampReact.audioInput.GetAmplitudeBuffer() * colorFactor, coreColor.g, coreColor.b);
+                atomRenderers[i].material.color = Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f);
+                atomRenderers[i].material.SetColor("_EmissionColor", Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f));
+            }
+            else
+            {
+                newColor = new Color(electronColor.r, electronColor.g, ampReact.audioInput.GetAmplitudeBuffer() * colorFactor);
+                atomRenderers[i].material.color = Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f);
+                atomRenderers[i].material.SetColor("_EmissionColor", Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f));
+            }
         }
     }
 
@@ -93,6 +136,24 @@ public class Atom : MonoBehaviour
     public void EnableScale()
     {
         enableScale = !enableScale;
+    }
+
+    #endregion
+
+    #region Core_Relief_Map
+
+    public void EnableReliefMap()
+    {
+        enableReliefMap = !enableReliefMap;
+    }
+
+    #endregion
+
+    #region Amplitude_Color
+
+    public void EnableColor()
+    {
+        enableColor = !enableColor;
     }
 
     #endregion
