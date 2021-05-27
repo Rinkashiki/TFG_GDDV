@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\SequencerExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\SequencerScene\Atom.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\SequencerScene\BackgroundMovement.cs" />
+    <Compile Include="Assets\Scripts\SoundReactAPI\Examples\SequencerScene\Cell.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\SequencerScene\SequencerManager.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\ShaderExample.cs" />
     <Compile Include="Assets\Scripts\SoundReactAPI\Examples\UseEventsExample.cs" />

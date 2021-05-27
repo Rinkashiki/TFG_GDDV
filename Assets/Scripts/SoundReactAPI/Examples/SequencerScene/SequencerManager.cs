@@ -36,6 +36,11 @@ public class SequencerManager : MonoBehaviour
     [SerializeField] TrailRenderer[] trails;
     private bool enableTrailsFade;
 
+    // Enable Cell
+    [Header("Enable Cell")]
+    [SerializeField] GameObject cell;
+    private bool enableCell;
+
     // Post-Processing
     [Header("Post-Processing")]
     [SerializeField] Volume vol;
@@ -96,6 +101,12 @@ public class SequencerManager : MonoBehaviour
             }
         }
 
+        // Enable cell
+        if (enableCell)
+        {
+            cell.transform.localScale = Vector3.Lerp(cell.transform.localScale, Vector3.one, 0.1f);
+        }
+
         // Post-Processing
         if (enableBloom)
         {
@@ -154,6 +165,16 @@ public class SequencerManager : MonoBehaviour
     public void EnableTrailsFade()
     {
         enableTrailsFade = !enableTrailsFade;
+    }
+
+    #endregion
+
+    # region Enable_Cell
+
+    public void EnableCell()
+    {
+        cell.SetActive(true);
+        enableCell = !enableCell;
     }
 
     #endregion
