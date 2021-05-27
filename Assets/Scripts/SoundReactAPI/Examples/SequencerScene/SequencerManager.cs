@@ -36,9 +36,9 @@ public class SequencerManager : MonoBehaviour
     [SerializeField] TrailRenderer[] trails;
     private bool enableTrailsFade;
 
-    // Enable Cell
+    // Enable Cells
     [Header("Enable Cell")]
-    [SerializeField] GameObject cell;
+    [SerializeField] GameObject[] cells;
     private bool enableCell;
 
     // Post-Processing
@@ -101,10 +101,10 @@ public class SequencerManager : MonoBehaviour
             }
         }
 
-        // Enable cell
+        // Enable cells
         if (enableCell)
         {
-            cell.transform.localScale = Vector3.Lerp(cell.transform.localScale, Vector3.one, 0.1f);
+            cells[0].transform.localScale = Vector3.Lerp(cells[0].transform.localScale, Vector3.one, 0.1f);
         }
 
         // Post-Processing
@@ -169,12 +169,20 @@ public class SequencerManager : MonoBehaviour
 
     #endregion
 
-    # region Enable_Cell
+    # region Enable_Cells
 
     public void EnableCell()
     {
-        cell.SetActive(true);
+        cells[0].SetActive(true);
         enableCell = !enableCell;
+    }
+
+    public void EnableMultipleCells()
+    {
+        for(int i = 1; i < cells.Length; i++)
+        {
+            cells[i].SetActive(true);
+        }
     }
 
     #endregion

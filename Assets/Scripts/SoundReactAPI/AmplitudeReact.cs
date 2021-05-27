@@ -46,7 +46,7 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
-    public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1)
+    public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialScale);
     }

@@ -63,7 +63,7 @@ public class MIDIRecordReact : MonoBehaviour
     /// <param name="scaleFactor"></param>
     /// <param name="fadeFactor"></param>
     /// <param name="initialScale"></param>
-    public void Record_Scale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1)
+    public void Record_Scale(GameObject go, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
         if (MidiRecording.Event_CurrentNoteOn() != null)
         {

@@ -34,7 +34,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <summary>
     /// Defines property types tha can be changed in a shader/material.
     /// </summary>
-    public enum MatPropertyType { ComputeBuffer, Color, ColorArray, Float, FloatArray, Int, Matrix4x4, Matrix4x4Array, Texture, Vector4, Vector4Array };
+    public enum MatPropertyType { Color, Float, Int, Vector4 };
 
     #endregion
 
@@ -79,13 +79,13 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="scaleFactor"></param>
     /// <param name="property"></param>
     /// <param name="initialScale"></param>
-    public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, Numeric property, float initialScale = 1)
+    public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, Numeric property, Vector3 initialScale)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.localScale = Vector3.Lerp(go.transform.localScale, new Vector3((value * scaleFactor * axis.x) + initialScale,
-                                              (value * scaleFactor * axis.y) + initialScale,
-                                              (value * scaleFactor * axis.z) + initialScale), lerpStep);
+        go.transform.localScale = Vector3.Lerp(go.transform.localScale, new Vector3((value * scaleFactor * axis.x) + initialScale.x,
+                                              (value * scaleFactor * axis.y) + initialScale.y,
+                                              (value * scaleFactor * axis.z) + initialScale.z), lerpStep);
     }
 
     /// <summary>
@@ -246,39 +246,20 @@ public class GenericSoundReact : MonoBehaviour
 
         switch (propertyType)
         {
-            case MatPropertyType.ComputeBuffer:
-                break;
-
             case MatPropertyType.Color:
-                break;
-
-            case MatPropertyType.ColorArray:
+                mat.SetColor(propertyName, Color.Lerp(mat.GetColor(propertyName), mat.GetColor(propertyName) * value * propertyFactor, lerpStep));
                 break;
 
             case MatPropertyType.Float:
                 mat.SetFloat(propertyName, Mathf.Lerp(mat.GetFloat(propertyName), value * propertyFactor, lerpStep));
                 break;
 
-            case MatPropertyType.FloatArray:
-                break;
-
             case MatPropertyType.Int:
                 mat.SetInt(propertyName, (int)(value * propertyFactor));
                 break;
 
-            case MatPropertyType.Matrix4x4:
-                break;
-
-            case MatPropertyType.Matrix4x4Array:
-                break;
-
-            case MatPropertyType.Texture:
-                break;
-
             case MatPropertyType.Vector4:
-                break;
-
-            case MatPropertyType.Vector4Array:
+                mat.SetVector(propertyName, Vector4.Lerp(mat.GetVector(propertyName), mat.GetVector(propertyName) * value * propertyFactor, lerpStep));
                 break;
 
             default:

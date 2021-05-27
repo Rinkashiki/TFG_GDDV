@@ -49,7 +49,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
-    public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, float initialScale = 1)
+    public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
         GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetBandBuffer(band)), initialScale);
     }

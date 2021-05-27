@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // Enemy Scaling 
-        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.3f);
+        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.3f, Vector3.one);
 
         // Enemy Post-Processing
         ampReact.AmplitudeBloom(bloom, bloomFactor);

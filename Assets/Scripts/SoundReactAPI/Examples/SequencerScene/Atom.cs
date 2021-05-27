@@ -70,7 +70,7 @@ public class Atom : MonoBehaviour
         // Amplitude Scale
         if (enableScale)
         {
-            ampReact.AmplitudeScale(core, Vector3.one, scaleFactor);
+            ampReact.AmplitudeScale(core, Vector3.one, scaleFactor, Vector3.one);
         }
 
         // Amplitude Color

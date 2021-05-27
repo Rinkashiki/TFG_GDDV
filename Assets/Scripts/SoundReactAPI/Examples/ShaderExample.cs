@@ -81,7 +81,7 @@ public class ShaderExample : MonoBehaviour
         int band = 0;
         foreach (GameObject react in reacts)
         {
-            bandReact.BandScale(react, band, Vector3.one, 0.2f, 1);
+            bandReact.BandScale(react, band, Vector3.one, 0.2f, Vector3.one);
             band++;
         }
     }

@@ -63,7 +63,7 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
     /// <param name="fadeFactor"></param>
-    public void Play_Scale(GameObject go, Vector3 axis, float scaleFactor, float initialScale = 1)
+    public void Play_Scale(GameObject go, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {

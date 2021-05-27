@@ -38,7 +38,7 @@ public class Cell : MonoBehaviour
     void Update()
     {
         // Core Scale
-        ampReact.AmplitudeScale(cellCore, Vector3.one, cellScaleFactor, 2);
+        ampReact.AmplitudeScale(cellCore, Vector3.one, cellScaleFactor, Vector3.one * 2);
 
         // Appends Scale
         ScaleAppends();
@@ -54,7 +54,7 @@ public class Cell : MonoBehaviour
     {
         for (int i = 0; i < appends.Length; i++)
         {
-            bandReact.BandScale(appends[i], i % 8, Vector3.up, appendsScaleFactor, 0.5f);
+            bandReact.BandScale(appends[i], i % 8, Vector3.up, appendsScaleFactor, Vector3.one * 0.5f);
         }
     }
 }

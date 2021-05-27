@@ -81,7 +81,7 @@ public class AmplitudeReactExample : MonoBehaviour
     void Update()
     {
         // Amplitude Scale
-        ampReact.AmplitudeScale(this.gameObject, Vector3.one, scaleFactor);
+        ampReact.AmplitudeScale(this.gameObject, Vector3.one, scaleFactor, Vector3.one);
 
         // Amplitude Rotation
         ampReact.AmplitudeRotation(this.gameObject, new Vector3(1, 1, 0), rotationFactor);

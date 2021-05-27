@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed = 1.5f;
     private float amplitudeFactor = 0.025f;
     private float speedOffset;
+    private Vector3 initialScale = new Vector3(0.3f, 0.3f, 0.3f);
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class Bullet : MonoBehaviour
         transform.position += bulletDirection * (bulletSpeed * Time.deltaTime + audioInput.GetAmplitudeBuffer() * amplitudeFactor + speedOffset);
 
         // Bullet Scaling 
-        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.15f, 0.3f);
+        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.15f, initialScale);
     }
 
     public void SetDirection(Vector3 bulletDirection)
