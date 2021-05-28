@@ -521,7 +521,7 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="cameraTransform"></param>
     /// <param name="initialScale"></param>
     /// <returns></returns>
-    public GameObject Play_Phyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
+    public GameObject Play_Phyllotunnel(Vector3 tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
     {
         GameObject tunnelObj = GenericSoundReact.GeneratePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.MidiPlay, cameraDistance, cameraTransform, initialScale);
         return tunnelObj;

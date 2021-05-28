@@ -19,8 +19,8 @@ public class Cell : MonoBehaviour
 
     // Cell Rotation
     [Header("Cell Rotation")]
-    [SerializeField] Vector3 axis;
     [SerializeField] float rotFactor;
+    private Vector3 axis;
 
     // Appends Materials
     [Header("Appends Materials")]
@@ -32,6 +32,8 @@ public class Cell : MonoBehaviour
     {
         ampReact = GetComponent<AmplitudeReact>();
         bandReact = GetComponent<FreqBandReact>();
+
+        axis = new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
     }
 
     // Update is called once per frame

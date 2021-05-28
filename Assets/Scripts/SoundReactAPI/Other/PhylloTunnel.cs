@@ -7,7 +7,7 @@ public class PhylloTunnel : MonoBehaviour
     #region PhylloTunnel_Variables
 
     [SerializeField] Transform cameraTransform;
-    [SerializeField] float tunnelSpeed;
+    [SerializeField] Vector3 tunnelSpeed;
     [SerializeField] float cameraDistance;
 
     // Music Data Type
@@ -53,13 +53,13 @@ public class PhylloTunnel : MonoBehaviour
             default:
                 break;
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + value * tunnelSpeed);
+        transform.position = new Vector3(transform.localPosition.x + value * tunnelSpeed.x, transform.localPosition.y + value * tunnelSpeed.y, transform.localPosition.z + value * tunnelSpeed.z);
 
         if (cameraTransform != null)
             cameraTransform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y, transform.position.z + cameraDistance);
     }
 
-    public void SetParams(float tunnelSpeed, float cameraDistance = -10, Transform cameraTransform = null)
+    public void SetParams(Vector3 tunnelSpeed, float cameraDistance = -10, Transform cameraTransform = null)
     {
         this.tunnelSpeed = tunnelSpeed;
         this.cameraDistance = cameraDistance;

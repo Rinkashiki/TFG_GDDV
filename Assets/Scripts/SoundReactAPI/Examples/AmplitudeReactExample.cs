@@ -15,7 +15,7 @@ public class AmplitudeReactExample : MonoBehaviour
 
     // Amplitude Phyllotunnel
     [Header("Amplitude Phyllotunnel")]
-    [SerializeField] float tunnelSpeed;
+    [SerializeField] Vector3 tunnelSpeed;
     [SerializeField] Transform cameraTransform;
     [SerializeField] float cameraDistance;
     [SerializeField] float phyllotaxisDegree;

@@ -377,7 +377,7 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="cameraTransform"></param>
     /// <param name="initialScale"></param>
     /// <returns></returns>
-    public GameObject BandPhyllotunnel(int band, float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
+    public GameObject BandPhyllotunnel(int band, Vector3 tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0)
     {
         GameObject tunnelObj = GenericSoundReact.GeneratePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, scaleFactor, GenericSoundReact.MusicDataType.FreqBand, cameraDistance, cameraTransform, initialScale, band);
         return tunnelObj;

@@ -39,7 +39,20 @@ public class SequencerManager : MonoBehaviour
     // Enable Cells
     [Header("Enable Cell")]
     [SerializeField] GameObject[] cells;
+    [SerializeField] Transform[] cellPositions;
     private bool enableCell;
+    private bool enableMultipleCells;
+
+    // DNA Trail
+    [Header("DNA Trail")]
+    [SerializeField] Vector3 tunnelSpeed;
+    [SerializeField] float degree;
+    [SerializeField] float speedFactor;
+    [SerializeField] Color startColor;
+    [SerializeField] Color endColor;
+    private GameObject tunnelObj;
+    private TrailRenderer phylloTrail;
+    private bool enableDNATrail;
 
     // Post-Processing
     [Header("Post-Processing")]
@@ -105,6 +118,14 @@ public class SequencerManager : MonoBehaviour
         if (enableCell)
         {
             cells[0].transform.localScale = Vector3.Lerp(cells[0].transform.localScale, Vector3.one, 0.1f);
+        }
+
+        if (enableMultipleCells)
+        {
+            for(int i = 1; i < cells.Length; i++)
+            {
+                cells[i].transform.localPosition = Vector3.Lerp(cells[i].transform.localPosition, cellPositions[i - 1].localPosition, 0.1f);
+            }
         }
 
         // Post-Processing
@@ -183,6 +204,30 @@ public class SequencerManager : MonoBehaviour
         {
             cells[i].SetActive(true);
         }
+
+        enableMultipleCells = !enableMultipleCells;
+    }
+
+    #endregion
+
+    #region DNA_Trail
+
+    public void EnableDNATrail()
+    {
+        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, degree, speedFactor, 0, 0, null, 2);
+        tunnelObj.transform.position = new Vector3(0, -5, -5);
+        tunnelObj.transform.Rotate(-90f, 0, 0);
+        phylloTrail = tunnelObj.GetComponentInChildren<TrailRenderer>();
+        phylloTrail.startWidth = 0.2f;
+        phylloTrail.time = 20;
+        phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
+        float alpha = 1.0f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+        );
+        phylloTrail.colorGradient = gradient;
     }
 
     #endregion

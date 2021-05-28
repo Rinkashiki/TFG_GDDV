@@ -644,7 +644,7 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="initialScale"></param>
     /// <param name="band"></param>
     /// <returns></returns>
-    public static GameObject GeneratePhyllotunnel(float tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0, int band = -1)
+    public static GameObject GeneratePhyllotunnel(Vector3 tunnelSpeed, float phyllotaxisDegree, float speedFactor, float scaleFactor, MusicDataType type, float cameraDistance = -10, Transform cameraTransform = null, float initialScale = 0, int band = -1)
     {
         // Generate PhylloTunnel 
         GameObject tunnelObj = new GameObject();
