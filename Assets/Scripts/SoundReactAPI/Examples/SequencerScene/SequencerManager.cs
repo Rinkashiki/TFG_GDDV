@@ -48,9 +48,11 @@ public class SequencerManager : MonoBehaviour
     [SerializeField] Vector3 tunnelSpeed;
     [SerializeField] float degree;
     [SerializeField] float speedFactor;
-    [SerializeField] Color startColor;
-    [SerializeField] Color endColor;
-    private GameObject tunnelObj;
+    [SerializeField] Color startColorRed;
+    [SerializeField] Color endColorRed;
+    [SerializeField] Color startColorBlue;
+    [SerializeField] Color endColorBlue;
+    private GameObject[] tunnelObjs;
     private TrailRenderer phylloTrail;
     private bool enableDNATrail;
 
@@ -75,6 +77,9 @@ public class SequencerManager : MonoBehaviour
         vignette = (Vignette)vol.profile.components[1];
         ca = (ChromaticAberration)vol.profile.components[2];
 
+        // DNA Trail
+        tunnelObjs = new GameObject[4];
+
     }
 
     // Update is called once per frame
@@ -98,7 +103,7 @@ public class SequencerManager : MonoBehaviour
         // Atoms Fade
         if (enableAtomsFade)
         {
-            atomsParent.transform.localScale = Vector3.Lerp(atomsParent.transform.localScale, Vector3.zero, 0.1f);
+            atomsParent.transform.localScale = Vector3.Lerp(atomsParent.transform.localScale, Vector3.zero, 0.05f);
 
             if (atomsParent.transform.localScale == Vector3.zero)
             {
@@ -117,7 +122,7 @@ public class SequencerManager : MonoBehaviour
         // Enable cells
         if (enableCell)
         {
-            cells[0].transform.localScale = Vector3.Lerp(cells[0].transform.localScale, Vector3.one, 0.1f);
+            cells[0].transform.localScale = Vector3.Lerp(cells[0].transform.localScale, Vector3.one, 0.05f);
         }
 
         if (enableMultipleCells)
@@ -214,12 +219,31 @@ public class SequencerManager : MonoBehaviour
 
     public void EnableDNATrail()
     {
-        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, degree, speedFactor, 0, 0, null, 2);
-        tunnelObj.transform.position = new Vector3(0, -5, -5);
-        tunnelObj.transform.Rotate(-90f, 0, 0);
-        phylloTrail = tunnelObj.GetComponentInChildren<TrailRenderer>();
+        // Red Trails
+        DNATrail(0, -4f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
+        DNATrail(1, 4f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
+
+        // Blue Trail
+        DNATrail(2, -4f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
+        DNATrail(3, 4f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
+    }
+
+    public void DisableDNATrail()
+    {
+        foreach(GameObject dnaTunnel in tunnelObjs)
+        {
+            dnaTunnel.SetActive(false);
+        }
+    }
+
+    private void DNATrail(int trail, float x, Vector3 rotation, Color startColor, Color endColor)
+    {
+        tunnelObjs[trail] = ampReact.AmplitudePhyllotunnel(tunnelSpeed, degree, speedFactor, 0, 0, null, 1);
+        tunnelObjs[trail].transform.position = new Vector3(x, -5, -5);
+        tunnelObjs[trail].transform.Rotate(rotation);
+        phylloTrail = tunnelObjs[trail].GetComponentInChildren<TrailRenderer>();
         phylloTrail.startWidth = 0.2f;
-        phylloTrail.time = 20;
+        phylloTrail.time = 5;
         phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
         float alpha = 1.0f;
         Gradient gradient = new Gradient();

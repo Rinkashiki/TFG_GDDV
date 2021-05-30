@@ -3615,11 +3615,13 @@ MonoBehaviour:
   - {fileID: 762360414}
   - {fileID: 1326586044}
   - {fileID: 375064285}
-  tunnelSpeed: {x: 0, y: 0.02, z: 0}
+  tunnelSpeed: {x: 0, y: 0.015, z: 0}
   degree: 15
   speedFactor: 10
-  startColor: {r: 1, g: 0.13679248, b: 0.13679248, a: 1}
-  endColor: {r: 0.9811321, g: 0.29156283, b: 0.29156283, a: 1}
+  startColorRed: {r: 1, g: 0.07075471, b: 0.07075471, a: 0}
+  endColorRed: {r: 1, g: 0.3443396, b: 0.3443396, a: 0}
+  startColorBlue: {r: 0.023584902, g: 0.31205577, b: 1, a: 0}
+  endColorBlue: {r: 0.22877358, g: 0.4327404, b: 0.9150943, a: 0}
   vol: {fileID: 480533231}
   bloomFactor: 8
   vignetteFactor: 1
@@ -9608,6 +9610,17 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 545027206}
+          m_MethodName: DisableDNATrail
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 545027206}
           m_MethodName: EnableMultipleCells
           m_Mode: 1
