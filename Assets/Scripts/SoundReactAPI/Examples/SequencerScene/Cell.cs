@@ -22,6 +22,13 @@ public class Cell : MonoBehaviour
     [SerializeField] float rotFactor;
     private Vector3 axis;
 
+    // Cell Color
+    [Header("Cell Color")]
+    [SerializeField] float colorFactor;
+    private MeshRenderer cellRenderer;
+    private Color newColor;
+    private Color cellColor;
+
     // Appends Materials
     [Header("Appends Materials")]
     [SerializeField] Material appendsMaterial;
@@ -34,6 +41,10 @@ public class Cell : MonoBehaviour
         bandReact = GetComponent<FreqBandReact>();
 
         axis = new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        // Cell Color
+        cellRenderer = cellCore.GetComponent<MeshRenderer>();
+        cellColor = cellRenderer.material.color;
     }
 
     // Update is called once per frame
@@ -47,6 +58,11 @@ public class Cell : MonoBehaviour
 
         // Cell Rotation
         ampReact.AmplitudeRotation(gameObject, axis, rotFactor);
+
+        // Cell Color
+        newColor = new Color(cellColor.r, ampReact.audioInput.GetAmplitudeBuffer() * colorFactor, cellColor.b);
+        cellRenderer.material.color = Color.Lerp(cellRenderer.material.color, newColor, 0.2f);
+        cellRenderer.material.SetColor("_EmissionColor", Color.Lerp(cellRenderer.material.color, newColor, 0.2f));
 
         // Appends Material
         ampReact.AmplitudeShaderGraphMatProperty(appendsMaterial, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, dissolveFactor);

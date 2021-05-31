@@ -18,6 +18,7 @@ public class Atom : MonoBehaviour
     [SerializeField] float waveFactor;
 
     // Core Relief Map
+    /*
     [Header("Core Relief Map")]
     [SerializeField] GameObject core;
     [SerializeField] float noiseFactor;
@@ -25,9 +26,11 @@ public class Atom : MonoBehaviour
     private bool enableReliefMap;
     private Mesh coreMesh;
     private Vector3[] initPos;
+    */
 
     // Amplitude Scale
     [Header("Amplitude Scale")]
+    [SerializeField] GameObject core;
     [SerializeField] float scaleFactor;
     private bool enableScale;
 
@@ -35,7 +38,8 @@ public class Atom : MonoBehaviour
     [Header("Amplitude Color")]
     [SerializeField] float colorFactor;
     private bool enableColor;
-    private Color coreColor;
+    private Color protonColor;
+    private Color neutronColor;
     private Color electronColor;
 
 
@@ -48,12 +52,15 @@ public class Atom : MonoBehaviour
         trails = GetComponentsInChildren<TrailRenderer>();
 
         // Core Relief Map
+        /*
         coreMesh = core.GetComponent<MeshFilter>().mesh;
         initPos = coreMesh.vertices;
+        */
 
         // Amplitude Color
-        coreColor = atomRenderers[0].material.color;
-        electronColor = atomRenderers[1].material.color;
+        protonColor = atomRenderers[0].material.color;
+        neutronColor = atomRenderers[2].material.color;
+        electronColor = atomRenderers[6].material.color;
     }
 
     void Update()
@@ -62,10 +69,12 @@ public class Atom : MonoBehaviour
         ElectronsRotation();
 
         // Core Relief Map
+        /*
         if (enableReliefMap)
         {
             ampReact.AmplitudeReliefMap(coreMesh, noiseFactor, reliefFactor, initPos, ampReact.audioInput.GetAmplitudeBuffer() * waveFactor);
         }
+        */
 
         // Amplitude Scale
         if (enableScale)
@@ -95,18 +104,21 @@ public class Atom : MonoBehaviour
 
         for (int i = 0; i < atomRenderers.Length; i++)
         {
-            if (i == 0)
+            if (i < 2)
             {
-                newColor = new Color(ampReact.audioInput.GetAmplitudeBuffer() * colorFactor, coreColor.g, coreColor.b);
-                atomRenderers[i].material.color = Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f);
-                atomRenderers[i].material.SetColor("_EmissionColor", Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f));
+                newColor = new Color(ampReact.audioInput.GetAmplitudeBuffer() * colorFactor, protonColor.g, protonColor.b);
+            }
+            else if(i >= 2 && i < 6)
+            {
+                newColor = new Color(neutronColor.r, neutronColor.g, neutronColor.b) * ampReact.audioInput.GetAmplitudeBuffer() * 0.8f * colorFactor;
             }
             else
             {
                 newColor = new Color(electronColor.r, electronColor.g, ampReact.audioInput.GetAmplitudeBuffer() * colorFactor);
-                atomRenderers[i].material.color = Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f);
-                atomRenderers[i].material.SetColor("_EmissionColor", Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f));
             }
+
+            atomRenderers[i].material.color = Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f);
+            atomRenderers[i].material.SetColor("_EmissionColor", Color.Lerp(atomRenderers[i].material.color, newColor, 0.2f));
         }
     }
 
@@ -141,12 +153,12 @@ public class Atom : MonoBehaviour
     #endregion
 
     #region Core_Relief_Map
-
+    /*
     public void EnableReliefMap()
     {
         enableReliefMap = !enableReliefMap;
     }
-
+    */
     #endregion
 
     #region Amplitude_Color

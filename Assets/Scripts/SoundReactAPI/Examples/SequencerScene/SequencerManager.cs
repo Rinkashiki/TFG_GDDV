@@ -157,6 +157,11 @@ public class SequencerManager : MonoBehaviour
         fadeIn.CrossFadeAlpha(0, 10, false);
     }
 
+    public void FadeOut()
+    {
+        fadeIn.CrossFadeAlpha(1, 3, false);
+    }
+
     #endregion
 
     #region Camera_Rotation
@@ -164,6 +169,7 @@ public class SequencerManager : MonoBehaviour
     public void EnableCameraRotation()
     {
         enableCameraRotation = !enableCameraRotation;
+        cameraObj.transform.rotation = Quaternion.identity;
     }
 
     #endregion
@@ -220,12 +226,12 @@ public class SequencerManager : MonoBehaviour
     public void EnableDNATrail()
     {
         // Red Trails
-        DNATrail(0, -4f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
-        DNATrail(1, 4f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
+        DNATrail(0, -6f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
+        DNATrail(1, 6f, new Vector3(-90f, 0, 0), startColorRed, endColorRed);
 
         // Blue Trail
-        DNATrail(2, -4f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
-        DNATrail(3, 4f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
+        DNATrail(2, -6f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
+        DNATrail(3, 6f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
     }
 
     public void DisableDNATrail()
@@ -239,11 +245,11 @@ public class SequencerManager : MonoBehaviour
     private void DNATrail(int trail, float x, Vector3 rotation, Color startColor, Color endColor)
     {
         tunnelObjs[trail] = ampReact.AmplitudePhyllotunnel(tunnelSpeed, degree, speedFactor, 0, 0, null, 1);
-        tunnelObjs[trail].transform.position = new Vector3(x, -5, -5);
+        tunnelObjs[trail].transform.position = new Vector3(x, -5.5f, -5);
         tunnelObjs[trail].transform.Rotate(rotation);
         phylloTrail = tunnelObjs[trail].GetComponentInChildren<TrailRenderer>();
-        phylloTrail.startWidth = 0.2f;
-        phylloTrail.time = 5;
+        phylloTrail.startWidth = 0.1f;
+        phylloTrail.time = 6;
         phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
         float alpha = 1.0f;
         Gradient gradient = new Gradient();
