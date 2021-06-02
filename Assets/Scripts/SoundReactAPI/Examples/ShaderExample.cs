@@ -21,6 +21,8 @@ public class ShaderExample : MonoBehaviour
 
     [SerializeField]
     private GameObject go;
+    [SerializeField] private Transform spawner;
+    private GameObject[] samples;
 
     // Start is called before the first frame update
     void Start()
@@ -32,20 +34,37 @@ public class ShaderExample : MonoBehaviour
         bloom = (Bloom)vol.profile.components[1];
         anims = new Animator[reacts.Length];
 
-        for (int i = 0; i < anims.Length; i++)
-            anims[i] = reacts[i].GetComponent<Animator>();
+        samples = new GameObject[512];
+        Vector3 pos = Vector3.zero;
+
+        for(int i = 0; i < samples.Length; i++)
+        {
+            pos = new Vector3(spawner.position.x + i * 1.5f, spawner.position.y, spawner.position.z);
+            samples[i] = Instantiate(go, pos, go.transform.rotation);
+        }
+
+        //for (int i = 0; i < anims.Length; i++)
+            //anims[i] = reacts[i].GetComponent<Animator>();
             
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float[] sampleValues = ampReact.audioInput.GetSamples();
+
+        for (int i = 0; i < samples.Length; i++)
+        {
+            samples[i].transform.localScale = Vector3.Lerp(samples[i].transform.localScale, new Vector3(samples[i].transform.localScale.x, sampleValues[i] * 1000, samples[i].transform.localScale.z), 0.1f);
+        }
+
+        /*
         ChangeShaderProperty();
         bandScale();
         ChangeChromaticAberration();
         ChangeBloom();
         ChangeAnimSpeed();
+        */
 
         //AudioTranslate();
     }
