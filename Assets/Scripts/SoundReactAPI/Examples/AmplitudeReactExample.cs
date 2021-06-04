@@ -81,10 +81,10 @@ public class AmplitudeReactExample : MonoBehaviour
     void Update()
     {
         // Amplitude Scale
-        ampReact.AmplitudeScale(this.gameObject, Vector3.one, scaleFactor, Vector3.one);
+        ampReact.AmplitudeScale(gameObject.transform, Vector3.one, scaleFactor, Vector3.one);
 
         // Amplitude Rotation
-        ampReact.AmplitudeRotation(this.gameObject, new Vector3(1, 1, 0), rotationFactor);
+        ampReact.AmplitudeRotation(gameObject.transform, new Vector3(1, 1, 0), rotationFactor);
 
         // Amplitude Shader Graph Property
         ampReact.AmplitudeShaderGraphMatProperty(mat, "DissolveFactor", GenericSoundReact.MatPropertyType.Float, propertyFactor);

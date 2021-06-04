@@ -16,7 +16,7 @@ public class SequencerManager : MonoBehaviour
 
     // Camera Rotation
     [Header("Camera Rotation")]
-    [SerializeField] GameObject cameraObj;
+    [SerializeField] Transform cameraObj;
     [SerializeField] float rotationFactor;
     private bool enableCameraRotation;
 
@@ -88,7 +88,7 @@ public class SequencerManager : MonoBehaviour
         // Camera Rotation
         if (enableCameraRotation)
         {
-            ampReact.AmplitudeRotation(cameraObj, Vector3.up, rotationFactor);
+            ampReact.AmplitudeRotation(cameraObj.transform, Vector3.up, rotationFactor);
         }
 
         // Atoms Rotation
@@ -96,7 +96,7 @@ public class SequencerManager : MonoBehaviour
         {
             foreach (GameObject atom in atoms)
             {
-                ampReact.AmplitudeRotation(atom, Vector3.right, atomRotationFactor);
+                ampReact.AmplitudeRotation(atom.transform, Vector3.right, atomRotationFactor);
             }
         }
 

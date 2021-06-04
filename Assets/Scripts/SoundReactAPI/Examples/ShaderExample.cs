@@ -100,13 +100,13 @@ public class ShaderExample : MonoBehaviour
         int band = 0;
         foreach (GameObject react in reacts)
         {
-            bandReact.BandScale(react, band, Vector3.one, 0.2f, Vector3.one);
+            bandReact.BandScale(react.transform, band, Vector3.one, 0.2f, Vector3.one);
             band++;
         }
     }
 
     private void AudioTranslate()
     {
-        ampReact.AmplitudeTranslation(go, Vector3.right, 0.05f);
+        ampReact.AmplitudeTranslation(go.transform, Vector3.right, 0.05f);
     }
 }

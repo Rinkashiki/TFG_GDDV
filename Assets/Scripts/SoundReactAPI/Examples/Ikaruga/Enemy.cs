@@ -118,14 +118,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // Enemy Scaling 
-        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.3f, Vector3.one);
+        ampReact.AmplitudeScale(gameObject.transform, Vector3.one, 0.3f, Vector3.one);
 
         // Enemy Post-Processing
         ampReact.AmplitudeBloom(bloom, bloomFactor);
         ampReact.AmplitudeChromaticAberration(ca, chromAbFactor);
 
         // Enemy Bright
-        ampReact.AmplitudeBright(gameObject, 0.5f, initialColor);
+        ampReact.AmplitudeBright(gameObject.GetComponent<MeshRenderer>(), 0.5f, initialColor);
 
         // Change Pattern
         elapsedTime += Time.deltaTime;

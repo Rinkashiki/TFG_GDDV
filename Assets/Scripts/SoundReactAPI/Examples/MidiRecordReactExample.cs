@@ -25,6 +25,7 @@ public class MidiRecordReactExample : MonoBehaviour
     [Header("Record Color")]
     [Range(0,1)][SerializeField] float transitionSpeed;
     private Dictionary<int, Color> numberColorAssociation;
+    private MeshRenderer bigSphereRend;
 
     // Record Animarion Speed. For small spheres.
     [Header("Record Animation Speed")]
@@ -34,6 +35,7 @@ public class MidiRecordReactExample : MonoBehaviour
     // Record Bright. For small spheres.
     [Header("Record Bright")]
     [SerializeField] float brightFactor;
+    private MeshRenderer sphereRend1, sphereRend2;
     private Color sphere1Color, sphere2Color;
 
 
@@ -51,6 +53,7 @@ public class MidiRecordReactExample : MonoBehaviour
         planeInitPos = planeMesh.vertices;
 
         // Record Color
+        bigSphereRend = reacts[1].GetComponent<MeshRenderer>();
         numberColorAssociation = InitDict();
 
         // Record Animation Speed
@@ -58,8 +61,10 @@ public class MidiRecordReactExample : MonoBehaviour
         anim2 = reacts[3].GetComponent<Animator>();
 
         // Record Bright
-        sphere1Color = reacts[2].GetComponent<MeshRenderer>().material.color;
-        sphere2Color = reacts[3].GetComponent<MeshRenderer>().material.color;
+        sphereRend1 = reacts[2].GetComponent<MeshRenderer>();
+        sphereRend2 = reacts[3].GetComponent<MeshRenderer>();
+        sphere1Color = sphereRend1.material.color;
+        sphere2Color = sphereRend2.material.color;
     }
 
     // Update is called once per frame
@@ -69,15 +74,15 @@ public class MidiRecordReactExample : MonoBehaviour
         recReact.Record_ReliefMap(planeMesh, planeNoiseFactor, planeHeightFactor, planeWaveSpeed, planeInitPos);
 
         // Record Color
-        recReact.Record_Color(reacts[1], numberColorAssociation, transitionSpeed);
+        recReact.Record_Color(bigSphereRend, numberColorAssociation, transitionSpeed);
 
         // Record Animation Speed
         recReact.Record_AnimationSpeed(anim1, speedFactor, 0);
         recReact.Record_AnimationSpeed(anim2, speedFactor, 0);
 
         // Record Bright
-        recReact.Record_Bright(reacts[2], brightFactor, sphere1Color);
-        recReact.Record_Bright(reacts[3], brightFactor, sphere2Color);
+        recReact.Record_Bright(sphereRend1, brightFactor, sphere1Color);
+        recReact.Record_Bright(sphereRend2, brightFactor, sphere2Color);
     }
 
     private void OnApplicationQuit()

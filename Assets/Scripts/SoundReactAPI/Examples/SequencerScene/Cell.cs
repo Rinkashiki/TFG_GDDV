@@ -14,7 +14,7 @@ public class Cell : MonoBehaviour
 
     // Appends Scale
     [Header("Appends Scale")]
-    [SerializeField] GameObject[] appends;
+    [SerializeField] Transform[] appends;
     [SerializeField] float appendsScaleFactor;
 
     // Cell Rotation
@@ -51,13 +51,13 @@ public class Cell : MonoBehaviour
     void Update()
     {
         // Core Scale
-        ampReact.AmplitudeScale(cellCore, Vector3.one, cellScaleFactor, Vector3.one * 2);
+        ampReact.AmplitudeScale(cellCore.transform, Vector3.one, cellScaleFactor, Vector3.one * 2);
 
         // Appends Scale
         ScaleAppends();
 
         // Cell Rotation
-        ampReact.AmplitudeRotation(gameObject, axis, rotFactor);
+        ampReact.AmplitudeRotation(gameObject.transform, axis, rotFactor);
 
         // Cell Color
         newColor = new Color(cellColor.r, ampReact.audioInput.GetAmplitudeBuffer() * colorFactor, cellColor.b);

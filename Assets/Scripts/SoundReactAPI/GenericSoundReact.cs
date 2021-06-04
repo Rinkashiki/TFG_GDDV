@@ -47,13 +47,13 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="translationFactor"></param>
     /// <param name="property"></param>
-    public static void ChangeTranslation(GameObject go, Vector3 axis, float translationFactor, Numeric property)
+    public static void ChangeTranslation(Transform transform, Vector3 axis, float translationFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
         Vector3 translationOffset = new Vector3(value * translationFactor * axis.x, value * translationFactor * axis.y, value * translationFactor * axis.z);
 
-        go.transform.localPosition = Vector3.Lerp(go.transform.localPosition, go.transform.localPosition + translationOffset, lerpStep);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, transform.localPosition + translationOffset, lerpStep);
     }
 
     /// <summary>
@@ -63,11 +63,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="rotFactor"></param>
     /// <param name="property"></param>
-    public static void ChangeRotation(GameObject go, Vector3 axis, float rotFactor, Numeric property)
+    public static void ChangeRotation(Transform transform, Vector3 axis, float rotFactor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.Rotate(axis, value * rotFactor);
+        transform.Rotate(axis, value * rotFactor);
     }
 
     /// <summary>
@@ -79,13 +79,11 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="scaleFactor"></param>
     /// <param name="property"></param>
     /// <param name="initialScale"></param>
-    public static void ChangeScale(GameObject go, Vector3 axis, float scaleFactor, Numeric property, Vector3 initialScale)
+    public static void ChangeScale(Transform transform, Vector3 axis, float scaleFactor, Numeric property, Vector3 initialScale)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
-        go.transform.localScale = Vector3.Lerp(go.transform.localScale, new Vector3((value * scaleFactor * axis.x) + initialScale.x,
-                                              (value * scaleFactor * axis.y) + initialScale.y,
-                                              (value * scaleFactor * axis.z) + initialScale.z), lerpStep);
+        transform.localScale = Vector3.Lerp(transform.localScale, initialScale + axis * value * scaleFactor, lerpStep);
     }
 
     /// <summary>
@@ -96,13 +94,13 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="brightFactor"></param>
     /// <param name="initialColor"></param>
     /// <param name="property"></param>
-    public static void ChangeBright(GameObject go, float brightFactor, Color initialColor, Numeric property)
+    public static void ChangeBright(MeshRenderer rend, float brightFactor, Color initialColor, Numeric property)
     {
         var value = property.GetNumericInt() != 0 ? property.GetNumericInt() : property.GetNumericFloat();
 
         float brightValue = value * brightFactor;
         Color color = new Color(initialColor.r + brightValue, initialColor.g + brightValue, initialColor.b + brightValue);
-        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(go.GetComponent<MeshRenderer>().material.color, color, lerpStep);
+        rend.material.color = Color.Lerp(rend.material.color, color, lerpStep);
     }
 
     /// <summary>
@@ -112,10 +110,10 @@ public class GenericSoundReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="color"></param>
     /// <param name="transitionTime"></param>
-    public static void ChangeColor(GameObject go, Color color, float transitionTime)
+    public static void ChangeColor(MeshRenderer rend, Color color, float transitionTime)
     {
-        Color prevColor = go.GetComponent<MeshRenderer>().material.color;
-        go.GetComponent<MeshRenderer>().material.color = Color.Lerp(prevColor, color, Mathf.Clamp01(transitionTime));
+        Color prevColor = rend.material.color;
+        rend.material.color = Color.Lerp(prevColor, color, Mathf.Clamp01(transitionTime));
     }
 
     /// <summary>

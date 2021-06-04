@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         transform.position += bulletDirection * (bulletSpeed * Time.deltaTime + audioInput.GetAmplitudeBuffer() * amplitudeFactor + speedOffset);
 
         // Bullet Scaling 
-        ampReact.AmplitudeScale(gameObject, Vector3.one, 0.15f, initialScale);
+        ampReact.AmplitudeScale(gameObject.transform, Vector3.one, 0.15f, initialScale);
     }
 
     public void SetDirection(Vector3 bulletDirection)

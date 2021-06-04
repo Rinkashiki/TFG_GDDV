@@ -20,9 +20,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="axis"></param>
     /// <param name="translationFactor"></param>
-    public void AmplitudeTranslation(GameObject go, Vector3 axis, float translationFactor)
+    public void AmplitudeTranslation(Transform transform, Vector3 axis, float translationFactor)
     {
-        GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeTranslation(transform, axis, translationFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -32,9 +32,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="axis"></param>
     /// <param name="rotFactor"></param>
-    public void AmplitudeRotation(GameObject go, Vector3 axis, float rotFactor)
+    public void AmplitudeRotation(Transform transform, Vector3 axis, float rotFactor)
     {
-        GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeRotation(transform, axis, rotFactor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -46,9 +46,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
-    public void AmplitudeScale(GameObject go, Vector3 axis, float scaleFactor, Vector3 initialScale)
+    public void AmplitudeScale(Transform transform, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
-        GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialScale);
+        GenericSoundReact.ChangeScale(transform, axis, scaleFactor, new Numeric(audioInput.GetAmplitudeBuffer()), initialScale);
     }
 
     /// <summary>
@@ -59,9 +59,9 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="brightFactor"></param>
     /// <param name="initialColor"></param>
-    public void AmplitudeBright(GameObject go, float brightFactor, Color initialColor)
+    public void AmplitudeBright(MeshRenderer rend, float brightFactor, Color initialColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(audioInput.GetAmplitudeBuffer()));
+        GenericSoundReact.ChangeBright(rend, brightFactor, initialColor, new Numeric(audioInput.GetAmplitudeBuffer()));
     }
 
     /// <summary>
@@ -73,10 +73,10 @@ public class AmplitudeReact : MonoBehaviour
     /// <param name="color"></param>
     /// <param name="transitionTime"></param>
     /// <param name="amplitudeThreshold"></param>
-    public void AmplitudeColor(GameObject go, Color color, float transitionTime, float amplitudeThreshold)
+    public void AmplitudeColor(MeshRenderer rend, Color color, float transitionTime, float amplitudeThreshold)
     {
         if (audioInput.GetAmplitudeBuffer() > amplitudeThreshold)
-            GenericSoundReact.ChangeColor(go, color, transitionTime);
+            GenericSoundReact.ChangeColor(rend, color, transitionTime);
     }
 
     /// <summary>

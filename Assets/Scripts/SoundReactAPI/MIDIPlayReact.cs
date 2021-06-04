@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class MIDIPlayReact : MonoBehaviour
 {
-    #region MIDI_Play_Velocity_Input_Functions
+    #region MIDI_Play_Input_Functions
 
     /// <summary>
     /// Moves <paramref name="go"/> along <paramref name="axis"/>. The amount of movement is specified by <paramref name="translationFactor"/>.
@@ -16,17 +16,17 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="translationFactor"></param>
     /// <param name="fadeFactor"></param>
-    public void Play_Translation(GameObject go, Vector3 axis, float translationFactor)
+    public void Play_Translation(Transform transform, Vector3 axis, float translationFactor)
 
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             float velocity = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
-            GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(velocity));
+            GenericSoundReact.ChangeTranslation(transform, axis, translationFactor, new Numeric(velocity));
         }
         else
         {
-            GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(0));
+            GenericSoundReact.ChangeTranslation(transform, axis, translationFactor, new Numeric(0));
         }
     }
 
@@ -39,16 +39,16 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="rotFactor"></param>
     /// <param name="fadeFactor"></param>
-    public void Play_Rotation(GameObject go, Vector3 axis, float rotFactor)
+    public void Play_Rotation(Transform transform, Vector3 axis, float rotFactor)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             float velocity = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
-            GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(velocity));
+            GenericSoundReact.ChangeRotation(transform, axis, rotFactor, new Numeric(velocity));
         }
         else
         {
-            GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(0));
+            GenericSoundReact.ChangeRotation(transform, axis, rotFactor, new Numeric(0));
         }
     }
 
@@ -63,16 +63,16 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
     /// <param name="fadeFactor"></param>
-    public void Play_Scale(GameObject go, Vector3 axis, float scaleFactor, Vector3 initialScale)
+    public void Play_Scale(Transform transform, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             float velocity = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
-            GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(velocity), initialScale);
+            GenericSoundReact.ChangeScale(transform, axis, scaleFactor, new Numeric(velocity), initialScale);
         }
         else
         {
-            GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(0), initialScale);
+            GenericSoundReact.ChangeScale(transform, axis, scaleFactor, new Numeric(0), initialScale);
         }
     }
 
@@ -86,16 +86,16 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="brightFactor"></param>
     /// <param name="initialColor"></param>
     /// <param name="fadeFactor"></param>
-    public void Play_Bright(GameObject go, float brightFactor, Color initialColor)
+    public void Play_Bright(MeshRenderer rend, float brightFactor, Color initialColor)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
             float velocity = MIDIConst.ComputedB(MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteVelocity()) * MIDIConst.NOTES_TO_FREQ[MidiPlayEventHandler.Event_CurrentNoteOn().GetNoteNumber()] / MIDIConst.MAX_FREQ;
-            GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(velocity));
+            GenericSoundReact.ChangeBright(rend, brightFactor, initialColor, new Numeric(velocity));
         }
         else
         {
-            GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(0));
+            GenericSoundReact.ChangeBright(rend, brightFactor, initialColor, new Numeric(0));
         }
     }
 
@@ -106,7 +106,7 @@ public class MIDIPlayReact : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="numberColorAssociation"></param>
     /// <param name="transitionTime"></param>
-    public void Play_Color(GameObject go, Dictionary<int, Color> numberColorAssociation, float transitionTime)
+    public void Play_Color(MeshRenderer rend, Dictionary<int, Color> numberColorAssociation, float transitionTime)
     {
         if (MidiPlayEventHandler.Event_CurrentNoteOn() != null)
         {
@@ -114,7 +114,7 @@ public class MIDIPlayReact : MonoBehaviour
 
             if (numberColorAssociation.ContainsKey(number))
             {
-                GenericSoundReact.ChangeColor(go, numberColorAssociation[number], transitionTime);
+                GenericSoundReact.ChangeColor(rend, numberColorAssociation[number], transitionTime);
             }
 
         }

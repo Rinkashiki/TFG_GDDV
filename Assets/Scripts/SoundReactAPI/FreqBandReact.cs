@@ -21,9 +21,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="axis"></param>
     /// <param name="translationFactor"></param>
-    public void BandTranslation(GameObject go, int band, Vector3 axis, float translationFactor)
+    public void BandTranslation(Transform transform, int band, Vector3 axis, float translationFactor)
     {
-        GenericSoundReact.ChangeTranslation(go, axis, translationFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeTranslation(transform, axis, translationFactor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -34,9 +34,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="axis"></param>
     /// <param name="rotFactor"></param>
-    public void BandRotation(GameObject go, int band, Vector3 axis, float rotFactor)
+    public void BandRotation(Transform transform, int band, Vector3 axis, float rotFactor)
     {
-        GenericSoundReact.ChangeRotation(go, axis, rotFactor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeRotation(transform, axis, rotFactor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -49,9 +49,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="axis"></param>
     /// <param name="scaleFactor"></param>
     /// <param name="initialScale"></param>
-    public void BandScale(GameObject go, int band, Vector3 axis, float scaleFactor, Vector3 initialScale)
+    public void BandScale(Transform transform, int band, Vector3 axis, float scaleFactor, Vector3 initialScale)
     {
-        GenericSoundReact.ChangeScale(go, axis, scaleFactor, new Numeric(audioInput.GetBandBuffer(band)), initialScale);
+        GenericSoundReact.ChangeScale(transform, axis, scaleFactor, new Numeric(audioInput.GetBandBuffer(band)), initialScale);
     }
 
     /// <summary>
@@ -63,9 +63,9 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="band"></param>
     /// <param name="brightFactor"></param>
     /// <param name="initialColor"></param>
-    public void BandBright(GameObject go, int band, float brightFactor, Color initialColor)
+    public void BandBright(MeshRenderer rend, int band, float brightFactor, Color initialColor)
     {
-        GenericSoundReact.ChangeBright(go, brightFactor, initialColor, new Numeric(audioInput.GetBandBuffer(band)));
+        GenericSoundReact.ChangeBright(rend, brightFactor, initialColor, new Numeric(audioInput.GetBandBuffer(band)));
     }
 
     /// <summary>
@@ -77,10 +77,10 @@ public class FreqBandReact : MonoBehaviour
     /// <param name="color"></param>
     /// <param name="transitionTime"></param>
     /// <param name="bandThreshold"></param>
-    public void BandColor(GameObject go, int band, Color color, float transitionTime, float bandThreshold)
+    public void BandColor(MeshRenderer rend, int band, Color color, float transitionTime, float bandThreshold)
     {
         if (audioInput.GetBandBuffer(band) > bandThreshold)
-            GenericSoundReact.ChangeColor(go, color, transitionTime);
+            GenericSoundReact.ChangeColor(rend, color, transitionTime);
     }
 
     /// <summary>
