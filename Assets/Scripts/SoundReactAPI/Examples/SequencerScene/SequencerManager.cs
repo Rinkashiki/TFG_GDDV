@@ -127,9 +127,18 @@ public class SequencerManager : MonoBehaviour
 
         if (enableMultipleCells)
         {
-            for(int i = 1; i < cells.Length; i++)
+            for (int i = 1; i < cells.Length; i++)
             {
                 cells[i].transform.localPosition = Vector3.Lerp(cells[i].transform.localPosition, cellPositions[i - 1].localPosition, 0.1f);
+            }
+        }
+
+        // DNA Trail
+        if (enableDNATrail)
+        {
+            for (int i = 0; i < tunnelObjs.Length; i++)
+            {
+                ampReact.AmplitudeRotation(tunnelObjs[i].transform, Vector3.forward, rotationFactor * 2);
             }
         }
 
@@ -211,7 +220,7 @@ public class SequencerManager : MonoBehaviour
 
     public void EnableMultipleCells()
     {
-        for(int i = 1; i < cells.Length; i++)
+        for (int i = 1; i < cells.Length; i++)
         {
             cells[i].SetActive(true);
         }
@@ -232,11 +241,13 @@ public class SequencerManager : MonoBehaviour
         // Blue Trail
         DNATrail(2, -6f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
         DNATrail(3, 6f, new Vector3(-90f, 180f, 0), startColorBlue, endColorBlue);
+
+        enableDNATrail = !enableDNATrail;
     }
 
     public void DisableDNATrail()
     {
-        foreach(GameObject dnaTunnel in tunnelObjs)
+        foreach (GameObject dnaTunnel in tunnelObjs)
         {
             dnaTunnel.SetActive(false);
         }

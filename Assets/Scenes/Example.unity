@@ -4060,7 +4060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e212220ac4f60e4a803403fa5cd5cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 0}
   fadeIn: {fileID: 860332833}
   cameraObj: {fileID: 1179120497}
   rotationFactor: 0.5
