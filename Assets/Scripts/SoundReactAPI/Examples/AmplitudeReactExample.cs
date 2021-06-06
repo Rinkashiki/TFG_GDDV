@@ -24,7 +24,7 @@ public class AmplitudeReactExample : MonoBehaviour
     [SerializeField] float tunnelAperture;
     [SerializeField] Color startColor;
     [SerializeField] Color endColor;
-    private GameObject tunnelObj;
+    private GameObject[] tunnelObjs;
     private TrailRenderer phylloTrail;
 
     //Amplitude Rotation
@@ -50,25 +50,34 @@ public class AmplitudeReactExample : MonoBehaviour
     {
         ampReact = GetComponent<AmplitudeReact>();
 
+        tunnelObjs = new GameObject[2];
+
         // Amplitude Phyllotunnel
-        tunnelObj = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, tunnelScaleFactor, cameraDistance, cameraTransform, tunnelAperture);
-        tunnelObj.transform.position = this.transform.position;
+        for (int i = 0; i < tunnelObjs.Length; i++)
+        {
+            tunnelObjs[i] = ampReact.AmplitudePhyllotunnel(tunnelSpeed, phyllotaxisDegree, speedFactor, tunnelScaleFactor, cameraDistance, cameraTransform, tunnelAperture + i);
+            tunnelObjs[i].transform.position = this.transform.position;
 
-        // Modify Phyllotunnel Trail Renderer
-        phylloTrail = tunnelObj.GetComponentInChildren<TrailRenderer>();
-        phylloTrail.startWidth = 0.1f;
-        phylloTrail.time = 20;
-        phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
-        float alpha = 1.0f;
-        Gradient gradient = new Gradient();
-        gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
-        phylloTrail.colorGradient = gradient;
+            // Modify Phyllotunnel Trail Renderer
+            phylloTrail = tunnelObjs[i].GetComponentInChildren<TrailRenderer>();
+            phylloTrail.startWidth = 0.1f;
+            phylloTrail.time = 20;
+            phylloTrail.material = new Material(Shader.Find("Sprites/Default"));
+            float alpha = 1.0f;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(startColor, 0.0f), new GradientColorKey(endColor, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+            );
+            phylloTrail.colorGradient = gradient;
 
-        this.transform.SetParent(tunnelObj.transform);
+            this.transform.SetParent(tunnelObjs[i].transform);
 
+            phyllotaxisDegree = 90;
+            speedFactor = 5;
+            cameraTransform = null;
+        }
+        
         // Amplitude Shader Graph Property
         mat = this.gameObject.GetComponent<MeshRenderer>().material;
 
