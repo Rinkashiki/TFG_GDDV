@@ -525,10 +525,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa66880f5a3efa04ba95aa704751ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: 0.1
+  step: 0.2
   heightFactor: 2
   noiseFactor: 1
   terrainDirY: 0
   terrainDirZ: 0
   terrainMat: {fileID: 2100000, guid: 9ecba36e0d147904483dc7a79f205e03, type: 2}
-  offset: {x: 5, y: 15, z: -25}
+  offset: {x: 5, y: 15, z: -35}

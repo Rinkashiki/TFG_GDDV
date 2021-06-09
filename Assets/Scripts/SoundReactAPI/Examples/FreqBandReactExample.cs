@@ -31,7 +31,7 @@ public class FreqBandReactExample : MonoBehaviour
 
         //Bands Generate Terrain
         terrainDir = Vector3.right;
-        terrain = bandReact.BandsGenerateTerrain(16, step, heightFactor, noiseFactor, terrainDir, terrainMat);
+        terrain = bandReact.BandsGenerateTerrain(32, step, heightFactor, noiseFactor, terrainDir, terrainMat);
         terrainComp = terrain.GetComponent<GenerateTerrain>();
 
         //Camera Terrain Follow
