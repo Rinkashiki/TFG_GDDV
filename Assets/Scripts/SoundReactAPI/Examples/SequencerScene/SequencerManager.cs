@@ -40,8 +40,10 @@ public class SequencerManager : MonoBehaviour
     [Header("Enable Cell")]
     [SerializeField] GameObject[] cells;
     [SerializeField] Transform[] cellPositions;
+    [SerializeField] GameObject cellsParent;
     private bool enableCell;
     private bool enableMultipleCells;
+    private bool enableCellsFade;
 
     // DNA Trail
     [Header("DNA Trail")]
@@ -55,6 +57,13 @@ public class SequencerManager : MonoBehaviour
     private GameObject[] tunnelObjs;
     private TrailRenderer phylloTrail;
     private bool enableDNATrail;
+
+    // Cell Clusters
+    [Header("Cell Clusters")]
+    [SerializeField] GameObject clusters;
+    [SerializeField] Material clusterMaterial;
+    private Color newColor;
+    private bool enableClusters;
 
     // Post-Processing
     [Header("Post-Processing")]
@@ -133,6 +142,17 @@ public class SequencerManager : MonoBehaviour
             }
         }
 
+        // Enable cells fade
+        if (enableCellsFade)
+        {
+            cellsParent.transform.localScale = Vector3.Lerp(cellsParent.transform.localScale, Vector3.zero, 0.05f);
+
+            if (cellsParent.transform.localScale == Vector3.zero)
+            {
+                cellsParent.SetActive(false);
+            }
+        }
+
         // DNA Trail
         if (enableDNATrail)
         {
@@ -140,6 +160,15 @@ public class SequencerManager : MonoBehaviour
             {
                 ampReact.AmplitudeRotation(tunnelObjs[i].transform, Vector3.forward, rotationFactor * 2);
             }
+        }
+
+        // Cell Clusters
+        if (enableClusters)
+        {
+            ampReact.AmplitudeShaderGraphMatProperty(clusterMaterial, "FresnelPower", GenericSoundReact.MatPropertyType.Float, 5f);
+
+            newColor = new Color(1 - ampReact.audioInput.GetAmplitudeBuffer() * 0.5f, ampReact.audioInput.GetAmplitudeBuffer() * 0.8f, clusterMaterial.GetColor("EmissionColor").b);
+            clusterMaterial.SetColor("EmissionColor", Color.Lerp(clusterMaterial.GetColor("EmissionColor"), newColor, 0.1f));
         }
 
         // Post-Processing
@@ -228,6 +257,11 @@ public class SequencerManager : MonoBehaviour
         enableMultipleCells = !enableMultipleCells;
     }
 
+    public void EnableCellsFade()
+    {
+        enableCellsFade = !enableCellsFade;
+    }
+
     #endregion
 
     #region DNA_Trail
@@ -269,6 +303,16 @@ public class SequencerManager : MonoBehaviour
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
         );
         phylloTrail.colorGradient = gradient;
+    }
+
+    #endregion
+
+    #region Cell_Clusters
+
+    public void EnableAllClusters()
+    {
+        clusters.SetActive(true);
+        enableClusters = !enableClusters;
     }
 
     #endregion
