@@ -9,6 +9,8 @@ public class ClusterCell : MonoBehaviour
     [SerializeField] bool reverse;
 
     private AmplitudeReact ampReact;
+    private Vector3 initialScale;
+    public bool enableScale;
     private float offset;
 
     // Start is called before the first frame update
@@ -16,6 +18,9 @@ public class ClusterCell : MonoBehaviour
     {
         ampReact = GetComponent<AmplitudeReact>();
         offset = 0.5f;
+
+        // Scale
+        initialScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -31,8 +36,8 @@ public class ClusterCell : MonoBehaviour
             transform.position = cellPosition.position + offset * unionTransform.up;
         }
 
-        // Control Material
-        //ampReact.AmplitudeShaderGraphMatProperty(gameObject.GetComponent<MeshRenderer>().material,"FresnelPower", GenericSoundReact.MatPropertyType.Float, 5f);
+        // Scale
+        ampReact.AmplitudeScale(transform, Vector3.one, 1.5f, initialScale);
     }
 
 }

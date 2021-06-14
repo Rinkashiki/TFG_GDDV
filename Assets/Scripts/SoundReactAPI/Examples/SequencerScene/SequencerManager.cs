@@ -62,8 +62,16 @@ public class SequencerManager : MonoBehaviour
     [Header("Cell Clusters")]
     [SerializeField] GameObject clusters;
     [SerializeField] Material clusterMaterial;
+    private ClusterCell[] clusterCells;
     private Color newColor;
     private bool enableClusters;
+
+    // Particles
+    [Header("Particles")]
+    [SerializeField] ParticleSystem particles;
+    private ParticleSystem.EmissionModule emission;
+    private ParticleSystem.VelocityOverLifetimeModule velocityModule;
+    private bool enableParticles;
 
     // Post-Processing
     [Header("Post-Processing")]
@@ -88,6 +96,13 @@ public class SequencerManager : MonoBehaviour
 
         // DNA Trail
         tunnelObjs = new GameObject[4];
+
+        // Cluster Cells
+        clusterCells = clusters.GetComponentsInChildren<ClusterCell>();
+
+        // Particles
+        emission = particles.emission;
+        velocityModule = particles.velocityOverLifetime;
 
     }
 
@@ -169,6 +184,13 @@ public class SequencerManager : MonoBehaviour
 
             newColor = new Color(1 - ampReact.audioInput.GetAmplitudeBuffer() * 0.5f, ampReact.audioInput.GetAmplitudeBuffer() * 0.8f, clusterMaterial.GetColor("EmissionColor").b);
             clusterMaterial.SetColor("EmissionColor", Color.Lerp(clusterMaterial.GetColor("EmissionColor"), newColor, 0.1f));
+        }
+
+        // Particles
+        if (enableParticles)
+        {
+            emission.rateOverTime = ampReact.audioInput.GetAmplitudeBuffer() * 20;
+            velocityModule.speedModifierMultiplier = ampReact.audioInput.GetAmplitudeBuffer() * 10;
         }
 
         // Post-Processing
@@ -313,6 +335,24 @@ public class SequencerManager : MonoBehaviour
     {
         clusters.SetActive(true);
         enableClusters = !enableClusters;
+    }
+
+    public void EnableClusterCellsScale()
+    {
+        foreach (ClusterCell cell in clusterCells)
+        {
+            cell.enableScale = true;
+        }
+    }
+
+    #endregion
+
+    #region Particles
+
+    public void EnableParticles()
+    {
+        particles.Play();
+        enableParticles = !enableParticles;
     }
 
     #endregion
