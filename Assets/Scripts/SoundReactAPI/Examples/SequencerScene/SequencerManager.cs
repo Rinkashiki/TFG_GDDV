@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SequencerManager : MonoBehaviour
 {
     private AmplitudeReact ampReact;
+    private FreqBandReact bandReact;
 
     // Fade In
     [Header("Fade In")]
@@ -66,6 +67,17 @@ public class SequencerManager : MonoBehaviour
     private Color newColor;
     private bool enableClusters;
 
+    // Terrain
+    [Header("Terrain")]
+    [SerializeField] float step;
+    [SerializeField] float heightFactor;
+    [SerializeField] float noiseFactor;
+    [SerializeField] Vector3 terrainDir;
+    [SerializeField] float terrainOffset;
+    private GameObject terrainObj;
+    private GenerateTerrain terrainComp;
+    private bool enableTerrain;
+
     // Particles
     [Header("Particles")]
     [SerializeField] ParticleSystem particles;
@@ -77,6 +89,7 @@ public class SequencerManager : MonoBehaviour
     [Header("Post-Processing")]
     [SerializeField] Volume vol;
     [SerializeField] float bloomFactor;
+    [SerializeField] Color bloomColor;
     [SerializeField] float vignetteFactor;
     [SerializeField] float chromAberrationFactor;
     private Bloom bloom;
@@ -88,6 +101,7 @@ public class SequencerManager : MonoBehaviour
     void Start()
     {
         ampReact = GetComponent<AmplitudeReact>();
+        bandReact = GetComponent<FreqBandReact>();
 
         // Post-Processing
         bloom = (Bloom)vol.profile.components[0];
@@ -184,6 +198,12 @@ public class SequencerManager : MonoBehaviour
 
             newColor = new Color(1 - ampReact.audioInput.GetAmplitudeBuffer() * 0.5f, ampReact.audioInput.GetAmplitudeBuffer() * 0.8f, clusterMaterial.GetColor("EmissionColor").b);
             clusterMaterial.SetColor("EmissionColor", Color.Lerp(clusterMaterial.GetColor("EmissionColor"), newColor, 0.1f));
+        }
+
+        // Move Camera for terrain
+        if (enableTerrain)
+        {
+            cameraObj.transform.position = new Vector3(cameraObj.transform.position.x, cameraObj.transform.position.y, terrainComp.GetTerrainPos().x + terrainOffset);
         }
 
         // Particles
@@ -347,6 +367,18 @@ public class SequencerManager : MonoBehaviour
 
     #endregion
 
+    #region Terrain
+
+    public void EnableTerrain()
+    {
+        terrainObj = bandReact.BandsGenerateTerrain(64, step, heightFactor, noiseFactor, terrainDir, clusterMaterial);
+        terrainObj.transform.Translate(32, -11, 0);
+        terrainObj.transform.Rotate(0, -90, 0);
+        terrainComp = terrainObj.GetComponent<GenerateTerrain>();
+        enableTerrain = !enableTerrain;
+    }
+    #endregion
+
     #region Particles
 
     public void EnableParticles()
@@ -362,6 +394,12 @@ public class SequencerManager : MonoBehaviour
     public void EnableBloom()
     {
         enableBloom = !enableBloom;
+    }
+
+    public void ChangeBloomTint()
+    {
+        bloom.tint.value = bloomColor;
+        bloomFactor *= 0.1f;
     }
 
     public void EnableVignette()

@@ -27,6 +27,6 @@ public class ClusterUnion : MonoBehaviour
     void Update()
     {
         // Scale
-        bandReact.BandScale(transform, band, Vector3.up, scaleFactor * 0.7f, initialScale);
+        bandReact.BandScale(transform, band, Vector3.up, scaleFactor, initialScale);
     }
 }
