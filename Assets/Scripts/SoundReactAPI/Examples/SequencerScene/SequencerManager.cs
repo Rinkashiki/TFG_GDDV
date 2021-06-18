@@ -194,7 +194,7 @@ public class SequencerManager : MonoBehaviour
         // Cell Clusters
         if (enableClusters)
         {
-            ampReact.AmplitudeShaderGraphMatProperty(clusterMaterial, "FresnelPower", GenericSoundReact.MatPropertyType.Float, 5f);
+            ampReact.AmplitudeShaderGraphMatProperty(clusterMaterial, "FresnelPower", GenericSoundReact.MatPropertyType.Float, 4f);
 
             newColor = new Color(1 - ampReact.audioInput.GetAmplitudeBuffer() * 0.5f, ampReact.audioInput.GetAmplitudeBuffer() * 0.8f, clusterMaterial.GetColor("EmissionColor").b);
             clusterMaterial.SetColor("EmissionColor", Color.Lerp(clusterMaterial.GetColor("EmissionColor"), newColor, 0.1f));
@@ -399,7 +399,6 @@ public class SequencerManager : MonoBehaviour
     public void ChangeBloomTint()
     {
         bloom.tint.value = bloomColor;
-        bloomFactor *= 0.1f;
     }
 
     public void EnableVignette()
